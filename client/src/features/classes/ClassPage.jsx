@@ -139,7 +139,8 @@ const ClassPage = () => {
 								classId: classId,
 								ownerId: user?.uid || 'dev_user_789',
 								type: file.type,
-								createdAt: serverTimestamp()
+								createdAt: serverTimestamp(),
+								visibility: classData?.visibility || 'private'
 							};
 
 							await addDoc(collection(db, 'files'), fileData);
@@ -212,9 +213,11 @@ const ClassPage = () => {
 
 		<div className="class-page-header">
 			<h1>{classData ? classData.name : 'Loading...'}</h1>
-			<button className="add-content-btn" onClick={handleAddClick} disabled={uploading}>
-			{uploading ? `Uploading ${uploadProgress}%` : '+ Add Video / Document'}
-			</button>
+			{user?.uid === classData?.ownerId && (
+				<button className="add-content-btn" onClick={handleAddClick} disabled={uploading}>
+				{uploading ? `Uploading ${uploadProgress}%` : '+ Add Video / Document'}
+				</button>
+			)}
 		</div>
 
 		<section className="class-content">

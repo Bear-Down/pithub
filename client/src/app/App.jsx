@@ -37,6 +37,7 @@ function AppContent() {
 				<Route path="/classes" element={<ProtectedRoute user={user}><ClassList /></ProtectedRoute>} />
 				<Route path="/class/:classId" element={<ProtectedRoute user={user}><ClassPage /></ProtectedRoute>} />
 				<Route path="/profile" element={<ProtectedRoute user={user}><ProfilePage /></ProtectedRoute>} />
+				<Route path="/profile/:userId" element={<ProtectedRoute user={user}><ProfilePage /></ProtectedRoute>} />
 				<Route path="/about" element={<About />} />
 				<Route path="/terms" element={<Terms />} />
 			</Route>

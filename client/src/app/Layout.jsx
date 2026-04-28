@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import SearchBar from '../features/search/SearchBar';
 import '../styles/style.css'; 
 import userIconFallback from '../assets/user-icon.jpg';
 import Spinner from '../components/Spinner';
@@ -43,12 +44,10 @@ const Layout = () => {
 			<Link to="/">PitHub</Link>
 			</div>
 			<div className="header-right">
-			<div className="placeholder-box"></div>
+			<SearchBar />
 			{user && (
 				<div className="profile-container" ref={dropdownRef}>
 					<div className="circle" onClick={toggleDropdown} style={{ cursor: 'pointer', overflow: 'hidden' }}>
-						{/* {user.photoURL && <img src="/assets/user-icon.jpg" alt="User" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />} */}
-						{/* {user.photoURL ? <img src={user.photoURL} alt="User" style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> : <div className="user-placeholder" />} */}
 						<img 
 							src={user.photoURL || userIconFallback} 
 							alt="User" 
