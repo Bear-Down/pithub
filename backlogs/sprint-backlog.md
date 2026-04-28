@@ -11,8 +11,8 @@ Scrum Master: Kaleb Richardson
 
 | **ID** | **User Story / Task** | **Priority (1-10)** | **Estimate (SP)** | **Spike (Y/N)** | **Status** | **Assigned** |
 |--------|------------------------|--------------|--------------|------------|--------------|--------------|
-| RC-091 | As a developer, I want to contanct Lewis University IT support so that our web app's domain is not being blocked or restricted, allowing users to access our web app. | 10 | 6 | Y | Kevin Dacanay | -- |
-| RC-060 | As a user, I want to be able to use PitHub while I am connected to University Wi-Fi so that I may upload and view school related documents. | 9 | 5 | N | In-Progress | -- |
+| RC-091 | As a developer, I want to contanct Lewis University IT support so that our web app's domain is not being blocked or restricted, allowing users to access our web app. | 10 | 10 | Y | Kevin Dacanay | -- |
+| RC-060 | As a user, I want to be able to use PitHub while I am connected to University Wi-Fi so that I may upload and view school related documents. | 9 | 6 | N | In-Progress | -- |
 | RC-092 | As a developer, I want to rerify that our team will attend in person and deliver our Class Product Presentation on Thursday, May 14 from 8 AM to 10 AM CT. | 6 | 6 | Y | -- | -- |
 | RC-033 | As a user, I would like to search for videos with a search bar. | 5 | 4 | N | -- | -- |
 | RC-035 | As a user, I want to remain logged in across sessions so that I do not need to re-authenticate every time I visit the site. | 7 | 3 | N | -- | -- |
@@ -30,4 +30,4 @@ Scrum Master: Kaleb Richardson
 
 Team Capacity: 60 Story Points
 
-Story Points: 63 points
+Story Points: 68 points
