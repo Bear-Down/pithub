@@ -31,9 +31,9 @@ const Layout = () => {
 		await logout();
 		console.log("Logout confirmed.");
 		setShowDropdown(false);
-		setTimeout(() => {
+		//setTimeout(() => {
 			navigate("/logout");
-		}, 100);
+		//}, 100);
 		console.log("Logout page displayed.");
 	};
 

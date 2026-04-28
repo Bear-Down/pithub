@@ -51,6 +51,7 @@ if (import.meta.env.DEV) {
 
 const provider = new GoogleAuthProvider();
 provider.setCustomParameters({
-  hd: "lewisu.edu"
+	hd: "lewisu.edu",
+	prompt: "select_account"
 });
 export { db, storage, auth, provider};
