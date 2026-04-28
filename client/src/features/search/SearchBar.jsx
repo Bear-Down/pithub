@@ -33,28 +33,25 @@ const SearchBar = () => {
 
 		try {
 			// 1. Search Public Classes
-			const classQuery = query(collection(db, 'classes'), where('visibility', '==', 'public'));
+			const classQuery = query(collection(db, 'classes'), where('visibility', '==', 'public'), limit(10));
 			const classSnap = await getDocs(classQuery);
 			const matchedClasses = classSnap.docs
 			.map(doc => ({ id: doc.id, name: doc.data().name }))
-			.filter(c => c.name.toLowerCase().includes(term))
-			.slice(0, 5);
+			.filter(c => c.name.toLowerCase().includes(term));
 
 			// 2. Search Public Users
-			const userQuery = query(collection(db, 'users'), where('visibility', '==', 'public'));
+			const userQuery = query(collection(db, 'users'), where('visibility', '==', 'public'), limit(10));
 			const userSnap = await getDocs(userQuery);
 			const matchedUsers = userSnap.docs
 			.map(doc => ({ id: doc.id, name: doc.data().displayName }))
-			.filter(u => u.name?.toLowerCase().includes(term))
-			.slice(0, 5);
+			.filter(u => u.name?.toLowerCase().includes(term));
 
 			// 3. Search Public Videos (Files)
-			const fileQuery = query(collection(db, 'files'), where('visibility', '==', 'public'));
+			const fileQuery = query(collection(db, 'files'), where('visibility', '==', 'public'), limit(10));
 			const fileSnap = await getDocs(fileQuery);
 			const matchedVideos = fileSnap.docs
 			.map(doc => ({ id: doc.id, name: doc.data().name, url: doc.data().url }))
-			.filter(f => f.name.toLowerCase().includes(term))
-			.slice(0, 5);
+			.filter(f => f.name.toLowerCase().includes(term));
 
 			setResults({ videos: matchedVideos, classes: matchedClasses, users: matchedUsers });
 			setIsOpen(true);
@@ -83,35 +80,23 @@ const SearchBar = () => {
 			<div className="search-dropdown">
 			{hasResults ? (
 				<>
-				{results.classes.length > 0 && (
-					<>
-						<div className="search-group-header">Classes</div>
-						{results.classes.map(c => (
-							<Link key={c.id} to={`/class/${c.id}`} className="search-item" onClick={() => setIsOpen(false)}>{c.name}</Link>
-						))}
-					</>
-				)}
+				{results.classes.length > 0 && <div className="search-group-header">Classes</div>}
+				{results.classes.map(c => (
+					<Link key={c.id} to={`/class/${c.id}`} className="search-item" onClick={() => setIsOpen(false)}>{c.name}</Link>
+				))}
 				
-				{results.users.length > 0 && (
-					<>
-						<div className="search-group-header">Users</div>
-						{results.users.map(u => (
-							<Link key={u.id} to={`/profile/${u.id}`} className="search-item" onClick={() => setIsOpen(false)}>{u.name}</Link>
-						))}
-					</>
-				)}
+				{results.users.length > 0 && <div className="search-group-header">Users</div>}
+				{results.users.map(u => (
+					<Link key={u.id} to={`/profile/${u.id}`} className="search-item" onClick={() => setIsOpen(false)}>{u.name}</Link>
+				))}
 
-				{results.videos.length > 0 && (
-					<>
-						<div className="search-group-header">Videos</div>
-						{results.videos.map(v => (
-							<a key={v.id} href={v.url} target="_blank" rel="noreferrer" className="search-item" onClick={() => setIsOpen(false)}>{v.name}</a>
-						))}
-					</>
-				)}
+				{results.videos.length > 0 && <div className="search-group-header">Videos</div>}
+				{results.videos.map(v => (
+					<a key={v.id} href={v.url} target="_blank" rel="noreferrer" className="search-item" onClick={() => setIsOpen(false)}>{v.name}</a>
+				))}
 				</>
 			) : (
-				<div className="search-no-results" style={{ padding: '10px 16px', color: '#888', fontSize: '14px' }}>No public matches found</div>
+				<div className="search-no-results">No public matches found</div>
 			)}
 			</div>
 		)}

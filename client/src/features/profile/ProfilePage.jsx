@@ -172,7 +172,12 @@ const ProfilePage = () => {
 									) : (
 										<div className="thumbnail-placeholder" style={{ width: '60px', height: '35px' }}>DOC</div>
 									)}
-									<a href={file.url} target="_blank" rel="noreferrer" className="file-link">{file.name}</a>
+									<div style={{ display: 'flex', flexDirection: 'column' }}>
+										<a href={file.url} target="_blank" rel="noreferrer" className="file-link">{file.name}</a>
+										<span style={{ fontSize: '0.7rem', color: '#777' }}>
+											{file.ownerName || 'Anonymous'} in {file.className || 'General'}
+										</span>
+									</div>
 								</div>
 							</li>
 						))}
