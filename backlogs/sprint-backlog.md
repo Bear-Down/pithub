@@ -11,18 +11,23 @@ Scrum Master: Kaleb Richardson
 
 | **ID** | **User Story / Task** | **Priority (1-10)** | **Estimate (SP)** | **Spike (Y/N)** | **Status** | **Assigned** |
 |--------|------------------------|--------------|--------------|------------|--------------|--------------|
-| RC-015 | As a developer, I want to organize the video files by default as classes, and then there are available filters such as the date and year. Classes > Professor > School Year > Date. | 5 | 6 | Y | Done | Edward Rodriguez |
-| RC-017 | As a user, I want to be able to create and login into an account. | 8 | 3 | N | Done | Erick Hernandez|
-| RC-018 | As a user, I want to be able to set my videos as public or private. |6 | 3 | N | Done | Edward Rodriguez |
-| RC-034 | As a user, I want to log in using my university email so that only authorized users can access the platform. | 8 | 6 | N | Done | Erick Hernandez |
-| RC-036 | As a user, I want to securely log out of my account so that others cannot access my data on shared devices. | 7 | 5 | N | Done | Sebastian Jaculbe |
-| RC-037 | As a user, I want to create classes and assign videos to them so that my content is organized by course. | 8 | 6 | N | Done | Kevin Dacanay |
-| RC-039 | As a user, I want to delete classes so that I can remove outdated or unused course content. | 7 | 5 | N | Done | Kaleb Richardson |
-| RC-042 | As a user, I want to view videos within a class in a structured list so that I can easily navigate lecture content. | 7 | 6 | N | Done | Kevin Dacanay |
-| RC-054 | As a user, I want to delete videos so that I can remove outdated or incorrect content. | 6 | 4 | N | Done | Kaleb Richardson |
-| RC-059 | As a developer, I want to implement two environments; for production and development, to separate and isolate different features that are still in progress. | 7 | 4 | Y | Done | Sebastian |
+| RC-091 | As a developer, I want to contanct Lewis University IT support so that our web app's domain is not being blocked or restricted, allowing users to access our web app. | 10 | 10 | Y | Kevin Dacanay | -- |
+| RC-060 | As a user, I want to be able to use PitHub while I am connected to University Wi-Fi so that I may upload and view school related documents. | 9 | 6 | N | In-Progress | -- |
+| RC-092 | As a developer, I want to rerify that our team will attend in person and deliver our Class Product Presentation on Thursday, May 14 from 8 AM to 10 AM CT. | 6 | 6 | Y | -- | -- |
+| RC-033 | As a user, I would like to search for videos with a search bar. | 5 | 4 | N | -- | -- |
+| RC-035 | As a user, I want to remain logged in across sessions so that I do not need to re-authenticate every time I visit the site. | 7 | 3 | N | -- | -- |
+| RC-038 | As a user, I want to edit class details (name, professor, description) so that information stays accurate and up to date. | 6 | 4 | N | -- | -- |
+| RC-041 | As a user, I want to upload documents (PDFs, notes) to classes so that I can store supplemental materials alongside videos. | 6 | 3 | N | -- | -- |
+| RC-043 | As a user, I want to search for classes by name or professor so that I can quickly find relevant courses. | 6 | 4 | N | -- | -- |
+| RC-044 | As a user, I want to search for users by name so that I can discover and access their shared content. | 5 | 5 | N | -- | -- |
+| RC-045 | As a user, I want to search for videos by title so that I can quickly locate specific content. | 5 | 5 | N | -- | -- |
+| RC-062 | As a user, I want to receive an error message when an upload fails so that I know the action was not completed. | 7 | 3 | N | -- | -- |
+| RC-062 | As a user, I want to receive an error message when an upload fails so that I know the action was not completed. | 7 | 3 | N | -- | -- |
+| RC-067 | As a user, I want to see the uploader’s name on each video so that I know who created the content. | 5 | 3 | N | -- | -- |
+| RC-072 | As a user, I want to receive confirmation before deleting a video or class so that I avoid accidental deletions. | 6 | 3 | N | -- | -- |
+| RC-084 | As a user, I want to receive visual feedback when I successfully upload content so that I know the action completed. | 6 | 3 | N | -- | -- |
+| RC-085 | As a user, I want to navigate back to the dashboard easily from any page so that navigation is intuitive. | 5 | 3 | N | -- | -- |
 
+Team Capacity: 60 Story Points
 
-Team Capacity: 40 Story Points
-
-Story Points: 48 points
+Story Points: 68 points
