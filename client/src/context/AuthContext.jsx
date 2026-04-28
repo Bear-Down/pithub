@@ -10,12 +10,18 @@ export const AuthProvider = ({ children }) => {
 
 	useEffect(() => {
 		const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+			console.log("FULL USER:", firebaseUser);
+  			console.log("EMAIL RAW:", firebaseUser?.email);
 			if (firebaseUser && firebaseUser.email.endsWith("@lewisu.edu")) {
 				setUser(firebaseUser);
 				console.log("Login successful.");
 			} else {
                 // If they sign in with a non-Lewis account, force sign out immediately
-                if (firebaseUser) signOut(auth);
+                if (firebaseUser) {
+					console.log("Rejected email:", firebaseUser.email);
+					alert("Please use a Lewis University email.");
+					signOut(auth);
+				}
 				setUser(null);
 				console.log("Unauthorized account.");
 			}

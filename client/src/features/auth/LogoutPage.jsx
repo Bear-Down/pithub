@@ -14,6 +14,7 @@ const LogoutPage = () => {
 		try {
 			await loginWithGoogle();
 		} catch (error) {
+			navigate("/");
 			console.error(error);
 		}
 		setLoading(false);
