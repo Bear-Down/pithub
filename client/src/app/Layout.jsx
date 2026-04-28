@@ -25,10 +25,15 @@ const Layout = () => {
 	}, []);
 
 	const handleLogout = async () => {
-		setLoading(true)
+		console.log("Logout clicked.");
+		setLoading(true);
 		await logout();
+		console.log("Logout confirmed.");
 		setShowDropdown(false);
-		navigate("/logout");
+		setTimeout(() => {
+			navigate("/logout");
+		}, 100);
+		console.log("Logout page displayed.");
 	};
 
 	return (
