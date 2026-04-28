@@ -12,10 +12,12 @@ export const AuthProvider = ({ children }) => {
 		const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
 			if (firebaseUser && firebaseUser.email.endsWith("@lewisu.edu")) {
 				setUser(firebaseUser);
+				console.log("Login successful.");
 			} else {
                 // If they sign in with a non-Lewis account, force sign out immediately
                 if (firebaseUser) signOut(auth);
 				setUser(null);
+				console.log("Unauthorized account.");
 			}
 			setLoading(false);
 		});
@@ -23,7 +25,14 @@ export const AuthProvider = ({ children }) => {
 		return () => unsubscribe();
 	}, []);
 
-	const logout = () => signOut(auth);
+	const logout = async () => {
+		try {
+			await signOut(auth);
+			console.log("Logout successful.");
+		} catch (error) {
+			console.error("Logout failed:", error);
+		}
+	}
 
 	const loginWithGoogle = async () => {
 		try {

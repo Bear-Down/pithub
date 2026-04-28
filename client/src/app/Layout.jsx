@@ -3,11 +3,13 @@ import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import '../styles/style.css'; 
 import userIconFallback from '../assets/user-icon.jpg';
+import Spinner from '../components/Spinner';
 
 const Layout = () => {
 	const { user, logout } = useAuth();
 	const navigate = useNavigate();
 	const [showDropdown, setShowDropdown] = useState(false);
+	const [loading, setLoading] = useState(false);
 	const dropdownRef = useRef(null);
 
 	const toggleDropdown = () => setShowDropdown(!showDropdown);
@@ -21,6 +23,18 @@ const Layout = () => {
 		document.addEventListener("mousedown", handleClickOutside);
 		return () => document.removeEventListener("mousedown", handleClickOutside);
 	}, []);
+
+	const handleLogout = async () => {
+		console.log("Logout clicked.");
+		setLoading(true);
+		await logout();
+		console.log("Logout confirmed.");
+		setShowDropdown(false);
+		setTimeout(() => {
+			navigate("/logout");
+		}, 100);
+		console.log("Logout page displayed.");
+	};
 
 	return (
 		<div className="app-container">
@@ -51,7 +65,15 @@ const Layout = () => {
 								setShowDropdown(false);
 							}}>Profile</button>
 							<button className="dropdown-item">Settings</button>
-							<button className="dropdown-item logout" onClick={logout}>Log Out</button>
+							<>
+								{loading ? (
+									<Spinner />
+								) : (
+									<button className="dropdown-item logout" onClick={handleLogout}>
+										Log Out
+									</button>
+								)}
+							</>
 						</div>
 					)}
 				</div>

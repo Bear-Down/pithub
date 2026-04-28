@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import '../../styles/style.css';
 import googleIcon from '../../assets/google-icon.jpg';
-import Spinner from "../../components/Spinner";
+import Spinner from '../../components/Spinner';
 
-const LoginPage = () => {
+const LogoutPage = () => {
 	const { loginWithGoogle } = useAuth();
 	const [loading, setLoading] = useState(false);
 
@@ -20,18 +20,18 @@ const LoginPage = () => {
 	}
 
 	return (
-		<div className="login-screen">
+		<div className="logout-screen">
 			<header className="header">
 				<div className="logo">
 					<Link to="/">PitHub</Link>
 				</div>
 			</header>
-			<div className="login-page-wrapper">
-				<div className="login-card">
-					<div className="login-header">
-						<div className="login-logo">PitHub</div>
-						<h1>Welcome Back</h1>
-						<p>Sign in to access your classes and content</p>
+			<div className="logout-page-wrapper">
+				<div className="logout-card">
+					<div className="logout-header">
+						<div className="logout-logo">PitHub</div>
+						<h1>Successfully Logged Out!</h1>
+						<p>Log back in here to access your classes and content</p>
 					</div>
 
 					<div className="login-actions">
@@ -52,15 +52,10 @@ const LoginPage = () => {
 					<div className="login-footer">
 						<p>By signing in, you agree to our <a href="/terms">Terms of Service</a></p>
 					</div>
-					
-					{/* 
-						Note: If you want to add Email/Password later, 
-						you would insert the form inputs here between the header and actions.
-					*/}
 				</div>
 			</div>
 		</div>
 	);
 };
 
-export default LoginPage;
+export default LogoutPage;
