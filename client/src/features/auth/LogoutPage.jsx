@@ -6,19 +6,7 @@ import googleIcon from '../../assets/google-icon.jpg';
 import Spinner from '../../components/Spinner';
 
 const LogoutPage = () => {
-	const { loginWithGoogle } = useAuth();
 	const [loading, setLoading] = useState(false);
-
-	const handleLogin = async () => {
-		setLoading(true);
-		try {
-			await loginWithGoogle();
-		} catch (error) {
-			navigate("/");
-			console.error(error);
-		}
-		setLoading(false);
-	}
 
 	return (
 		<div className="logout-screen">
@@ -36,18 +24,7 @@ const LogoutPage = () => {
 					</div>
 
 					<div className="login-actions">
-						{/* Branded Google Sign-In Button */}
-						{loading ? (
-							<Spinner />
-						) : (
-							<button className="google-signin-btn" onClick={handleLogin}>
-								<img 
-									src={googleIcon}
-									alt="Google icon" 
-								/>
-								<span>Sign in with Google</span>
-							</button>
-						)}
+						<Link to="/" className="google-signin-btn">Go to Login</Link>
 					</div>
 
 					<div className="login-footer">

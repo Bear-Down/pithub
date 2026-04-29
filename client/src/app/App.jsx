@@ -30,7 +30,7 @@ function AppContent() {
 				element={user ? <Navigate to="/classes" /> : <LoginPage />}
 			/>
 			{/* LOGOUT PAGE */}
-			<Route path="/logout" element={user ? <Navigate to="/classes" /> : <LogoutPage />} />
+			<Route path="/logout" element={<LogoutPage />} />
 
 			{/* AUTHENTICATED ROUTES: Wrapped in Layout (header/footer/dropdown) */}
 			<Route element={<Layout />}>
