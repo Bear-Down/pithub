@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { db, storage } from '../../lib/firebase';
 import { collection, query, where, onSnapshot, orderBy, limit, doc, updateDoc, deleteDoc, getDocs, setDoc } from 'firebase/firestore';
@@ -8,6 +9,7 @@ import ConfirmationModal from '../../components/ConfirmationModal';
 import InputModal from '../../components/InputModal';
 
 const ProfilePage = () => {
+	const { userId } = useParams();
 	const { user } = useAuth();
 	const [profileData, setProfileData] = useState({ visibility: 'private' });
 	const [classes, setClasses] = useState([]);
@@ -16,55 +18,70 @@ const ProfilePage = () => {
 	const [inputModal, setInputModal] = useState({ isOpen: false, data: null });
 	const [isDeleting, setIsDeleting] = useState(false);
 
+	const effectiveUserId = userId || user?.uid;
+	const isOwner = !userId || userId === user?.uid;
+
 	// 0. Fetch User Profile Data
 	useEffect(() => {
-		if (!user?.uid) return;
-		const userRef = doc(db, 'users', user.uid);
+		if (!effectiveUserId) return;
+		const userRef = doc(db, 'users', effectiveUserId);
 		const unsubscribe = onSnapshot(userRef, (docSnap) => {
 			if (docSnap.exists()) {
 				setProfileData(docSnap.data());
 			}
 		});
 		return () => unsubscribe();
-	}, [user?.uid]);
+	}, [effectiveUserId]);
 
 	// 1. Fetch User's Classes
 	useEffect(() => {
-		if (!user?.uid) return;
+		if (!effectiveUserId) return;
 
-		const q = query(
+		let q = query(
 			collection(db, 'classes'), 
-			where('ownerId', '==', user.uid)
+			where('ownerId', '==', effectiveUserId)
 		);
+
+		if (!isOwner) {
+			q = query(q, where('visibility', '==', 'public'));
+		}
 
 		const unsubscribe = onSnapshot(q, (snapshot) => {
 			setClasses(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
 		});
 
 		return () => unsubscribe();
-	}, [user?.uid]);
+	}, [effectiveUserId, isOwner]);
 
 	// 2. Fetch User's Recent Uploads (limited to 5)
 	useEffect(() => {
-		if (!user?.uid) return;
+		if (!effectiveUserId) return;
 
-		const q = query(
+		let q = query(
 			collection(db, 'files'),
-			where('ownerId', '==', user.uid),
+			where('ownerId', '==', effectiveUserId),
 			orderBy('createdAt', 'desc'),
 			limit(5)
 		);
 
+		if (!isOwner) {
+			q = query(
+				collection(db, 'files'),
+				where('ownerId', '==', effectiveUserId),
+				where('visibility', '==', 'public'),
+				orderBy('createdAt', 'desc'),
+				limit(5)
+			);
+		}
+
 		const unsubscribe = onSnapshot(q, (snapshot) => {
 			setRecentFiles(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
 		}, (err) => {
-			// Note: This query requires a Firestore composite index (ownerId + createdAt).
-			// If it fails, check the browser console for the auto-generated link to create it.
 			console.error("Profile recent files error:", err);
 		});
 
 		return () => unsubscribe();
-	}, [user?.uid]);
+	}, [effectiveUserId, isOwner]);
 
 	const handleEditClass = (classData) => setInputModal({ isOpen: true, data: classData });
 
@@ -125,22 +142,26 @@ const ProfilePage = () => {
 	return (
 		<div className="container profile-page">
 			<div className="profile-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-				<h1 style={{ color: 'orange', margin: 0 }}>Hello, {user?.displayName || 'User'}!</h1>
-				<div className="profile-visibility-toggle">
-					<label style={{ fontSize: '0.9rem', marginRight: '10px', color: '#666' }}>Profile Visibility:</label>
-					<select 
-						value={profileData.visibility || 'private'} 
-						onChange={(e) => handleProfileVisibilityChange(e.target.value)}
-						style={{ padding: '5px', borderRadius: '4px', border: '1px solid #ddd' }}
-					>
-						<option value="private">Private</option>
-						<option value="public">Public</option>
-					</select>
-				</div>
+				<h1 style={{ color: 'orange', margin: 0 }}>
+					{isOwner ? `Hello, ${user?.displayName || 'User'}!` : `${profileData.displayName || 'User'}'s Profile`}
+				</h1>
+				{isOwner && (
+					<div className="profile-visibility-toggle">
+						<label style={{ fontSize: '0.9rem', marginRight: '10px', color: '#666' }}>Profile Visibility:</label>
+						<select 
+							value={profileData.visibility || 'private'} 
+							onChange={(e) => handleProfileVisibilityChange(e.target.value)}
+							style={{ padding: '5px', borderRadius: '4px', border: '1px solid #ddd' }}
+						>
+							<option value="private">Private</option>
+							<option value="public">Public</option>
+						</select>
+					</div>
+				)}
 			</div>
 			
 			<section style={{ marginTop: '40px' }}>
-				<h2>Your Recent Uploads</h2>
+				<h2>{isOwner ? 'Your Recent Uploads' : 'Recent Uploads'}</h2>
 				{recentFiles.length > 0 ? (
 					<ul className="file-list">
 						{recentFiles.map(file => (
@@ -151,19 +172,24 @@ const ProfilePage = () => {
 									) : (
 										<div className="thumbnail-placeholder" style={{ width: '60px', height: '35px' }}>DOC</div>
 									)}
-									<a href={file.url} target="_blank" rel="noreferrer" className="file-link">{file.name}</a>
+									<div style={{ display: 'flex', flexDirection: 'column' }}>
+										<a href={file.url} target="_blank" rel="noreferrer" className="file-link">{file.name}</a>
+										<span style={{ fontSize: '0.7rem', color: '#777' }}>
+											{file.ownerName || 'Anonymous'} in {file.className || 'General'}
+										</span>
+									</div>
 								</div>
 							</li>
 						))}
 					</ul>
 				) : (
-					<p className="status">You haven't uploaded anything yet.</p>
+					<p className="status">{isOwner ? "You haven't uploaded anything yet." : "No public uploads found."}</p>
 				)}
 			</section>
 
 			<section style={{ marginTop: '40px' }}>
 				<div className="classes-header">
-					<h2>Your Classes</h2>
+					<h2>{isOwner ? 'Your Classes' : 'Classes'}</h2>
 				</div>
 				{classes.length > 0 ? (
 					<div className="classes-horizontal-scroll">
@@ -171,36 +197,41 @@ const ProfilePage = () => {
 							<ClassCard 
 								key={item.id} 
 								classData={item} 
-								onEdit={handleEditClass}
-								onDelete={(data) => setConfirmDelete(data)}
-								onVisibilityChange={handleUpdateClassVisibility}
+								onEdit={isOwner ? handleEditClass : null}
+								onDelete={isOwner ? (data) => setConfirmDelete(data) : null}
+								onVisibilityChange={isOwner ? handleUpdateClassVisibility : null}
+								isOwner={isOwner}
 							/>
 						))}
 					</div>
 				) : (
-					<p className="status">You haven't created any classes yet.</p>
+					<p className="status">{isOwner ? "You haven't created any classes yet." : "No public classes found."}</p>
 				)}
 			</section>
 
-			<InputModal 
-				isOpen={inputModal.isOpen}
-				title="Edit Class Name"
-				placeholder="Enter class name"
-				initialValue={inputModal.data?.name || ""}
-				onConfirm={handleModalSubmit}
-				onCancel={() => setInputModal({ isOpen: false, data: null })}
-				confirmText="Save Changes"
-			/>
+			{isOwner && (
+				<>
+					<InputModal 
+						isOpen={inputModal.isOpen}
+						title="Edit Class Name"
+						placeholder="Enter class name"
+						initialValue={inputModal.data?.name || ""}
+						onConfirm={handleModalSubmit}
+						onCancel={() => setInputModal({ isOpen: false, data: null })}
+						confirmText="Save Changes"
+					/>
 
-			<ConfirmationModal 
-				isOpen={!!confirmDelete}
-				title="Delete Class?"
-				message={<>Are you sure you want to delete <strong>{confirmDelete?.name}</strong>? This will permanently delete the class and all files within it.</>}
-				confirmText={isDeleting ? 'Deleting...' : 'Delete Everything'}
-				isLoading={isDeleting}
-				onConfirm={() => handleDeleteClass(confirmDelete)}
-				onCancel={() => setConfirmDelete(null)}
-			/>
+					<ConfirmationModal 
+						isOpen={!!confirmDelete}
+						title="Delete Class?"
+						message={<>Are you sure you want to delete <strong>{confirmDelete?.name}</strong>? This will permanently delete the class and all files within it.</>}
+						confirmText={isDeleting ? 'Deleting...' : 'Delete Everything'}
+						isLoading={isDeleting}
+						onConfirm={() => handleDeleteClass(confirmDelete)}
+						onCancel={() => setConfirmDelete(null)}
+					/>
+				</>
+			)}
 		</div>
 	);
 };

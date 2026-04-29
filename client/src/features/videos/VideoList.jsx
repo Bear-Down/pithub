@@ -23,9 +23,14 @@ export default function VideoList() {
 						) : (
 							<div className="thumbnail-placeholder">DOC</div>
 						)}
-						<a href={video.url} target="_blank" rel="noreferrer" className="file-link">
-							{video.name}
-						</a>
+						<div style={{ display: 'flex', flexDirection: 'column' }}>
+							<a href={video.url} target="_blank" rel="noreferrer" className="file-link">
+								{video.name}
+							</a>
+							<span style={{ fontSize: '0.75rem', color: '#777' }}>
+								{video.ownerName || 'Anonymous'} in {video.className || 'General'}
+							</span>
+						</div>
 					</div>
 				</li>
 			))}

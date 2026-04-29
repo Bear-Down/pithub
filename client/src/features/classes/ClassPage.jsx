@@ -138,8 +138,11 @@ const ClassPage = () => {
 								thumbnailPath: thumbnailPath,
 								classId: classId,
 								ownerId: user?.uid || 'dev_user_789',
+								ownerName: user?.displayName || 'Anonymous',
+								className: classData?.name || 'General',
 								type: file.type,
-								createdAt: serverTimestamp()
+								createdAt: serverTimestamp(),
+								visibility: classData?.visibility || 'private'
 							};
 
 							await addDoc(collection(db, 'files'), fileData);
@@ -212,9 +215,11 @@ const ClassPage = () => {
 
 		<div className="class-page-header">
 			<h1>{classData ? classData.name : 'Loading...'}</h1>
-			<button className="add-content-btn" onClick={handleAddClick} disabled={uploading}>
-			{uploading ? `Uploading ${uploadProgress}%` : '+ Add Video / Document'}
-			</button>
+			{user?.uid === classData?.ownerId && (
+				<button className="add-content-btn" onClick={handleAddClick} disabled={uploading}>
+				{uploading ? `Uploading ${uploadProgress}%` : '+ Add Video / Document'}
+				</button>
+			)}
 		</div>
 
 		<section className="class-content">
@@ -223,7 +228,7 @@ const ClassPage = () => {
 			{files.length > 0 ? (
 				files.map((file) => (
 				<li key={file.id} className="file-item">
-					<div className="file-info" style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+					<div className="file-info" style={{ display: 'flex', alignItems: 'center', gap: '15px', flex: 1 }}>
 					{file.thumbnailUrl ? (
 						<img 
 						src={file.thumbnailUrl} 
@@ -235,10 +240,15 @@ const ClassPage = () => {
 						DOC
 						</div>
 					)}
-					<a href={file.url} target="_blank" rel="noreferrer" className="file-link">
-						{file.name}
-					</a>
-					<span className="file-type" style={{ fontSize: '0.8rem', color: '#888', marginLeft: '10px' }}>
+					<div style={{ display: 'flex', flexDirection: 'column' }}>
+						<a href={file.url} target="_blank" rel="noreferrer" className="file-link">
+							{file.name}
+						</a>
+						<span style={{ fontSize: '0.75rem', color: '#777' }}>
+							Uploaded by {file.ownerName ? file.ownerName.split(' ')[0] : 'Unknown'}
+						</span>
+					</div>
+					<span className="file-type" style={{ fontSize: '0.8rem', color: '#888', marginLeft: 'auto', marginRight: '20px' }}>
 						{file.type.split('/')[1]?.toUpperCase() || 'FILE'}
 					</span>
 					</div>

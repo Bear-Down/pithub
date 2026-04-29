@@ -67,6 +67,14 @@ const ClassList = () => {
 		try {
 			const classRef = doc(db, 'classes', classId);
 			await updateDoc(classRef, { visibility: newVisibility });
+
+			// Update visibility for all files in this class to keep search efficient
+			const q = query(collection(db, 'files'), where('classId', '==', classId));
+			const fileSnaps = await getDocs(q);
+			const updatePromises = fileSnaps.docs.map(fileDoc => 
+				updateDoc(doc(db, 'files', fileDoc.id), { visibility: newVisibility })
+			);
+			await Promise.all(updatePromises);
 		} catch (error) {
 			console.error("Error updating class:", error);
 		}
