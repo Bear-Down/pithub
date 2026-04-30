@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useVideos } from '../../hooks/useVideos';
 
 export default function VideoList() {
@@ -28,7 +29,13 @@ export default function VideoList() {
 								{video.name}
 							</a>
 							<span style={{ fontSize: '0.75rem', color: '#777' }}>
-								{video.ownerName || 'Anonymous'} in {video.className || 'General'}
+								{video.ownerId ? (
+									<Link to={`/profile/${video.ownerId}`} style={{ color: 'inherit', textDecoration: 'underline' }}>
+										{video.ownerName || 'Anonymous'}
+									</Link>
+								) : (
+									video.ownerName || 'Anonymous'
+								)} in {video.className || 'General'}
 							</span>
 						</div>
 					</div>

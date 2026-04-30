@@ -32,23 +32,25 @@ const SearchBar = () => {
 		const term = searchTerm.toLowerCase();
 
 		try {
-			// 1. Search Public Classes
 			const classQuery = query(collection(db, 'classes'), where('visibility', '==', 'public'), limit(20));
-			const classSnap = await getDocs(classQuery);
+			const userQuery = query(collection(db, 'users'), where('visibility', '==', 'public'), limit(20));
+			const fileQuery = query(collection(db, 'files'), where('visibility', '==', 'public'), limit(20));
+
+			// Execute all queries in parallel for better performance
+			const [classSnap, userSnap, fileSnap] = await Promise.all([
+				getDocs(classQuery),
+				getDocs(userQuery),
+				getDocs(fileQuery)
+			]);
+
 			const matchedClasses = classSnap.docs
 			.map(doc => ({ id: doc.id, ...doc.data() }))
 			.filter(c => c.name.toLowerCase().includes(term));
 
-			// 2. Search Public Users
-			const userQuery = query(collection(db, 'users'), where('visibility', '==', 'public'), limit(20));
-			const userSnap = await getDocs(userQuery);
 			const matchedUsers = userSnap.docs
 			.map(doc => ({ id: doc.id, name: doc.data().displayName }))
 			.filter(u => u.name?.toLowerCase().includes(term));
 
-			// 3. Search Public Videos (Files)
-			const fileQuery = query(collection(db, 'files'), where('visibility', '==', 'public'), limit(20));
-			const fileSnap = await getDocs(fileQuery);
 			const matchedVideos = fileSnap.docs
 			.map(doc => ({ id: doc.id, ...doc.data() }))
 			.filter(f => f.name.toLowerCase().includes(term));
