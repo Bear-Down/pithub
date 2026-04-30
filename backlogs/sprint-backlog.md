@@ -30,4 +30,4 @@ Scrum Master: Kaleb Richardson
 
 Team Capacity: 60 Story Points
 
-Story Points: 71 points
+Story Points: 68 points
