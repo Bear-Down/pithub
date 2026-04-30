@@ -182,9 +182,9 @@ const ProfilePage = () => {
 					<div className="profile-visibility-toggle">
 						<label style={{ fontSize: '0.9rem', marginRight: '10px', color: '#666' }}>Profile Visibility:</label>
 						<select 
-							value={profileData.visibility || 'private'} 
+							value={profileData.visibility || 'private'}
 							onChange={(e) => handleProfileVisibilityChange(e.target.value)}
-							style={{ padding: '5px', borderRadius: '4px', border: '1px solid #ddd' }}
+							style={{ padding: '5px', borderRadius: '4px', border: '1px solid #ddd', backgroundColor: (profileData.visibility === 'public' ? '#e0ffe0' : '#ffe0e0') }}
 						>
 							<option value="private">Private</option>
 							<option value="public">Public</option>

@@ -20,7 +20,7 @@ const ClassCard = ({ classData, onEdit, onDelete, onVisibilityChange, isOwner = 
 						<button className="delete-btn" onClick={() => onDelete(classData)}>Delete</button>
 					</div>
 					<div className="class-visibility-control" onClick={(e) => e.stopPropagation()}>
-						<select value={classData.visibility || 'private'} onChange={handleVisibilityChange}>
+						<select value={classData.visibility || 'private'} onChange={handleVisibilityChange} style={{ backgroundColor: (classData.visibility === 'public' ? '#e0ffe0' : '#ffe0e0') }}>
 							<option value="private">Private</option>
 							<option value="public">Public</option>
 						</select>
