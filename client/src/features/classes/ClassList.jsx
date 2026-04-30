@@ -49,6 +49,7 @@ const ClassList = () => {
 			await addDoc(collection(db, 'classes'), {
 				name: name,
 				ownerId: user.uid,
+				ownerName: user.displayName,
 				createdAt: serverTimestamp(),
 				visibility: 'private' // Default to private
 			});

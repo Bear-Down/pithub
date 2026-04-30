@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { onAuthStateChanged, signOut, signInWithPopup } from "firebase/auth";
-import { auth, provider } from "../lib/firebase";
+import { auth, provider, db } from "../lib/firebase";
+import { doc, setDoc, serverTimestamp } from "firebase/firestore";
 
 const AuthContext = createContext();
 
@@ -9,11 +10,25 @@ export const AuthProvider = ({ children }) => {
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
-		const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+		const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
 			console.log("FULL USER:", firebaseUser);
   			console.log("EMAIL RAW:", firebaseUser?.email);
 			if (firebaseUser && firebaseUser.email.endsWith("@lewisu.edu")) {
 				setUser(firebaseUser);
+				
+				// Sync user profile to Firestore
+				try {
+					const userRef = doc(db, 'users', firebaseUser.uid);
+					await setDoc(userRef, {
+						displayName: firebaseUser.displayName,
+						email: firebaseUser.email,
+						lastLogin: serverTimestamp(),
+					}, { merge: true });
+					console.log("User profile synced to Firestore.");
+				} catch (error) {
+					console.error("Error syncing user profile:", error);
+				}
+
 				console.log("Login successful.");
 			} else {
                 // If they sign in with a non-Lewis account, force sign out immediately
