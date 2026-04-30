@@ -22,7 +22,6 @@ Scrum Master: Kaleb Richardson
 | RC-038 | As a user, I want to edit class details (name, professor, description) so that information stays accurate and up to date. | 6 | 4 | N | In-Progress | Sebastian Jaculbe |
 | RC-041 | As a user, I want to upload documents (PDFs, notes) to classes so that I can store supplemental materials alongside videos. | 6 | 3 | N | In-Progress | Sebastian Jaculbe |
 | RC-062 | As a user, I want to receive an error message when an upload fails so that I know the action was not completed. | 7 | 3 | N | In-Progress | Sebastian Jaculbe |
-| RC-062 | As a user, I want to receive an error message when an upload fails so that I know the action was not completed. | 7 | 3 | N | In-Progress | Sebastian Jaculbe |
 | RC-072 | As a user, I want to receive confirmation before deleting a video or class so that I avoid accidental deletions. | 6 | 3 | N | In-Progress | Erick Hernandez |
 | RC-084 | As a user, I want to receive visual feedback when I successfully upload content so that I know the action completed. | 6 | 3 | N | In-Progress | Erick Hernandez |
 | RC-085 | As a user, I want to navigate back to the dashboard easily from any page so that navigation is intuitive. | 5 | 3 | N | In-Progress | Erick Hernandez |
