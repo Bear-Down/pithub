@@ -5,9 +5,9 @@ import { useVideos } from '../../hooks/useVideos';
 export default function VideoList() {
 	const { videos, loading, error, nextPage, prevPage, page, hasNext } = useVideos();
 
-	if (loading) return <div className="status">Loading videos...</div>;
+	if (loading) return <div className="status">Loading uploads...</div>;
 	if (error) return <div className="status" style={{ color: 'red' }}>Error: {error}</div>;
-	if (videos.length === 0) return <div className="status">No videos found.</div>;
+	if (videos.length === 0) return <div className="status">No uploads found.</div>;
 
 	return (
 		<>

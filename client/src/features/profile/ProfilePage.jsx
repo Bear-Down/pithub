@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { db, storage } from '../../lib/firebase';
-import { collection, query, where, onSnapshot, orderBy, limit, doc, updateDoc, deleteDoc, getDocs, setDoc } from 'firebase/firestore';
+import { collection, query, where, onSnapshot, orderBy, limit, doc, updateDoc, deleteDoc, getDocs, setDoc, addDoc, serverTimestamp, startAfter } from 'firebase/firestore';
 import { ref, deleteObject } from 'firebase/storage';
 import ClassCard from '../classes/ClassCard';
 import ConfirmationModal from '../../components/ConfirmationModal';
@@ -14,8 +14,11 @@ const ProfilePage = () => {
 	const [profileData, setProfileData] = useState({ visibility: 'private' });
 	const [classes, setClasses] = useState([]);
 	const [recentFiles, setRecentFiles] = useState([]);
+	const [page, setPage] = useState(1);
+	const [hasNext, setHasNext] = useState(false);
+	const [pageAnchors, setPageAnchors] = useState([]); // Stores the last doc snapshot of each page
 	const [confirmDelete, setConfirmDelete] = useState(null);
-	const [inputModal, setInputModal] = useState({ isOpen: false, data: null });
+	const [inputModal, setInputModal] = useState({ isOpen: false, mode: 'create', data: null });
 	const [isDeleting, setIsDeleting] = useState(false);
 
 	const effectiveUserId = userId || user?.uid;
@@ -53,48 +56,78 @@ const ProfilePage = () => {
 		return () => unsubscribe();
 	}, [effectiveUserId, isOwner]);
 
-	// 2. Fetch User's Recent Uploads (limited to 5)
+	// Reset pagination when switching profiles
+	useEffect(() => {
+		setPage(1);
+		setPageAnchors([]);
+	}, [effectiveUserId]);
+
+	// 2. Fetch User's Recent Uploads (limited to 10 with pagination)
 	useEffect(() => {
 		if (!effectiveUserId) return;
+		const pageSize = 10;
 
 		let q = query(
 			collection(db, 'files'),
 			where('ownerId', '==', effectiveUserId),
 			orderBy('createdAt', 'desc'),
-			limit(5)
+			limit(pageSize + 1)
 		);
 
 		if (!isOwner) {
-			q = query(
-				collection(db, 'files'),
-				where('ownerId', '==', effectiveUserId),
-				where('visibility', '==', 'public'),
-				orderBy('createdAt', 'desc'),
-				limit(5)
-			);
+			q = query(q, where('visibility', '==', 'public'));
+		}
+
+		// Apply pagination anchor
+		if (page > 1 && pageAnchors[page - 2]) {
+			q = query(q, startAfter(pageAnchors[page - 2]));
 		}
 
 		const unsubscribe = onSnapshot(q, (snapshot) => {
-			setRecentFiles(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+			const docs = snapshot.docs;
+			const hasMore = docs.length > pageSize;
+			setHasNext(hasMore);
+
+			const items = hasMore ? docs.slice(0, pageSize) : docs;
+			setRecentFiles(items.map(doc => ({ id: doc.id, ...doc.data() })));
+
+			// Save the anchor for the next page
+			if (items.length > 0) {
+				setPageAnchors(prev => {
+					const next = [...prev];
+					next[page - 1] = docs[items.length - 1];
+					return next;
+				});
+			}
 		}, (err) => {
 			console.error("Profile recent files error:", err);
 		});
 
 		return () => unsubscribe();
-	}, [effectiveUserId, isOwner]);
+	}, [effectiveUserId, isOwner, page]);
 
-	const handleEditClass = (classData) => setInputModal({ isOpen: true, data: classData });
+	const handleCreateClass = () => setInputModal({ isOpen: true, mode: 'create', data: null });
+
+	const handleEditClass = (classData) => setInputModal({ isOpen: true, mode: 'edit', data: classData });
 
 	const handleModalSubmit = async (name) => {
-		if (inputModal.data) {
-			try {
+		try {
+			if (inputModal.mode === 'create') {
+				await addDoc(collection(db, 'classes'), {
+					name,
+					ownerId: user.uid,
+					ownerName: user.displayName || 'Anonymous',
+					createdAt: serverTimestamp(),
+					visibility: 'private'
+				});
+			} else if (inputModal.mode === 'edit' && inputModal.data) {
 				const classRef = doc(db, 'classes', inputModal.data.id);
 				await updateDoc(classRef, { name });
-			} catch (error) {
-				console.error("Error updating class:", error);
 			}
+		} catch (error) {
+			console.error(`Error ${inputModal.mode === 'create' ? 'creating' : 'updating'} class:`, error);
 		}
-		setInputModal({ isOpen: false, data: null });
+		setInputModal({ ...inputModal, isOpen: false, data: null });
 	};
 
 	const handleUpdateClassVisibility = async (classId, newVisibility) => {
@@ -161,35 +194,57 @@ const ProfilePage = () => {
 			</div>
 			
 			<section style={{ marginTop: '40px' }}>
-				<h2>{isOwner ? 'Your Recent Uploads' : 'Recent Uploads'}</h2>
+				<h2>{isOwner ? 'Your Recent Files & Videos' : 'Recent Files & Videos'}</h2>
 				{recentFiles.length > 0 ? (
-					<ul className="file-list">
-						{recentFiles.map(file => (
-							<li key={file.id} className="file-item">
-								<div className="file-info" style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-									{file.thumbnailUrl ? (
-										<img src={file.thumbnailUrl} alt="thumb" style={{ width: '60px', height: '35px', objectFit: 'cover', borderRadius: '4px' }} />
-									) : (
-										<div className="thumbnail-placeholder" style={{ width: '60px', height: '35px' }}>DOC</div>
-									)}
-									<div style={{ display: 'flex', flexDirection: 'column' }}>
-										<a href={file.url} target="_blank" rel="noreferrer" className="file-link">{file.name}</a>
-										<span style={{ fontSize: '0.7rem', color: '#777' }}>
-											{file.ownerName || 'Anonymous'} in {file.className || 'General'}
-										</span>
+					<>
+						<ul className="file-list">
+							{recentFiles.map(file => (
+								<li key={file.id} className="file-item">
+									<div className="file-info" style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+										{file.thumbnailUrl ? (
+											<img src={file.thumbnailUrl} alt="thumb" style={{ width: '60px', height: '35px', objectFit: 'cover', borderRadius: '4px' }} />
+										) : (
+											<div className="thumbnail-placeholder" style={{ width: '60px', height: '35px' }}>DOC</div>
+										)}
+										<div style={{ display: 'flex', flexDirection: 'column' }}>
+											<a href={file.url} target="_blank" rel="noreferrer" className="file-link">{file.name}</a>
+											<span style={{ fontSize: '0.7rem', color: '#777' }}>
+												{file.ownerName || 'Anonymous'} in {file.className || 'General'}
+											</span>
+										</div>
 									</div>
-								</div>
-							</li>
-						))}
-					</ul>
+								</li>
+							))}
+						</ul>
+						<div className="pagination-controls" style={{ marginTop: '20px' }}>
+							<button 
+								className="pagination-btn" 
+								onClick={() => setPage(p => Math.max(1, p - 1))} 
+								disabled={page === 1}
+							>
+								Previous
+							</button>
+							<span className="page-indicator">Page {page}</span>
+							<button 
+								className="pagination-btn" 
+								onClick={() => setPage(p => p + 1)} 
+								disabled={!hasNext}
+							>
+								Next
+							</button>
+						</div>
+					</>
 				) : (
 					<p className="status">{isOwner ? "You haven't uploaded anything yet." : "No public uploads found."}</p>
 				)}
 			</section>
 
 			<section style={{ marginTop: '40px' }}>
-				<div className="classes-header">
+				<div className="classes-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
 					<h2>{isOwner ? 'Your Classes' : 'Classes'}</h2>
+					{isOwner && (
+						<button className="create-class-btn" onClick={handleCreateClass}>+ Create Class</button>
+					)}
 				</div>
 				{classes.length > 0 ? (
 					<div className="classes-horizontal-scroll">
@@ -213,12 +268,12 @@ const ProfilePage = () => {
 				<>
 					<InputModal 
 						isOpen={inputModal.isOpen}
-						title="Edit Class Name"
+						title={inputModal.mode === 'create' ? "Create New Class" : "Edit Class Name"}
 						placeholder="Enter class name"
 						initialValue={inputModal.data?.name || ""}
 						onConfirm={handleModalSubmit}
-						onCancel={() => setInputModal({ isOpen: false, data: null })}
-						confirmText="Save Changes"
+						onCancel={() => setInputModal({ ...inputModal, isOpen: false, data: null })}
+						confirmText={inputModal.mode === 'create' ? "Create" : "Save Changes"}
 					/>
 
 					<ConfirmationModal 
