@@ -20,6 +20,14 @@ const ProfilePage = () => {
 	const [confirmDelete, setConfirmDelete] = useState(null);
 	const [inputModal, setInputModal] = useState({ isOpen: false, mode: 'create', data: null });
 	const [isDeleting, setIsDeleting] = useState(false);
+	const [isEditingProfile, setIsEditingProfile] = useState(false);
+	const [profileEditData, setProfileEditData] = useState({
+		major: '',
+		minor: '',
+		gradSemester: '',
+		bio: '',
+		website: ''
+	});
 
 	const effectiveUserId = userId || user?.uid;
 	const isOwner = !userId || userId === user?.uid;
@@ -30,7 +38,15 @@ const ProfilePage = () => {
 		const userRef = doc(db, 'users', effectiveUserId);
 		const unsubscribe = onSnapshot(userRef, (docSnap) => {
 			if (docSnap.exists()) {
-				setProfileData(docSnap.data());
+				const data = docSnap.data();
+				setProfileData(data);
+				setProfileEditData({
+					major: data.major || '',
+					minor: data.minor || '',
+					gradSemester: data.gradSemester || '',
+					bio: data.bio || '',
+					website: data.website || ''
+				});
 			}
 		});
 		return () => unsubscribe();
@@ -148,6 +164,16 @@ const ProfilePage = () => {
 		}
 	};
 
+	const handleUpdateProfile = async () => {
+		try {
+			const userRef = doc(db, 'users', user.uid);
+			await setDoc(userRef, profileEditData, { merge: true });
+			setIsEditingProfile(false);
+		} catch (error) {
+			console.error("Error updating profile:", error);
+		}
+	};
+
 	const handleDeleteClass = async (classData) => {
 		setIsDeleting(true);
 		try {
@@ -189,6 +215,64 @@ const ProfilePage = () => {
 							<option value="private">Private</option>
 							<option value="public">Public</option>
 						</select>
+					</div>
+				)}
+			</div>
+
+			<div className="profile-info-section" style={{ marginTop: '15px', padding: '15px'}}>
+				{isEditingProfile ? (
+					<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px' }}>
+						<div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+							<label style={{ fontSize: '0.8rem', fontWeight: 'bold' }}>Major</label>
+							<input type="text" value={profileEditData.major} onChange={(e) => setProfileEditData({...profileEditData, major: e.target.value})} placeholder="Major..." style={{ padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }} />
+							<label style={{ fontSize: '0.8rem', fontWeight: 'bold' }}>Minor</label>
+							<input type="text" value={profileEditData.minor} onChange={(e) => setProfileEditData({...profileEditData, minor: e.target.value})} placeholder="Minor..." style={{ padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }} />
+						</div>
+						<div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+							<label style={{ fontSize: '0.8rem', fontWeight: 'bold' }}>Expected Graduation</label>
+							<input type="text" value={profileEditData.gradSemester} onChange={(e) => setProfileEditData({...profileEditData, gradSemester: e.target.value})} placeholder="Spring 2027" style={{ padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }} />
+							<label style={{ fontSize: '0.8rem', fontWeight: 'bold' }}>Your URL</label>
+							<input type="text" value={profileEditData.website} onChange={(e) => setProfileEditData({...profileEditData, website: e.target.value})} placeholder="https://your-link" style={{ padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }} />
+						</div>
+						<div style={{ gridColumn: 'span 2', display: 'flex', flexDirection: 'column', gap: '5px' }}>
+							<label style={{ fontSize: '0.8rem', fontWeight: 'bold' }}>Bio</label>
+							<textarea value={profileEditData.bio} onChange={(e) => setProfileEditData({...profileEditData, bio: e.target.value})} placeholder="Tell us about yourself..." style={{ padding: '8px', borderRadius: '4px', border: '1px solid #ccc', resize: 'vertical' }} />
+						</div>
+						<div style={{ gridColumn: 'span 2', display: 'flex', gap: '10px', justifyContent: 'flex-end' }}>
+							<button onClick={() => setIsEditingProfile(false)} style={{ padding: '8px 15px', borderRadius: '4px', border: '1px solid #ddd', cursor: 'pointer' }}>Cancel</button>
+							<button onClick={handleUpdateProfile} style={{ padding: '8px 15px', borderRadius: '4px', border: 'none', backgroundColor: 'orange', color: 'white', fontWeight: 'bold', cursor: 'pointer' }}>Save Profile</button>
+						</div>
+					</div>
+				) : (
+					<div style={{ position: 'relative' }}>
+						<div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
+							<div style={{ minWidth: '150px' }}>
+								<p style={{ margin: '5px 0', fontSize: '0.9rem' }}><strong>Major:</strong> {profileData.major || 'Not specified'}</p>
+								<p style={{ margin: '5px 0', fontSize: '0.9rem' }}><strong>Minor:</strong> {profileData.minor || 'None'}</p>
+							</div>
+							<div style={{ minWidth: '150px' }}>
+								<p style={{ margin: '5px 0', fontSize: '0.9rem' }}><strong>Graduation:</strong> {profileData.gradSemester || 'Not specified'}</p>
+								{profileData.website && (
+									<p style={{ margin: '5px 0', fontSize: '0.9rem' }}>
+										<strong>website:</strong> <a href={profileData.website} target="_blank" rel="noreferrer" style={{ color: 'blue' }}>View Repository</a>
+									</p>
+								)}
+							</div>
+							<div style={{ flex: 1, minWidth: '200px' }}>
+								<p style={{ margin: '5px 0', fontSize: '0.9rem' }}><strong>About Me:</strong></p>
+								<p style={{ margin: '0', fontSize: '0.85rem', fontStyle: profileData.bio ? 'normal' : 'italic', color: profileData.bio ? '#333' : '#999' }}>
+									{profileData.bio || 'No bio provided yet.'}
+								</p>
+							</div>
+						</div>
+						{isOwner && (
+							<button 
+								onClick={() => setIsEditingProfile(true)} 
+								style={{ position: 'absolute', top: '-10px', right: '-10px', padding: '5px 10px', fontSize: '0.75rem', borderRadius: '4px', border: '1px solid orange', color: 'orange', backgroundColor: 'transparent', cursor: 'pointer' }}
+							>
+								Edit Details
+							</button>
+						)}
 					</div>
 				)}
 			</div>
@@ -279,7 +363,13 @@ const ProfilePage = () => {
 					<ConfirmationModal 
 						isOpen={!!confirmDelete}
 						title="Delete Class?"
-						message={<>Are you sure you want to delete <strong>{confirmDelete?.name}</strong>? This will permanently delete the class and all files within it.</>}
+						message={
+							<>
+								Are you sure you want to delete <strong>{confirmDelete?.name}</strong>? 
+								<br /><br />
+								<span style={{ color: '#ff4d4d', fontWeight: 'bold' }}>Warning:</span> This will permanently delete the class and <strong>all uploaded videos and documents</strong> within it.
+							</>
+						}
 						confirmText={isDeleting ? 'Deleting...' : 'Delete Everything'}
 						isLoading={isDeleting}
 						onConfirm={() => handleDeleteClass(confirmDelete)}

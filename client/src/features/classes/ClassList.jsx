@@ -95,6 +95,7 @@ const ClassList = () => {
 				try {
 					const storageRef = file.storagePath ? ref(storage, file.storagePath) : ref(storage, file.url);
 					await deleteObject(storageRef);
+					if (file.thumbnailPath) await deleteObject(ref(storage, file.thumbnailPath));
 				} catch (err) {
 					console.warn("Storage deletion error (file may already be gone):", err.message);
 				}
