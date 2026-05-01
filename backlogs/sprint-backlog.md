@@ -19,6 +19,7 @@ Scrum Master: Kaleb Richardson
 | RC-044 | As a user, I want to search for users by name so that I can discover and access their shared content. | 5 | 5 | N | In-Progress | Kaleb Richardson |
 | RC-045 | As a user, I want to search for videos by title so that I can quickly locate specific content. | 5 | 5 | N | In-Progress | Edward Rodriguez |
 | RC-067 | As a user, I want to see the uploader’s name on each video so that I know who created the content. | 5 | 3 | N | In-Progress | Edward Rodriguez |
+| RC-065 | As a user, I want to paginate video lists so that large datasets are easier to navigate. | 6 | 4 | N | In-Progresss | Sebastian Jaculbe |
 | RC-038 | As a user, I want to edit class details (name, professor, description) so that information stays accurate and up to date. | 6 | 4 | N | In-Progress | Sebastian Jaculbe |
 | RC-041 | As a user, I want to upload documents (PDFs, notes) to classes so that I can store supplemental materials alongside videos. | 6 | 3 | N | In-Progress | Sebastian Jaculbe |
 | RC-062 | As a user, I want to receive an error message when an upload fails so that I know the action was not completed. | 7 | 3 | N | In-Progress | Sebastian Jaculbe |
@@ -30,4 +31,4 @@ Scrum Master: Kaleb Richardson
 
 Team Capacity: 60 Story Points
 
-Story Points: 68 points
+Story Points: 72 points

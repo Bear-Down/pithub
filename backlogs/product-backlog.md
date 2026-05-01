@@ -40,7 +40,7 @@ Scrum Master: Kaleb Richardson
 | RC-061 | As a user, I want to view a loading indicator when videos or classes are being fetched so that I understand the system is processing my request. | 6 | 2 | N | -- | -- |
 | RC-062 | As a user, I want to receive an error message when an upload fails so that I know the action was not completed. | 7 | 2 | N | -- | -- |
 | RC-063 | As a user, I want to upload large video files with progress feedback so that I can track upload completion. | 8 | 5 | N | -- | -- |
-| RC-065 | As a user, I want to paginate video lists so that large datasets are easier to navigate. | 6 | 3 | N | -- | -- |
+| RC-065 | As a user, I want to paginate video lists so that large datasets are easier to navigate. | 6 | 4 | N | -- | -- |
 | RC-066 | As a user, I want to sort videos by upload date or title so that I can organize content based on preference. | 5 | 2 | N | -- | -- |
 | RC-067 | As a user, I want to see the uploader’s name on each video so that I know who created the content. | 5 | 1 | N | -- | -- |
 | RC-068 | As a user, I want to download videos when permitted so that I can access them offline. | 6 | 3 | N | -- | -- |
