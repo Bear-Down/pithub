@@ -17,8 +17,9 @@
   "devDependencies": {
     "concurrently": "^8.2.2"
   },
-  "dependencies": {
-    "firebase": "^12.12.1",
-    "react-router-dom": "^7.14.2"
+  "dependencies": {},
+  "overrides": {
+    "protobufjs": "^7.2.6",
+    "fast-uri": "^3.0.0"
   }
 }

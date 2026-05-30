@@ -15,6 +15,7 @@ const ClassPage = () => {
 	const [uploading, setUploading] = useState(false);
 	const [uploadProgress, setUploadProgress] = useState(0);
 	const [confirmDelete, setConfirmDelete] = useState(null);
+	const [uploadError, setUploadError] = useState(null);
 	const [showUploadSuccess, setShowUploadSuccess] = useState(false);
 	const [lastUploadedFile, setLastUploadedFile] = useState('');
 	const [isEditingClass, setIsEditingClass] = useState(false);
@@ -183,13 +184,13 @@ const ClassPage = () => {
 			console.log("File successfully uploaded and indexed!");
 		} catch (error) {
 			console.error("Firebase Upload Error:", error);
+			let errorMessage = `Upload failed: ${error.message}`;
 			if (error.message.includes('ERR_CONNECTION_REFUSED') || error.code === 'storage/retry-limit-exceeded') {
-				alert("Network Error: Access to Firebase Storage is being refused. If you are on a University Wi-Fi, they may be blocking uploads. Try using a VPN or mobile data.");
+				errorMessage = "Network Error: Access to Firebase Storage is being refused. If you are on Lewis University Wi-Fi, they may be blocking uploads. Try using a VPN or mobile data.";
 			} else if (error.code === 'storage/unauthorized') {
-			alert("Permission Denied: Update your Firebase Storage Rules in the console.");
-			} else {
-			alert(`Upload failed: ${error.message}`);
+				errorMessage = "Permission Denied: Update your Firebase Storage Rules in the console.";
 			}
+			setUploadError(errorMessage);
 		} finally {
 			setUploading(false);
 			setUploadProgress(0);
@@ -408,6 +409,19 @@ const ClassPage = () => {
 			confirmText="Done"
 			onConfirm={() => setShowUploadSuccess(false)}
 			onCancel={() => setShowUploadSuccess(false)}
+		/>
+
+		<ConfirmationModal 
+			isOpen={!!uploadError}
+			title="Upload Error"
+			message={uploadError}
+			confirmText="Try Again"
+			cancelText="Cancel"
+			onConfirm={() => {
+				setUploadError(null);
+				handleAddClick();
+			}}
+			onCancel={() => setUploadError(null)}
 		/>
 
 		{/* <div className="status">
