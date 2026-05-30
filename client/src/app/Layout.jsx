@@ -85,17 +85,17 @@ const Layout = () => {
 			<Outlet />
 		</main>
 
-          <footer>
-            <div className="footer-container">
-              <div className="footer-center">
-                &copy; {new Date().getFullYear()} PitHub - Bear Down
-              </div>
-              <div className="footer-links">
-                <Link to="/about">About</Link>
-                <Link to="/terms">Terms</Link>
-              </div>
-            </div>
-          </footer>
+			<footer>
+				<div className="footer-container">
+					<div className="footer-center">
+						&copy; {new Date().getFullYear()} PitHub - Bear Down
+					</div>
+					<div className="footer-links">
+						<Link to="/about">About</Link>
+						<Link to="/terms">Terms</Link>
+					</div>
+				</div>
+			</footer>
 		</div>
 	);
 };

@@ -424,9 +424,13 @@ const ClassPage = () => {
 			onCancel={() => setUploadError(null)}
 		/>
 
-		{/* <div className="status">
+		{/* 
+		// This if for debugging purposes - this shows the specific UID of a user
+		within their own classes...
+		<div className="status">
 			<p>Class ID: {classId}</p>
-		</div> */}
+		</div> 
+		*/}
 		</div>
 	);
 };

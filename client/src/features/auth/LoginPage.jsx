@@ -54,8 +54,9 @@ const LoginPage = () => {
 					</div>
 					
 					{/* 
-						Note: If you want to add Email/Password later, 
-						you would insert the form inputs here between the header and actions.
+						Note: we can add Email/Password later and have the form inputs here
+						between the header and actions, but since Lewis students and faculty will 
+						use with @lewisu.edu emails, this might not be needed
 					*/}
 				</div>
 			</div>
