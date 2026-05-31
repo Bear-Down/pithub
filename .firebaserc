@@ -1,8 +1,8 @@
 {
-  "projects": {
-    "testing": "pithub-test-kd",
-    "default": "pithub-test-kd"
-  },
-  "targets": {},
-  "etags": {}
+	"projects": {
+		"testing": "pithub-test-kd",
+		"default": "pithub-test-kd"
+	},
+	"targets": {},
+	"etags": {}
 }

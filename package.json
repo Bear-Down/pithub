@@ -1,25 +1,25 @@
 {
-  "name": "pithub-test-root",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "workspaces": [
-    "client"
-  ],
-  "scripts": {
-    "dev:client": "cd client && npm run dev",
-    "dev:functions": "cd functions && npm run dev",
-    "dev": "concurrently \"npm run dev:client\" \"firebase emulators:start\"",
-    "build": "npm run build --workspace=client",
-    "deploy": "firebase deploy",
-    "start": "npm run start --workspace=client"
-  },
-  "devDependencies": {
-    "concurrently": "^8.2.2"
-  },
-  "dependencies": {},
-  "overrides": {
-    "protobufjs": "^7.2.6",
-    "fast-uri": "^3.0.0"
-  }
+	"name": "pithub-test-root",
+	"private": true,
+	"version": "0.0.0",
+	"type": "module",
+	"workspaces": [
+		"client"
+	],
+	"scripts": {
+		"dev:client": "cd client && npm run dev",
+		"dev:functions": "cd functions && npm run dev",
+		"dev": "concurrently \"npm run dev:client\" \"firebase emulators:start\"",
+		"build": "npm run build --workspace=client",
+		"deploy": "firebase deploy",
+		"start": "npm run start --workspace=client"
+	},
+	"devDependencies": {
+		"concurrently": "^8.2.2"
+	},
+	"dependencies": {},
+	"overrides": {
+		"protobufjs": "^7.2.6",
+		"fast-uri": "^3.0.0"
+	}
 }

@@ -3,9 +3,9 @@ layout: default
 title: Product Backlog
 permalink: /backlogs/product-backlog/
 ---
-Product Owner: Edward Rodriguez
+Product Owner: 
 
-Scrum Master: Kaleb Richardson 
+Scrum Master:  
 
 # 📋 Product Backlog – *Pithub*
 
