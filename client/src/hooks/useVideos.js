@@ -7,6 +7,7 @@ export function useVideos() {
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
 	const [page, setPage] = useState(1);
+	const [hasNext, setHasNext] = useState(false);
 	const [lastDocs, setLastDocs] = useState([]); // Store the last doc snapshot of each page for "Next" navigation
 	const pageSize = 5;
 
@@ -17,25 +18,32 @@ export function useVideos() {
 
 		// Create a query to get recent files from Firestore
 		const filesQuery = cursor 
-			? query(collection(db, "files"), orderBy("createdAt", "desc"), startAfter(cursor), limit(pageSize))
-			: query(collection(db, "files"), orderBy("createdAt", "desc"), limit(pageSize));
+			? query(collection(db, "files"), orderBy("createdAt", "desc"), startAfter(cursor), limit(pageSize + 1))
+			: query(collection(db, "files"), orderBy("createdAt", "desc"), limit(pageSize + 1));
 
 		const unsubscribe = onSnapshot(filesQuery, 
 			(snapshot) => {
-				const fetchedFiles = snapshot.docs.map(doc => ({
+				const hasMore = snapshot.docs.length > pageSize;
+				setHasNext(hasMore);
+
+				// Only display the current page's items
+				const visibleDocs = hasMore ? snapshot.docs.slice(0, pageSize) : snapshot.docs;
+
+				const fetchedFiles = visibleDocs.map(doc => ({
 					id: doc.id,
 					...doc.data()
 				}));
 				setVideos(fetchedFiles);
 				
-				// Update our cursor history with the last document of the current snapshot
-				if (snapshot.docs.length > 0) {
+				// Update our cursor history with the last VISIBLE document
+				if (visibleDocs.length > 0) {
 					setLastDocs(prev => {
 						const next = [...prev];
-						next[page - 1] = snapshot.docs[snapshot.docs.length - 1];
+						next[page - 1] = visibleDocs[visibleDocs.length - 1];
 						return next;
 					});
 				}
+
 				setLoading(false);
 			}, 
 			(err) => {
@@ -51,5 +59,5 @@ export function useVideos() {
 	const nextPage = () => setPage(p => p + 1);
 	const prevPage = () => setPage(p => Math.max(1, p - 1));
 
-	return { videos, loading, error, nextPage, prevPage, page, hasNext: videos.length === pageSize };
+	return { videos, loading, error, nextPage, prevPage, page, hasNext };
 }
