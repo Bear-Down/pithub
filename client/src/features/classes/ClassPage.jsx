@@ -177,7 +177,7 @@ const ClassPage = () => {
 			title="Remove File?"
 			message={
 				<>
-					Are you sure you want to delete <strong>{confirmDelete?.name}</strong>? 
+					Are you sure you want to delete <strong><>{confirmDelete?.name}</></strong>? 
 					This will permanently remove the file from PitHub.
 				</>
 			}
@@ -193,7 +193,7 @@ const ClassPage = () => {
 			isOpen={showUploadSuccess}
 			title="Upload Complete"
 			message={
-				<>Your file <strong>{lastUploadedFile}</strong> has been successfully uploaded and is now available for the class.</>
+				<>Your file <strong><>{lastUploadedFile}</></strong> has been successfully uploaded and is now available for the class.</>
 			}
 			confirmText="Done"
 			onConfirm={() => setShowUploadSuccess(false)}
@@ -203,7 +203,7 @@ const ClassPage = () => {
 		<ConfirmationModal 
 			isOpen={!!uploadError}
 			title="Upload Error"
-			message={uploadError}
+			message={<>{uploadError}</>}
 			confirmText="Try Again"
 			cancelText="Cancel"
 			onConfirm={() => {

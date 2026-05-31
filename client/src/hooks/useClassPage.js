@@ -7,7 +7,8 @@ import {
     query, 
     where, 
     onSnapshot, 
-    addDoc, 
+    addDoc,
+    orderBy,
     serverTimestamp, 
     deleteDoc, 
     updateDoc 
@@ -80,7 +81,8 @@ export const useClassPage = () => {
 
         const q = query(
             collection(db, 'files'),
-            where('classId', '==', classId)
+            where('classId', '==', classId),
+            orderBy('createdAt', 'desc')
         );
 
         const unsubscribe = onSnapshot(q, (snapshot) => {
