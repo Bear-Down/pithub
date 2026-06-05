@@ -1,18 +1,188 @@
-rules_version='2'
+rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /{document=**} {
-      // This rule allows anyone with your database reference to view, edit,
-      // and delete all data in your database. It is useful for getting
-      // started, but it is configured to expire after 30 days because it
-      // leaves your app open to attackers. At that time, all client
-      // requests to your database will be denied.
-      //
-      // Make sure to write security rules for your app before that time, or
-      // else all client requests to your database will be denied until you
-      // update your rules.
-      allow read, write: if request.time < timestamp.date(2026, 5, 11);
+    
+    // ===============================================================
+    // Assumed Data Model
+    // ===============================================================
+    //
+    // Collection: users
+    // Document ID: {userId} (matches auth.uid)
+    // Fields:
+    //   - major: string (optional, max 100 chars)
+    //   - minor: string (optional, max 100 chars)
+    //   - gradSemester: string (optional, max 20 chars)
+    //   - bio: string (optional, max 500 chars)
+    //   - website: string (optional, URL, max 200 chars)
+    //   - visibility: string ('private', 'public') - Default: 'private'
+    //   - profileConfig: map (optional, boolean toggles)
+    //   - displayName: string (from Auth)
+    //   - email: string (from Auth, PII)
+    //
+    // Collection: classes
+    // Document ID: {classId} (auto-generated)
+    // Fields:
+    //   - name: string (required, 1-100 chars)
+    //   - ownerId: string (required, matches auth.uid)
+    //   - ownerName: string (required)
+    //   - createdAt: timestamp (required, serverTimestamp)
+    //   - visibility: string ('private', 'public') - Default: 'private'
+    //   - displayConfig: map (optional, boolean toggles)
+    //   - instructor: string (optional)
+    //   - office: string (optional)
+    //   - officeHours: string (optional)
+    //   - email: string (optional, email format)
+    //   - room: string (optional)
+    //   - meetingTime: string (optional)
+    //   - description: string (optional, max 1000 chars)
+    //   - syllabusUrl: string (optional, URL, max 200 chars)
+    //
+    // Collection: files
+    // Document ID: {fileId} (auto-generated)
+    // Fields:
+    //   - name: string (required, 1-255 chars)
+    //   - url: string (required, URL)
+    //   - storagePath: string (required)
+    //   - thumbnailUrl: string (optional, URL)
+    //   - thumbnailPath: string (optional)
+    //   - classId: string (required, reference to a class)
+    //   - ownerId: string (required, matches auth.uid)
+    //   - ownerName: string (required)
+    //   - className: string (required)
+    //   - type: string (required, mime type)
+    //   - createdAt: timestamp (required, serverTimestamp)
+    //   - visibility: string ('private', 'public')
+    //
+    // ===============================================================
+
+    // ===============================================================
+    // Helper Functions
+    // ===============================================================
+
+    // Check if the user is authenticated and belongs to the university domain
+    function isUniversityUser() {
+      return request.auth != null && 
+             request.auth.token.get('email', '').matches(".*@lewisu\\\\.edu$");
+    }
+
+    // Check if user owns the resource
+    function isOwner(ownerId) {
+      return isUniversityUser() && request.auth.uid == ownerId;
+    }
+
+    // Ensure UID field is not modified on update
+    function uidNotModified(field) {
+      return !(field in request.resource.data) ||
+             request.resource.data[field] == resource.data[field];
+    }
+
+    // Validate required fields exist
+    function hasRequiredFields(fields) {
+      return request.resource.data.keys().hasAll(fields);
+    }
+
+    // Validate URL format (must start with https:// or http://)
+    function isValidUrl(url) {
+      return url is string &&
+             (url.matches("^https://.*") || url.matches("^http://.*"));
+    }
+
+    // Validate email format
+    function isValidEmail(email) {
+      return email is string &&
+             email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\\\.[a-zA-Z]{2,}$");
+    }
+
+    // Validate that the document contains only the allowed fields
+    function hasOnlyAllowedFields(fields) {
+      return request.resource.data.keys().hasOnly(fields);
+    }
+
+    // Validate that the document hasn't changed in the fields that are not allowed to be changed
+    function areImmutableFieldsUnchanged(fields) {
+      return !request.resource.data.diff(resource.data).affectedKeys().hasAny(fields);
+    }
+
+    // ===============================================================
+    // Domain Validators
+    // ===============================================================
+
+    function isValidUser(data) {
+      return hasOnlyAllowedFields([
+        'major', 'minor', 'gradSemester', 'bio', 'website', 
+        'visibility', 'profileConfig', 'displayName', 'email'
+      ]) &&
+             (!('major' in data) || data.major is string && data.major.size() <= 100) &&
+             (!('minor' in data) || data.minor is string && data.minor.size() <= 100) &&
+             (!('gradSemester' in data) || data.gradSemester is string && data.gradSemester.size() <= 20) &&
+             (!('bio' in data) || data.bio is string && data.bio.size() <= 500) &&
+             (!('website' in data) || isValidUrl(data.website) && data.website.size() <= 200) &&
+             (!('visibility' in data) || data.visibility in ['private', 'public']) &&
+             (!('profileConfig' in data) || data.profileConfig is map) &&
+             (!('displayName' in data) || data.displayName is string && data.displayName.size() <= 100);
+    }
+
+    function isValidClass(data) {
+      return hasRequiredFields(['name', 'ownerId', 'ownerName', 'createdAt', 'visibility']) && 
+             hasOnlyAllowedFields([
+               'name', 'ownerId', 'ownerName', 'createdAt', 'visibility',
+               'displayConfig', 'instructor', 'office', 'officeHours', 
+               'email', 'room', 'meetingTime', 'description', 'syllabusUrl'
+             ]) &&
+             data.name is string && data.name.size() >= 1 && data.name.size() <= 100 &&
+             data.ownerId == request.auth.uid &&
+             data.visibility in ['private', 'public'] &&
+             (!('description' in data) || data.description is string && data.description.size() <= 1000) &&
+             (!('email' in data) || isValidEmail(data.email)) &&
+             (!('syllabusUrl' in data) || isValidUrl(data.syllabusUrl) && data.syllabusUrl.size() <= 200);
+    }
+
+    function isValidFile(data) {
+      return hasRequiredFields([
+        'name', 'url', 'storagePath', 'classId', 
+        'ownerId', 'ownerName', 'className', 'type', 'createdAt', 'visibility'
+      ]) && 
+             hasOnlyAllowedFields([
+               'name', 'url', 'storagePath', 'classId', 
+               'ownerId', 'ownerName', 'className', 'type', 'createdAt', 'visibility',
+               'thumbnailUrl', 'thumbnailPath'
+             ]) &&
+             data.name is string && data.name.size() >= 1 && data.name.size() <= 255 &&
+             isValidUrl(data.url) &&
+             data.ownerId == request.auth.uid &&
+             data.visibility in ['private', 'public'];
+    }
+
+    // ===============================================================
+    // Rules
+    // ===============================================================
+
+    // User Profiles
+    match /users/{userId} {
+      allow read: if isUniversityUser() && (isOwner(userId) || resource.data.visibility == 'public');
+      
+      allow create: if isOwner(userId) && isValidUser(request.resource.data);
+      allow update: if isOwner(userId) && isValidUser(request.resource.data) && uidNotModified('email');
+      allow delete: if false;
+    }
+
+    // Classes
+    match /classes/{classId} {
+      allow read: if isUniversityUser() && (isOwner(resource.data.ownerId) || resource.data.visibility == 'public');
+      
+      allow create: if isUniversityUser() && isValidClass(request.resource.data);
+      allow update: if isOwner(resource.data.ownerId) && isValidClass(request.resource.data) && areImmutableFieldsUnchanged(['ownerId', 'createdAt']);
+      allow delete: if isOwner(resource.data.ownerId);
+    }
+
+    // Files
+    match /files/{fileId} {
+      allow read: if isUniversityUser() && (isOwner(resource.data.ownerId) || resource.data.visibility == 'public');
+      
+      allow create: if isUniversityUser() && isValidFile(request.resource.data);
+      allow update: if isOwner(resource.data.ownerId) && isValidFile(request.resource.data) && areImmutableFieldsUnchanged(['ownerId', 'createdAt', 'classId']);
+      allow delete: if isOwner(resource.data.ownerId);
     }
   }
 }
