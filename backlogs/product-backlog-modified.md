@@ -18,11 +18,11 @@
 | PERMISSIONS-001 | As a developer, I want to implement role-based permissions (future) so that professors and students may have different capabilities. | In Progress |
 | ERROR-HANDLING-001 | As a developer, I want to implement centralized frontend error handling so that all application errors are managed consistently. | In Progress |
 | CLASSPAGE-001 | **[Consolidated] Class Resource Management**: Support for creating, editing, and pinning formatted notes and organizing documents into folders. | In Progress |
-| CLASSPAGE-002 | As a user, I want to toggle visibility of specific class information fields (e.g., Instructor, Office, Time) when editing class details. | In Progress |
-| CLASSPAGE-003 | As a user, I want to toggle the public/private visibility of a class directly from its dedicated class page. | In Progress |
+| CLASSPAGE-002 | As a user, I want to toggle visibility of specific class information fields (e.g., Instructor, Office, Time) when editing class details. | Done |
+| CLASSPAGE-003 | As a user, I want to toggle the public/private visibility of a class directly from its dedicated class page. | Done |
 | DOCUMENT-001 | As a user, I want to preview documents (PDFs) directly in the browser so that I do not need to download them first. | In Progress |
 | UI-RESPONSIVE-001 | As a user, I want to access the platform on different screen sizes so that I can use it on mobile and desktop devices. | In Progress |
-| UI-002 | As a user, I want to switch between dark and light mode for the application interface. | In Progress |
+| UI-002 | As a user, I want to switch between dark and light mode for the application interface. | Done |
 | DASHBOARD-001 | **[Consolidated] Recommendation Engine**: Algorithm and UI to display prioritized, relevant content on the dashboard. | In Progress |
 | ONBOARDING-001 | **[Consolidated] User Onboarding Flow**: Interactive walkthrough and tutorials for first-time users, including progress tracking. | In Progress |
 | SECURITY-002 | As a developer, I want to verify the security of logins and video files. | In Progress |
@@ -32,7 +32,7 @@
 | CLASS-MEMBERSHIP-001 | **[Consolidated] Class Membership**: Ability to view class members, invite others, and receive joining notifications. | In Progress |
 | SOCIAL-001 | **[Consolidated] Social Engagement**: Star/Favorite videos, profiles, classes, and notes for quick access on the dashboard. | In Progress |
 | PROFILE-001 | **[Consolidated] Public Profiles**: View user activity and manage profile visibility (Public/Private). | In Progress |
-| PROFILE-002 | As a user, I want to toggle visibility of specific profile information fields (e.g., Major, Minor, Graduation, About Me) on my profile page. | In Progress |
+| PROFILE-002 | As a user, I want to toggle visibility of specific profile information fields (e.g., Major, Minor, Graduation, About Me) on my profile page. | Done |
 | PERFORMANCE-002 | As a developer, I want to implement caching strategies for frequently accessed data so that performance is improved. | In Progress |
 | SEARCH-FILTER-001 | As a user, I want to filter videos by date and class so that I can narrow down content efficiently. | In Progress |
 | VIDEO-METADATA-001 | As a user, I want to edit video metadata (title, description, visibility) so that my content remains accurate. | In Progress |
