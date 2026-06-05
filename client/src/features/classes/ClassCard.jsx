@@ -1,14 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const ClassCard = ({ classData, onEdit, onDelete, onVisibilityChange, isOwner = true }) => {
+const ClassCard = ({ classData, onEdit, onDelete, isOwner = true }) => {
 	const navigate = useNavigate();
-
-	const handleVisibilityChange = (e) => {
-		e.stopPropagation(); // Prevent card click from navigating
-		onVisibilityChange(classData.id, e.target.value);
-	};
-
 	return (
 		<div className="class-card" onClick={() => navigate(`/class/${classData.id}`)} style={{ position: 'relative' }}>
 			<h3>{classData.name}</h3>
@@ -19,11 +13,21 @@ const ClassCard = ({ classData, onEdit, onDelete, onVisibilityChange, isOwner = 
 						<button className="edit-btn" onClick={() => onEdit(classData)}>Edit</button>
 						<button className="delete-btn" onClick={() => onDelete(classData)}>Delete</button>
 					</div>
-					<div className="class-visibility-control" onClick={(e) => e.stopPropagation()}>
-						<select value={classData.visibility || 'private'} onChange={handleVisibilityChange} style={{ backgroundColor: (classData.visibility === 'public' ? '#e0ffe0' : '#ffe0e0') }}>
-							<option value="private">Private</option>
-							<option value="public">Public</option>
-						</select>
+					<div 
+						className="class-visibility-indicator" 
+						style={{ 
+							position: 'absolute', 
+							top: '10px', 
+							right: '10px', 
+							fontSize: '0.7rem', 
+							padding: '2px 6px', 
+							borderRadius: '4px', 
+							fontWeight: 'bold',
+							backgroundColor: classData.visibility === 'public' ? '#28a745' : '#ff4d4d',
+							color: '#ffffff'
+						}}
+					>
+						{classData.visibility === 'public' ? 'Public' : 'Private'}
 					</div>
 				</>
 			)}

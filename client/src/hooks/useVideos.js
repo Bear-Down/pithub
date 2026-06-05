@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { collection, query, orderBy, limit, onSnapshot, startAfter } from "firebase/firestore";
+import { collection, query, orderBy, limit, onSnapshot, startAfter, where } from "firebase/firestore";
 import { db } from "../lib/firebase"; // Import db from firebase.js
 
 export function useVideos() {
@@ -18,8 +18,14 @@ export function useVideos() {
 
 		// Create a query to get recent files from Firestore
 		const filesQuery = cursor 
-			? query(collection(db, "files"), orderBy("createdAt", "desc"), startAfter(cursor), limit(pageSize + 1))
-			: query(collection(db, "files"), orderBy("createdAt", "desc"), limit(pageSize + 1));
+			? query(
+				collection(db, "files"), 
+				where("visibility", "==", "public"), 
+				orderBy("createdAt", "desc"), 
+				startAfter(cursor), 
+				limit(pageSize + 1)
+			)
+			: query(collection(db, "files"), where("visibility", "==", "public"), orderBy("createdAt", "desc"), limit(pageSize + 1));
 
 		const unsubscribe = onSnapshot(filesQuery, 
 			(snapshot) => {

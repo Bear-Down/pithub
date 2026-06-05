@@ -24,8 +24,16 @@ const ClassPage = () => {
 		handleAddClick,
 		handleFileChange,
 		handleDeleteFile,
-		handleUpdateClass
+		handleUpdateClass,
+		handleToggleVisibility,
+		handleToggleFieldVisibility,
+		isOwner,
+		isGlobalLoading,
+		isFieldLoading,
+		classId
 	} = useClassPage();
+
+	const [showProfileWarning, setShowProfileWarning] = React.useState(false);
 
 	return (
 		<div className="container class-page">
@@ -42,10 +50,33 @@ const ClassPage = () => {
 
 		<div className="class-page-header">
 			<h1>{classData ? classData.name : 'Loading...'}</h1>
-			{user?.uid === classData?.ownerId && (
-				<button className="add-content-btn" onClick={handleAddClick} disabled={uploading}>
-				{uploading ? `Uploading ${uploadProgress}%` : '+ Add Video / Document'}
-				</button>
+			{isOwner && (
+				<div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+					<button 
+						onClick={async () => {
+							const result = await handleToggleVisibility();
+							if (result?.error === 'PROFILE_PRIVATE') {
+								setShowProfileWarning(true);
+							}
+						}} 
+						disabled={isGlobalLoading}
+						style={{ 
+							padding: '8px 16px', 
+							fontSize: '0.85rem', 
+							borderRadius: '6px', 
+							border: '1px solid #ccc', 
+							fontWeight: 'bold',
+							backgroundColor: classData.visibility === 'public' ? '#28a745' : '#ff4d4d',
+							color: '#ffffff',
+							cursor: 'pointer'
+						}}
+					>
+						{isGlobalLoading ? '...' : (classData?.visibility === 'public' ? 'Public Class' : 'Private Class')}
+					</button>
+					<button className="add-content-btn" onClick={handleAddClick} disabled={uploading}>
+						{uploading ? `Uploading ${uploadProgress}%` : '+ Add Video / Document'}
+					</button>
+				</div>
 			)}
 		</div>
 
@@ -53,25 +84,73 @@ const ClassPage = () => {
 			{isEditingClass ? (
 				<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px' }}>
 					<div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-						<label style={{ fontSize: '0.8rem', fontWeight: 'bold' }}>Instructor</label>
+						<div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+							<label style={{ fontSize: '0.8rem', fontWeight: 'bold' }}>Instructor</label>
+							<button 
+								onClick={() => handleToggleFieldVisibility('showInstructor')} 
+								disabled={isFieldLoading}
+								style={{ fontSize: '0.6rem', padding: '1px 4px', cursor: 'pointer', borderRadius: '3px', border: '1px solid #ccc', backgroundColor: classData?.displayConfig?.showInstructor ? '#e0ffe0' : '#f0f0f0' }}
+							>
+								{classData?.displayConfig?.showInstructor ? 'Visible' : 'Hidden'}
+							</button>
+						</div>
 						<input type="text" value={classEditData.instructor} onChange={(e) => setClassEditData({...classEditData, instructor: e.target.value})} placeholder="Dr. Pogue" style={{ padding: '6px', borderRadius: '4px', border: '1px solid #ccc' }} />
 						
-						<label style={{ fontSize: '0.8rem', fontWeight: 'bold' }}>Office & Hours</label>
+						<div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+							<label style={{ fontSize: '0.8rem', fontWeight: 'bold' }}>Office & Hours</label>
+							<div style={{ display: 'flex', gap: '4px' }}>
+								<button disabled={isFieldLoading} onClick={() => handleToggleFieldVisibility('showOffice')} style={{ fontSize: '0.6rem', padding: '1px 4px', cursor: 'pointer', borderRadius: '3px', border: '1px solid #ccc', backgroundColor: classData?.displayConfig?.showOffice ? '#e0ffe0' : '#f0f0f0' }}>Offc</button>
+								<button disabled={isFieldLoading} onClick={() => handleToggleFieldVisibility('showOfficeHours')} style={{ fontSize: '0.6rem', padding: '1px 4px', cursor: 'pointer', borderRadius: '3px', border: '1px solid #ccc', backgroundColor: classData?.displayConfig?.showOfficeHours ? '#e0ffe0' : '#f0f0f0' }}>Hrs</button>
+							</div>
+						</div>
 						<input type="text" value={classEditData.office} onChange={(e) => setClassEditData({...classEditData, office: e.target.value})} placeholder="AS 123" style={{ padding: '6px', borderRadius: '4px', border: '1px solid #ccc' }} />
 						<input type="text" value={classEditData.officeHours} onChange={(e) => setClassEditData({...classEditData, officeHours: e.target.value})} placeholder="MW 2:00 PM - 4:00 PM" style={{ padding: '6px', borderRadius: '4px', border: '1px solid #ccc' }} />
 						
-						<label style={{ fontSize: '0.8rem', fontWeight: 'bold' }}>Email</label>
+						<div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+							<label style={{ fontSize: '0.8rem', fontWeight: 'bold' }}>Email</label>
+							<button 
+								onClick={() => handleToggleFieldVisibility('showEmail')} 
+								disabled={isFieldLoading}
+								style={{ fontSize: '0.6rem', padding: '1px 4px', cursor: 'pointer', borderRadius: '3px', border: '1px solid #ccc', backgroundColor: classData?.displayConfig?.showEmail ? '#e0ffe0' : '#f0f0f0' }}
+							>
+								{classData?.displayConfig?.showEmail ? 'Visible' : 'Hidden'}
+							</button>
+						</div>
 						<input type="email" value={classEditData.email} onChange={(e) => setClassEditData({...classEditData, email: e.target.value})} placeholder="prof@lewisu.edu" style={{ padding: '6px', borderRadius: '4px', border: '1px solid #ccc' }} />
 					</div>
 					<div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-						<label style={{ fontSize: '0.8rem', fontWeight: 'bold' }}>Room & Time</label>
+						<div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+							<label style={{ fontSize: '0.8rem', fontWeight: 'bold' }}>Room & Time</label>
+							<div style={{ display: 'flex', gap: '4px' }}>
+								<button disabled={isFieldLoading} onClick={() => handleToggleFieldVisibility('showRoom')} style={{ fontSize: '0.6rem', padding: '1px 4px', cursor: 'pointer', borderRadius: '3px', border: '1px solid #ccc', backgroundColor: classData?.displayConfig?.showRoom ? '#e0ffe0' : '#f0f0f0' }}>Rm</button>
+								<button disabled={isFieldLoading} onClick={() => handleToggleFieldVisibility('showMeetingTime')} style={{ fontSize: '0.6rem', padding: '1px 4px', cursor: 'pointer', borderRadius: '3px', border: '1px solid #ccc', backgroundColor: classData?.displayConfig?.showMeetingTime ? '#e0ffe0' : '#f0f0f0' }}>Time</button>
+							</div>
+						</div>
 						<input type="text" value={classEditData.room} onChange={(e) => setClassEditData({...classEditData, room: e.target.value})} placeholder="AS 104 G" style={{ padding: '6px', borderRadius: '4px', border: '1px solid #ccc' }} />
 						<input type="text" value={classEditData.meetingTime} onChange={(e) => setClassEditData({...classEditData, meetingTime: e.target.value})} placeholder="T/TH 11:00 AM" style={{ padding: '6px', borderRadius: '4px', border: '1px solid #ccc' }} />
 						
-						<label style={{ fontSize: '0.8rem', fontWeight: 'bold' }}>Syllabus URL</label>
+						<div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+							<label style={{ fontSize: '0.8rem', fontWeight: 'bold' }}>Syllabus URL</label>
+							<button 
+								onClick={() => handleToggleFieldVisibility('showSyllabus')} 
+								disabled={isFieldLoading}
+								style={{ fontSize: '0.6rem', padding: '1px 4px', cursor: 'pointer', borderRadius: '3px', border: '1px solid #ccc', backgroundColor: classData?.displayConfig?.showSyllabus ? '#e0ffe0' : '#f0f0f0' }}
+							>
+								{classData?.displayConfig?.showSyllabus ? 'Visible' : 'Hidden'}
+							</button>
+						</div>
 						<input type="text" value={classEditData.syllabusUrl} onChange={(e) => setClassEditData({...classEditData, syllabusUrl: e.target.value})} placeholder="https://drive.google.com/..." style={{ padding: '6px', borderRadius: '4px', border: '1px solid #ccc' }} />
 						
-						<label style={{ fontSize: '0.8rem', fontWeight: 'bold' }}>Short Description</label>
+						<div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+							<label style={{ fontSize: '0.8rem', fontWeight: 'bold' }}>Short Description</label>
+							<button 
+								onClick={() => handleToggleFieldVisibility('showDescription')} 
+								disabled={isFieldLoading}
+								style={{ fontSize: '0.6rem', padding: '1px 4px', cursor: 'pointer', borderRadius: '3px', border: '1px solid #ccc', backgroundColor: classData?.displayConfig?.showDescription ? '#e0ffe0' : '#f0f0f0' }}
+							>
+								{classData?.displayConfig?.showDescription ? 'Visible' : 'Hidden'}
+							</button>
+						</div>
 						<textarea value={classEditData.description} onChange={(e) => setClassEditData({...classEditData, description: e.target.value})} placeholder="Brief overview of the course..." style={{ padding: '6px', borderRadius: '4px', border: '1px solid #ccc', resize: 'vertical', height: '60px' }} />
 					</div>
 					<div style={{ gridColumn: 'span 2', display: 'flex', gap: '10px', justifyContent: 'flex-end' }}>
@@ -83,52 +162,96 @@ const ClassPage = () => {
 				<div style={{ position: 'relative' }}>
 					<div style={{ display: 'flex', flexWrap: 'wrap', gap: '25px' }}>
 						<div style={{ flex: '1', minWidth: '200px' }}>
-							<p style={{ margin: '4px 0' }}><strong>Instructor:</strong> {classData?.instructor || 'Not set'}</p>
-							<p style={{ margin: '4px 0' }}><strong>Office:</strong> {classData?.office || 'Not set'}</p>
-							<p style={{ margin: '4px 0' }}><strong>Office Hours:</strong> {classData?.officeHours || 'Not set'}</p>
-							<p style={{ margin: '4px 0' }}><strong>Email:</strong> {classData?.email ? <a href={`mailto:${classData.email}`} style={{ color: 'blue' }}>{classData.email}</a> : 'Not set'}</p>
-						</div>
-						<div style={{ flex: '1', minWidth: '200px' }}>
-							<p style={{ margin: '4px 0' }}><strong>Room:</strong> {classData?.room || 'Not set'}</p>
-							<p style={{ margin: '4px 0' }}><strong>Time:</strong> {classData?.meetingTime || 'Not set'}</p>
-							{classData?.syllabusUrl && (
-								<p style={{ margin: '4px 0' }}>
-									<strong>Syllabus:</strong> <a href={classData.syllabusUrl} target="_blank" rel="noreferrer" style={{ color: 'blue' }}>View Syllabus</a>
+							{/* Instructor */}
+							{classData?.instructor && (isOwner || classData?.displayConfig?.showInstructor !== false) && (
+								<p style={{ margin: '4px 0', opacity: classData?.displayConfig?.showInstructor === false ? 0.6 : 1 }}>
+									<strong>Instructor:</strong> {classData.instructor}
+									{isOwner && classData?.displayConfig?.showInstructor === false && <span style={{ fontSize: '0.65rem', color: '#888', marginLeft: '5px', fontStyle: 'italic' }}>(Hidden)</span>}
+								</p>
+							)}
+							{/* Office */}
+							{classData?.office && (isOwner || classData?.displayConfig?.showOffice !== false) && (
+								<p style={{ margin: '4px 0', opacity: classData?.displayConfig?.showOffice === false ? 0.6 : 1 }}>
+									<strong>Office:</strong> {classData.office}
+									{isOwner && classData?.displayConfig?.showOffice === false && <span style={{ fontSize: '0.65rem', color: '#888', marginLeft: '5px', fontStyle: 'italic' }}>(Hidden)</span>}
+								</p>
+							)}
+							{/* Office Hours */}
+							{classData?.officeHours && (isOwner || classData?.displayConfig?.showOfficeHours !== false) && (
+								<p style={{ margin: '4px 0', opacity: classData?.displayConfig?.showOfficeHours === false ? 0.6 : 1 }}>
+									<strong>Office Hours:</strong> {classData.officeHours}
+									{isOwner && classData?.displayConfig?.showOfficeHours === false && <span style={{ fontSize: '0.65rem', color: '#888', marginLeft: '5px', fontStyle: 'italic' }}>(Hidden)</span>}
+								</p>
+							)}
+							{/* Email */}
+							{classData?.email && (isOwner || classData?.displayConfig?.showEmail !== false) && (
+								<p style={{ margin: '4px 0', opacity: classData?.displayConfig?.showEmail === false ? 0.6 : 1 }}>
+									<strong>Email:</strong> <a href={`mailto:${classData.email}`} style={{ color: 'blue' }}>{classData.email}</a>
+									{isOwner && classData?.displayConfig?.showEmail === false && <span style={{ fontSize: '0.65rem', color: '#888', marginLeft: '5px', fontStyle: 'italic' }}>(Hidden)</span>}
 								</p>
 							)}
 						</div>
-						<div style={{ flex: '2', minWidth: '250px' }}>
-							<p style={{ margin: '4px 0' }}><strong>Course Description:</strong></p>
-							<p style={{ margin: '0', fontSize: '0.9rem', color: '#555', fontStyle: classData?.description ? 'normal' : 'italic' }}>
-								{classData?.description || 'No description provided.'}
-							</p>
+						<div style={{ flex: '1', minWidth: '200px' }}>
+							{/* Room */}
+							{classData?.room && (isOwner || classData?.displayConfig?.showRoom !== false) && (
+								<p style={{ margin: '4px 0', opacity: classData?.displayConfig?.showRoom === false ? 0.6 : 1 }}>
+									<strong>Room:</strong> {classData.room}
+									{isOwner && classData?.displayConfig?.showRoom === false && <span style={{ fontSize: '0.65rem', color: '#888', marginLeft: '5px', fontStyle: 'italic' }}>(Hidden)</span>}
+								</p>
+							)}
+							{/* Meeting Time */}
+							{classData?.meetingTime && (isOwner || classData?.displayConfig?.showMeetingTime !== false) && (
+								<p style={{ margin: '4px 0', opacity: classData?.displayConfig?.showMeetingTime === false ? 0.6 : 1 }}>
+									<strong>Time:</strong> {classData.meetingTime}
+									{isOwner && classData?.displayConfig?.showMeetingTime === false && <span style={{ fontSize: '0.65rem', color: '#888', marginLeft: '5px', fontStyle: 'italic' }}>(Hidden)</span>}
+								</p>
+							)}
+							{(isOwner || classData?.displayConfig?.showSyllabus !== false) && classData?.syllabusUrl && (
+								<p style={{ margin: '4px 0' }}>
+									<strong>Syllabus:</strong> <a href={classData.syllabusUrl} target="_blank" rel="noreferrer" style={{ color: 'blue' }}>View Syllabus</a>
+									{isOwner && classData?.displayConfig?.showSyllabus === false && <span style={{ fontSize: '0.65rem', color: '#888', marginLeft: '5px', fontStyle: 'italic' }}>(Hidden)</span>}
+								</p>
+							)}
 						</div>
+						{/* Description */}
+						{classData?.description && (isOwner || classData?.displayConfig?.showDescription !== false) && (
+							<div style={{ flex: '2', minWidth: '250px', opacity: classData?.displayConfig?.showDescription === false ? 0.6 : 1 }}>
+								<p style={{ margin: '4px 0' }}>
+									<strong>Course Description:</strong>
+									{isOwner && classData?.displayConfig?.showDescription === false && <span style={{ fontSize: '0.65rem', color: '#888', marginLeft: '5px', fontStyle: 'italic' }}>(Hidden)</span>}
+								</p>
+								<p style={{ margin: '0', fontSize: '0.9rem', color: '#555' }}>
+									{classData.description}
+								</p>
+							</div>
+						)}
 					</div>
-					{user?.uid === classData?.ownerId && (
-						<button 
-							onClick={() => setIsEditingClass(true)} 
-							style={{ 
-								position: 'absolute', 
-								top: '-5px', 
-								right: '-5px', 
-								padding: '4px 8px', 
-								fontSize: '0.7rem', 
-								borderRadius: '4px', 
-								border: '1px solid #ccc', 
-								backgroundColor: '#fff', 
-								cursor: 'pointer',
-								color: '#666' 
-							}}
-						>
-							Edit Info
-						</button>
+					{isOwner && (
+						<div style={{ position: 'absolute', top: '-5px', right: '-5px', display: 'flex', gap: '8px' }}>
+							<button 
+								onClick={() => setIsEditingClass(true)} 
+								style={{ 
+									padding: '4px 8px', 
+									fontSize: '0.7rem', 
+									borderRadius: '4px', 
+									border: '1px solid #ccc', 
+									backgroundColor: '#fff', 
+									cursor: 'pointer',
+									color: '#666' 
+								}}
+							>
+								Edit Info
+							</button>
+						</div>
 					)}
 				</div>
 			)}
 		</div>
 
 		<section className="class-content">
-			<h2>Class Files & Videos</h2>
+			<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+				<h2>Class Files & Videos</h2>
+			</div>
 			<ul className="file-list">
 			{files.length > 0 ? (
 				files.map((file) => (
@@ -171,6 +294,20 @@ const ClassPage = () => {
 			)}
 			</ul>
 		</section>
+
+		<ConfirmationModal 
+			isOpen={showProfileWarning}
+			title="Profile is Private"
+			message={
+				<>
+					Your profile page is currently set to <strong>Private</strong>. 
+					In order to set a class to public, your profile must be public as well.
+				</>
+			}
+			confirmText="I Understand"
+			onConfirm={() => setShowProfileWarning(false)}
+			onCancel={() => setShowProfileWarning(false)}
+		/>
 
 		<ConfirmationModal 
 			isOpen={!!confirmDelete}

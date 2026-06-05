@@ -57,7 +57,17 @@ export const useClassList = () => {
 				ownerId: user.uid,
 				ownerName: user.displayName,
 				createdAt: serverTimestamp(),
-				visibility: 'private' // Default to private
+				visibility: 'private', // Default to private
+				displayConfig: {
+					showInstructor: true,
+					showOffice: true,
+					showOfficeHours: true,
+					showEmail: true,
+					showRoom: true,
+					showMeetingTime: true,
+					showDescription: true,
+					showSyllabus: true
+				}
 			});
 		} else if (inputModal.mode === 'edit' && inputModal.data) {
 			try {
@@ -68,22 +78,6 @@ export const useClassList = () => {
 			}
 		}
 		setInputModal({ ...inputModal, isOpen: false });
-	};
-
-	const handleUpdateClassVisibility = async (classId, newVisibility) => {
-		try {
-			const classRef = doc(db, 'classes', classId);
-			await updateDoc(classRef, { visibility: newVisibility });
-
-			const q = query(collection(db, 'files'), where('classId', '==', classId));
-			const fileSnaps = await getDocs(q);
-			const updatePromises = fileSnaps.docs.map(fileDoc => 
-				updateDoc(doc(db, 'files', fileDoc.id), { visibility: newVisibility })
-			);
-			await Promise.all(updatePromises);
-		} catch (error) {
-			console.error("Error updating class:", error);
-		}
 	};
 
 	const handleDeleteClass = async (classData) => {
@@ -125,7 +119,6 @@ export const useClassList = () => {
 		handleCreateClass,
 		handleEditClass,
 		handleModalSubmit,
-		handleUpdateClassVisibility,
 		handleDeleteClass,
         closeInputModal,
         setConfirmDeleteData,

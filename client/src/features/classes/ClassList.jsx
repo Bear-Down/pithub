@@ -15,7 +15,6 @@ const ClassList = () => {
 		handleCreateClass,
 		handleEditClass,
 		handleModalSubmit,
-		handleUpdateClassVisibility,
 		handleDeleteClass,
 		closeInputModal,
 		setConfirmDeleteData,
@@ -44,7 +43,6 @@ const ClassList = () => {
 						classData={item} 
 						onEdit={handleEditClass}
 						onDelete={setConfirmDeleteData}
-						onVisibilityChange={handleUpdateClassVisibility}
 					/>
 					))}
 				</div>
