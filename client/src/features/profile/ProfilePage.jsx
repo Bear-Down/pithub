@@ -40,7 +40,7 @@ const ProfilePage = () => {
 			{isGlobalLoading && <LoadingOverlay message="Updating Profile & Class Privacy..." />}
 			
 			<div className="profile-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-				<h1 style={{ color: 'orange', margin: 0 }}>
+				<h1 style={{ color: 'var(--brand-color)', margin: 0 }}>
 					{isOwner ? `Hello, ${user?.displayName || 'User'}!` : `${profileData.displayName || 'User'}'s Profile`}
 				</h1>
 				{isOwner && (
@@ -73,60 +73,60 @@ const ProfilePage = () => {
 								<label style={{ fontSize: '0.8rem', fontWeight: 'bold' }}>Major</label>
 								<button 
 									onClick={() => handleToggleFieldVisibility('showMajor')}
-									disabled={isFieldLoading} style={{ fontSize: '0.6rem', padding: '1px 4px', cursor: isFieldLoading ? 'not-allowed' : 'pointer', borderRadius: '3px', border: '1px solid #ccc', backgroundColor: profileData?.profileConfig?.showMajor !== false ? '#e0ffe0' : '#f0f0f0' }}
+									disabled={isFieldLoading} style={{ fontSize: '0.6rem', padding: '1px 4px', cursor: isFieldLoading ? 'not-allowed' : 'pointer', borderRadius: '3px', border: '1px solid var(--border-color)', backgroundColor: profileData?.profileConfig?.showMajor !== false ? 'var(--visible-bg)' : 'var(--hidden-bg)', color: profileData?.profileConfig?.showMajor !== false ? 'var(--visible-text)' : 'var(--text-main)' }}
 								>
 									{profileData?.profileConfig?.showMajor !== false ? 'Visible' : 'Hidden'}
 								</button>
 							</div>
-							<input type="text" value={profileEditData.major} onChange={(e) => setProfileEditData({...profileEditData, major: e.target.value})} placeholder="Major..." style={{ padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }} />
+							<input type="text" value={profileEditData.major} onChange={(e) => setProfileEditData({...profileEditData, major: e.target.value})} placeholder="Major..." style={{ padding: '8px', borderRadius: '4px', border: '1px solid var(--border-color)', backgroundColor: 'var(--input-bg-raised)', color: 'var(--text-main)' }} />
 							<div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '5px' }}>
 								<label style={{ fontSize: '0.8rem', fontWeight: 'bold' }}>Minor</label>
 								<button 
 									onClick={() => handleToggleFieldVisibility('showMinor')}
-									disabled={isFieldLoading} style={{ fontSize: '0.6rem', padding: '1px 4px', cursor: isFieldLoading ? 'not-allowed' : 'pointer', borderRadius: '3px', border: '1px solid #ccc', backgroundColor: profileData?.profileConfig?.showMinor !== false ? '#e0ffe0' : '#f0f0f0' }}
+									disabled={isFieldLoading} style={{ fontSize: '0.6rem', padding: '1px 4px', cursor: isFieldLoading ? 'not-allowed' : 'pointer', borderRadius: '3px', border: '1px solid var(--border-color)', backgroundColor: profileData?.profileConfig?.showMinor !== false ? 'var(--visible-bg)' : 'var(--hidden-bg)', color: profileData?.profileConfig?.showMinor !== false ? 'var(--visible-text)' : 'var(--text-main)' }}
 								>
 									{profileData?.profileConfig?.showMinor !== false ? 'Visible' : 'Hidden'}
 								</button>
 							</div>
-							<input type="text" value={profileEditData.minor} onChange={(e) => setProfileEditData({...profileEditData, minor: e.target.value})} placeholder="Minor..." style={{ padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }} />
+							<input type="text" value={profileEditData.minor} onChange={(e) => setProfileEditData({...profileEditData, minor: e.target.value})} placeholder="Minor..." style={{ padding: '8px', borderRadius: '4px', border: '1px solid var(--border-color)', backgroundColor: 'var(--input-bg-raised)', color: 'var(--text-main)' }} />
 						</div>
 						<div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
 							<div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
 								<label style={{ fontSize: '0.8rem', fontWeight: 'bold' }}>Expected Graduation</label>
 								<button 
 									onClick={() => handleToggleFieldVisibility('showGraduation')}
-									disabled={isFieldLoading} style={{ fontSize: '0.6rem', padding: '1px 4px', cursor: isFieldLoading ? 'not-allowed' : 'pointer', borderRadius: '3px', border: '1px solid #ccc', backgroundColor: profileData?.profileConfig?.showGraduation !== false ? '#e0ffe0' : '#f0f0f0' }}
+									disabled={isFieldLoading} style={{ fontSize: '0.6rem', padding: '1px 4px', cursor: isFieldLoading ? 'not-allowed' : 'pointer', borderRadius: '3px', border: '1px solid var(--border-color)', backgroundColor: profileData?.profileConfig?.showGraduation !== false ? 'var(--visible-bg)' : 'var(--hidden-bg)', color: profileData?.profileConfig?.showGraduation !== false ? 'var(--visible-text)' : 'var(--text-main)' }}
 								>
 									{profileData?.profileConfig?.showGraduation !== false ? 'Visible' : 'Hidden'}
 								</button>
 							</div>
-							<input type="text" value={profileEditData.gradSemester} onChange={(e) => setProfileEditData({...profileEditData, gradSemester: e.target.value})} placeholder="Spring 2027" style={{ padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }} />
+							<input type="text" value={profileEditData.gradSemester} onChange={(e) => setProfileEditData({...profileEditData, gradSemester: e.target.value})} placeholder="Spring 2027" style={{ padding: '8px', borderRadius: '4px', border: '1px solid var(--border-color)', backgroundColor: 'var(--input-bg-raised)', color: 'var(--text-main)' }} />
 							<div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '5px' }}>
 								<label style={{ fontSize: '0.8rem', fontWeight: 'bold' }}>Your URL</label>
 								<button 
 									onClick={() => handleToggleFieldVisibility('showWebsite')}
-									disabled={isFieldLoading} style={{ fontSize: '0.6rem', padding: '1px 4px', cursor: isFieldLoading ? 'not-allowed' : 'pointer', borderRadius: '3px', border: '1px solid #ccc', backgroundColor: profileData?.profileConfig?.showWebsite !== false ? '#e0ffe0' : '#f0f0f0' }}
+									disabled={isFieldLoading} style={{ fontSize: '0.6rem', padding: '1px 4px', cursor: isFieldLoading ? 'not-allowed' : 'pointer', borderRadius: '3px', border: '1px solid var(--border-color)', backgroundColor: profileData?.profileConfig?.showWebsite !== false ? 'var(--visible-bg)' : 'var(--hidden-bg)', color: profileData?.profileConfig?.showWebsite !== false ? 'var(--visible-text)' : 'var(--text-main)' }}
 								>
 									{profileData?.profileConfig?.showWebsite !== false ? 'Visible' : 'Hidden'}
 								</button>
 							</div>
-							<input type="text" value={profileEditData.website} onChange={(e) => setProfileEditData({...profileEditData, website: e.target.value})} placeholder="https://your-link" style={{ padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }} />
+							<input type="text" value={profileEditData.website} onChange={(e) => setProfileEditData({...profileEditData, website: e.target.value})} placeholder="https://your-link" style={{ padding: '8px', borderRadius: '4px', border: '1px solid var(--border-color)', backgroundColor: 'var(--input-bg-raised)', color: 'var(--text-main)' }} />
 						</div>
 						<div style={{ gridColumn: 'span 2', display: 'flex', flexDirection: 'column', gap: '5px' }}>
 							<div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
 								<label style={{ fontSize: '0.8rem', fontWeight: 'bold' }}>Bio</label>
 								<button 
 									onClick={() => handleToggleFieldVisibility('showBio')}
-									disabled={isFieldLoading} style={{ fontSize: '0.6rem', padding: '1px 4px', cursor: isFieldLoading ? 'not-allowed' : 'pointer', borderRadius: '3px', border: '1px solid #ccc', backgroundColor: profileData?.profileConfig?.showBio !== false ? '#e0ffe0' : '#f0f0f0' }}
+									disabled={isFieldLoading} style={{ fontSize: '0.6rem', padding: '1px 4px', cursor: isFieldLoading ? 'not-allowed' : 'pointer', borderRadius: '3px', border: '1px solid var(--border-color)', backgroundColor: profileData?.profileConfig?.showBio !== false ? 'var(--visible-bg)' : 'var(--hidden-bg)', color: profileData?.profileConfig?.showBio !== false ? 'var(--visible-text)' : 'var(--text-main)' }}
 								>
 									{profileData?.profileConfig?.showBio !== false ? 'Visible' : 'Hidden'}
 								</button>
 							</div>
-							<textarea value={profileEditData.bio} onChange={(e) => setProfileEditData({...profileEditData, bio: e.target.value})} placeholder="Tell us about yourself..." style={{ padding: '8px', borderRadius: '4px', border: '1px solid #ccc', resize: 'vertical' }} />
+							<textarea value={profileEditData.bio} onChange={(e) => setProfileEditData({...profileEditData, bio: e.target.value})} placeholder="Tell us about yourself..." style={{ padding: '8px', borderRadius: '4px', border: '1px solid var(--border-color)', backgroundColor: 'var(--input-bg-raised)', color: 'var(--text-main)', resize: 'vertical' }} />
 						</div>
 						<div style={{ gridColumn: 'span 2', display: 'flex', gap: '10px', justifyContent: 'flex-end' }}>
-							<button disabled={isFieldLoading} onClick={() => setIsEditingProfile(false)} style={{ padding: '8px 15px', borderRadius: '4px', border: '1px solid #ddd', cursor: isFieldLoading ? 'not-allowed' : 'pointer' }}>Cancel</button>
-							<button disabled={isFieldLoading} onClick={handleUpdateProfile} style={{ padding: '8px 15px', borderRadius: '4px', border: 'none', backgroundColor: 'orange', color: 'white', fontWeight: 'bold', cursor: isFieldLoading ? 'not-allowed' : 'pointer' }}>Save Profile</button>
+							<button disabled={isFieldLoading} onClick={() => setIsEditingProfile(false)} style={{ padding: '8px 15px', borderRadius: '4px', border: '1px solid var(--modal-border)', backgroundColor: 'var(--bg-primary)', color: 'var(--text-main)', cursor: isFieldLoading ? 'not-allowed' : 'pointer' }}>Cancel</button>
+							<button disabled={isFieldLoading} onClick={handleUpdateProfile} style={{ padding: '8px 15px', borderRadius: '4px', border: 'none', backgroundColor: 'var(--brand-color)', color: 'white', fontWeight: 'bold', cursor: isFieldLoading ? 'not-allowed' : 'pointer' }}>Save Profile</button>
 						</div>
 					</div>
 				) : (
@@ -159,7 +159,7 @@ const ProfilePage = () => {
 								{/* Website */}
 								{profileData.website && (isOwner || profileData?.profileConfig?.showWebsite !== false) && ( // Only show if data exists AND (owner OR visible)
 									<p style={{ margin: '5px 0', fontSize: '0.9rem', opacity: profileData?.profileConfig?.showWebsite === false ? 0.6 : 1 }}>
-										<strong>website:</strong> <a href={profileData.website} target="_blank" rel="noreferrer" style={{ color: 'blue' }}>View Repository</a>
+										<strong>Website:</strong> <a href={profileData.website} target="_blank" rel="noreferrer" style={{ color: 'var(--link-color)' }}>View Repository</a>
 										{isOwner && profileData?.profileConfig?.showWebsite === false && <span style={{ fontSize: '0.65rem', color: '#888', marginLeft: '5px', fontStyle: 'italic' }}>(Hidden)</span>}
 									</p>
 								)}
@@ -180,7 +180,7 @@ const ProfilePage = () => {
 						{isOwner && (
 							<button 
 								onClick={() => setIsEditingProfile(true)} 
-								style={{ position: 'absolute', top: '-10px', right: '-10px', padding: '5px 10px', fontSize: '0.75rem', borderRadius: '4px', border: '1px solid orange', color: 'orange', backgroundColor: 'transparent', cursor: 'pointer' }}
+								style={{ position: 'absolute', top: '-10px', right: '-10px', padding: '5px 10px', fontSize: '0.75rem', borderRadius: '4px', border: '1px solid var(--brand-color)', color: 'var(--brand-color)', backgroundColor: 'transparent', cursor: 'pointer' }}
 							>
 								Edit Details
 							</button>
@@ -189,7 +189,7 @@ const ProfilePage = () => {
 				)}
 			</div>
 			
-			<section style={{ marginTop: '40px' }}>
+			<section style={{ marginTop: '40px', padding: '20px', backgroundColor: 'var(--bg-secondary)', borderRadius: '10px', border: '1px solid var(--section-border)' }}>
 				<h2>{isOwner ? 'Your Recent Files & Videos' : 'Recent Files & Videos'}</h2>
 				{recentFiles.length > 0 ? (
 					<>
@@ -235,7 +235,7 @@ const ProfilePage = () => {
 				)}
 			</section>
 
-			<section style={{ marginTop: '40px' }}>
+			<section style={{ marginTop: '40px', padding: '20px', backgroundColor: 'var(--bg-secondary)', borderRadius: '10px', border: '1px solid var(--section-border)' }}>
 				<div className="classes-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
 					<h2>{isOwner ? 'Your Classes' : 'Classes'}</h2>
 					{isOwner && (

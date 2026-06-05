@@ -5,6 +5,7 @@ import SearchBar from '../features/search/SearchBar';
 import '../styles/style.css'; 
 import userIconFallback from '../assets/user-icon.jpg';
 import Spinner from '../components/Spinner';
+import ThemeToggle from '../components/ThemeToggle';
 
 const Layout = () => {
 	const { user, logout } = useAuth();
@@ -44,6 +45,7 @@ const Layout = () => {
 			<Link to="/">PitHub</Link>
 			</div>
 			<div className="header-right">
+			<ThemeToggle />
 			<SearchBar />
 			{user && (
 				<div className="profile-container" ref={dropdownRef}>

@@ -55,7 +55,7 @@ export const useProfilePage = () => {
 
 	// Fetch User Profile Data
 	useEffect(() => {
-		if (!effectiveUserId) return;
+		if (!effectiveUserId || typeof effectiveUserId !== 'string') return;
 		const userRef = doc(db, 'users', effectiveUserId);
 		const unsubscribe = onSnapshot(userRef, (docSnap) => {
 			if (docSnap.exists()) {

@@ -24,7 +24,7 @@ const ClassCard = ({ classData, onEdit, onDelete, isOwner = true }) => {
 							borderRadius: '4px', 
 							fontWeight: 'bold',
 							backgroundColor: classData.visibility === 'public' ? '#28a745' : '#ff4d4d',
-							color: '#ffffff'
+							color: classData.visibility === 'public' ? '#ffffff' : 'var(--private-text)'
 						}}
 					>
 						{classData.visibility === 'public' ? 'Public' : 'Private'}

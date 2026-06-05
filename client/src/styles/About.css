@@ -1,10 +1,11 @@
 .container {
     max-width: 900px;
     margin: 40px auto;
-    background: white;
+    background-color: var(--bg-secondary);
     padding: 30px;
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    border: 1px solid var(--section-border);
+    box-shadow: 0 4px 10px var(--card-shadow);
 }
 
 h1 {
