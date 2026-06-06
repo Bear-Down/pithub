@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { db } from '../lib/firebase';
-import { doc, updateDoc, collection, query, where, getDocs } from 'firebase/firestore';
+import { doc, updateDoc, collection, query, where, getDocs, writeBatch } from 'firebase/firestore';
 
 /**
  * Hook to manage User Profile field visibility (PROFILE-002).
@@ -16,24 +16,31 @@ export const useProfileSettings = (userId) => {
         setIsGlobalLoading(true);
         const newVisibility = currentVisibility === 'public' ? 'private' : 'public';
         try {
+            const batch = writeBatch(db);
             const userRef = doc(db, 'users', userId);
-            await updateDoc(userRef, { visibility: newVisibility });
+            batch.update(userRef, { visibility: newVisibility });
 
             // Requirement: If profile is private, all classes MUST be private
             if (newVisibility === 'private') {
                 const classesQuery = query(collection(db, 'classes'), where('ownerId', '==', userId));
                 const classSnaps = await getDocs(classesQuery);
                 
-                const updatePromises = classSnaps.docs.map(async (classDoc) => {
+                // We must fetch all file metadata to include them in the batch
+                for (const classDoc of classSnaps.docs) {
                     // Update the class itself
-                    await updateDoc(classDoc.ref, { visibility: 'private' });
-                    // Note: useClassSettings logic propagates to files, but we must do it manually here for batch
+                    batch.update(classDoc.ref, { visibility: 'private' });
+
+                    // Fetch files for this class
                     const filesQuery = query(collection(db, 'files'), where('classId', '==', classDoc.id));
                     const fileSnaps = await getDocs(filesQuery);
-                    return Promise.all(fileSnaps.docs.map(f => updateDoc(f.ref, { visibility: 'private' })));
-                });
-                await Promise.all(updatePromises);
+                    
+                    fileSnaps.docs.forEach(fileDoc => {
+                        batch.update(fileDoc.ref, { visibility: 'private' });
+                    });
+                }
             }
+
+            await batch.commit();
         } catch (error) {
             console.error("Error updating profile visibility:", error);
         } finally {

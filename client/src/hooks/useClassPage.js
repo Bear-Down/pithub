@@ -90,7 +90,8 @@ export const useClassPage = () => {
 
     // Listen for files in real-time from Firestore
     useEffect(() => {
-        if (!classId) return;
+        // Wait for class metadata to load so isOwner is correctly determined
+        if (!classId || classData === null) return;
 
         let q = query(
             collection(db, 'files'),

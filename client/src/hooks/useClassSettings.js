@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { db } from '../lib/firebase';
-import { doc, updateDoc, collection, query, where, getDocs, getDoc } from 'firebase/firestore';
+import { doc, updateDoc, collection, query, where, getDocs, getDoc, writeBatch } from 'firebase/firestore';
 
 /**
  * Hook to manage Class-specific settings including global visibility 
@@ -20,30 +20,33 @@ export const useClassSettings = (classId, initialData) => {
         setIsGlobalLoading(true);
         const newVisibility = currentVisibility === 'public' ? 'private' : 'public';
 
-        if (newVisibility === 'public') {
-            // Verification: Master Profile Visibility Check
-            const userRef = doc(db, 'users', ownerId);
-            const userSnap = await getDoc(userRef);
-            
-            if (userSnap.exists() && userSnap.data().visibility === 'private') {
-                setIsGlobalLoading(false);
-                return { success: false, error: 'PROFILE_PRIVATE' };
-            }
-        }
-        
         try {
-            const classRef = doc(db, 'classes', classId);
-            await updateDoc(classRef, {
-                visibility: newVisibility
-            });
+            if (newVisibility === 'public') {
+                // Verification: Master Profile Visibility Check
+                const userRef = doc(db, 'users', ownerId);
+                const userSnap = await getDoc(userRef);
+                
+                if (userSnap.exists() && userSnap.data().visibility === 'private') {
+                    setIsGlobalLoading(false);
+                    return { success: false, error: 'PROFILE_PRIVATE' };
+                }
+            }
 
+            const classRef = doc(db, 'classes', classId);
+            const batch = writeBatch(db);
+            
+            // Add class update to batch
+            batch.update(classRef, { visibility: newVisibility });
+            
             // propagate visibility change to all files within this class (Requirement #1)
             const filesQuery = query(collection(db, 'files'), where('classId', '==', classId));
             const fileSnaps = await getDocs(filesQuery);
-            const updatePromises = fileSnaps.docs.map(fileDoc => 
-                updateDoc(doc(db, 'files', fileDoc.id), { visibility: newVisibility })
-            );
-            await Promise.all(updatePromises);
+            fileSnaps.docs.forEach(fileDoc => {
+                batch.update(doc(db, 'files', fileDoc.id), { visibility: newVisibility });
+            });
+
+            // Commit the entire batch as one single network request
+            await batch.commit();
             return { success: true };
         } catch (err) {
             setError(err.message);
