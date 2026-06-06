@@ -27,7 +27,13 @@ const ClassCard = ({ classData, onEdit, onDelete, isOwner = true }) => {
 							onClick={() => onEdit(classData)}
 							onMouseEnter={() => setHoverEdit(true)}
 							onMouseLeave={() => setHoverEdit(false)}
-							style={{ ...buttonStyle, color: hoverEdit ? '#3b82f6' : buttonStyle.color, boxShadow: hoverEdit ? '0 0 10px rgba(59, 130, 246, 0.5)' : 'none' }}
+							style={{ 
+								...buttonStyle,
+								color: (theme === 'dark' && hoverEdit) ? '#3b82f6' : buttonStyle.color,
+								border: theme === 'dark' 
+									? (hoverEdit ? '1px solid #3b82f6' : '1px solid #4b5563') 
+									: undefined
+							}}
 						>Edit</button>
 						<button 
 							className="delete-btn" 
@@ -35,9 +41,11 @@ const ClassCard = ({ classData, onEdit, onDelete, isOwner = true }) => {
 							onMouseEnter={() => setHoverDelete(true)}
 							onMouseLeave={() => setHoverDelete(false)}
 							style={{ 
-								...buttonStyle, 
-								color: hoverDelete ? '#ef4444' : buttonStyle.color, 
-								boxShadow: hoverDelete ? '0 0 10px rgba(239, 68, 68, 0.5)' : 'none' 
+								...buttonStyle,
+								color: (theme === 'dark' && hoverDelete) ? '#ef4444' : buttonStyle.color,
+								border: theme === 'dark' 
+									? (hoverDelete ? '1px solid #ef4444' : '1px solid #4b5563') 
+									: undefined
 							}}
 						>Delete</button>
 					</div>

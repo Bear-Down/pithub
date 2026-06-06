@@ -55,9 +55,10 @@ export default function VideoList() {
 					onMouseLeave={() => setHoverPrev(false)}
 					style={{
 						backgroundColor: theme === 'dark' ? '#374151' : undefined,
-						color: hoverPrev ? '#3b82f6' : (theme === 'dark' ? '#f3f4f6' : undefined),
-						border: theme === 'dark' ? '1px solid #4b5563' : undefined,
-						boxShadow: hoverPrev ? '0 0 10px rgba(59, 130, 246, 0.5)' : 'none',
+						color: (theme === 'dark' && hoverPrev) ? '#3b82f6' : (theme === 'dark' ? '#f3f4f6' : undefined),
+						border: theme === 'dark' 
+							? (hoverPrev ? '1px solid #3b82f6' : '1px solid #4b5563') 
+							: undefined,
 						opacity: page === 1 ? 0.5 : 1,
 						transition: 'all 0.2s ease'
 					}}
@@ -75,9 +76,10 @@ export default function VideoList() {
 					onMouseLeave={() => setHoverNext(false)}
 					style={{
 						backgroundColor: theme === 'dark' ? '#374151' : undefined,
-						color: hoverNext ? '#3b82f6' : (theme === 'dark' ? '#f3f4f6' : undefined),
-						border: theme === 'dark' ? '1px solid #4b5563' : undefined,
-						boxShadow: hoverNext ? '0 0 10px rgba(59, 130, 246, 0.5)' : 'none',
+						color: (theme === 'dark' && hoverNext) ? '#3b82f6' : (theme === 'dark' ? '#f3f4f6' : undefined),
+						border: theme === 'dark' 
+							? (hoverNext ? '1px solid #3b82f6' : '1px solid #4b5563') 
+							: undefined,
 						opacity: !hasNext ? 0.5 : 1,
 						transition: 'all 0.2s ease'
 					}}
