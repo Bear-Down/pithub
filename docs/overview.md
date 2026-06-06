@@ -21,12 +21,29 @@ When working on this project, consistency with Git and dependencies is important
 
 ### Working with Git and Branches
 
-All active development should take place in the `dev` branch. It is recommended to create feature-specific branches off of `dev` to keep work isolated. 
+All active development should take place in the `dev` branch. We recommend that you create feature-specific branches off of `dev` to keep your work isolated. 
 
 ```bash
 # Standard workflow for starting a new feature
 git checkout dev        # use 'dev' branch
 git pull origin dev     # fetch latest changes from remote branch of 'dev' 
+
+# Create a new branch within 'dev' branch for your whatever you're working on
+git branch <your-feature> && git checkout <your-feature>
+# or...
+git checkout -b <your-feature>
+
+# Work on your feature
+git add .
+git commmit -m "<your-commit-message>"
+
+# When satisfied with what you have, merge it with 'dev' branch
+git checkout dev 
+git merge <your-feature>
+# Optional - delete your branch when done with it
+git branch -d <your-feature>
+
+# Create pull request to merge with 'main' branch
 git push origin dev     # push your changes onto 'dev' branch which creates a pull request
 ```
 

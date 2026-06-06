@@ -43,4 +43,11 @@ PitHub is built on a **Serverless React Architecture**:
 - **Branch Protection**: Strict rules are enforced on `main`, requiring linear history and successful status checks before merging.
 
 ---
-*Created by the **Bear Down** Scrum Team for CPSC44000.*
+*Created by the **[Bear Down](https://nice-bay-0f6a7851e.4.azurestaticapps.net/)** Scrum Team for CPSC44000.*
+
+*If any issue arise, please contact one of our members listed below:*
+- [Kevin Dacanay](kevinbrianfdacanay@lewisu.edu)
+- [Erick Hernandez](erickrdhernandez@lewisu.edu)
+- [Seb Jaculbe](sebastiandjaculbe@lewisu.edu)
+- [Kaleb Richardson](kalebrrichardon@lewisu.edu)
+- [Eddy Rodriguez](edwardjrodriguez@lewisu.edu)

@@ -32,10 +32,10 @@ const InputModal = ({
 			alignItems: 'center', zIndex: 1000, backdropFilter: 'blur(3px)'
 		}}>
 			<div className="modal-content" style={{
-				backgroundColor: '#fff', padding: '24px', borderRadius: '12px',
+				backgroundColor: 'var(--modal-bg)', padding: '24px', borderRadius: '12px',
 				maxWidth: '400px', width: '80%', textAlign: 'center', boxShadow: '0 10px 30px rgba(0,0,0,0.3)'
 			}}>
-				<h3 style={{ marginTop: 0, color: '#222' }}>{title}</h3>
+				<h3 style={{ marginTop: 0, color: 'var(--text-main)' }}>{title}</h3>
 				<input 
 					type="text"
 					className="modal-input"
@@ -44,17 +44,18 @@ const InputModal = ({
 					onChange={(e) => setInputValue(e.target.value)}
 					autoFocus
 					onKeyDown={(e) => e.key === 'Enter' && handleConfirm()}
+					style={{ backgroundColor: 'var(--input-bg)', color: 'var(--text-main)', border: '2px solid var(--border-color)' }}
 				/>
 				<div style={{ display: 'flex', justifyContent: 'center', gap: '12px', marginTop: '10px' }}>
 					<button 
 						onClick={onCancel}
-						style={{ padding: '10px 20px', borderRadius: '6px', border: '1px solid #ddd', backgroundColor: '#eee', cursor: 'pointer', fontWeight: '500' }}
+						style={{ padding: '10px 20px', borderRadius: '6px', border: '1px solid var(--modal-border)', backgroundColor: 'var(--bg-primary)', color: 'var(--text-main)', cursor: 'pointer', fontWeight: '500' }}
 					>
 						{cancelText}
 					</button>
 					<button 
 						onClick={handleConfirm}
-						style={{ padding: '10px 20px', borderRadius: '6px', border: 'none', backgroundColor: 'orange', color: '#fff', cursor: 'pointer', fontWeight: '500' }}
+						style={{ padding: '10px 20px', borderRadius: '6px', border: 'none', backgroundColor: 'var(--brand-color)', color: '#fff', cursor: 'pointer', fontWeight: '500' }}
 					>
 						{confirmText}
 					</button>
@@ -63,5 +64,4 @@ const InputModal = ({
 		</div>
 	);
 };
-
 export default InputModal;

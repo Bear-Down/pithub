@@ -21,6 +21,7 @@ import {
     uploadBytes 
 } from 'firebase/storage';
 import { useAuth } from '../context/AuthContext';
+import { useClassSettings } from './useClassSettings';
 
 export const useClassPage = () => {
     const { classId } = useParams();
@@ -46,6 +47,18 @@ export const useClassPage = () => {
         description: '',
         syllabusUrl: ''
     });
+
+    // Check if the current user is the owner to determine if they can see "hidden" indicators
+    const isOwner = user?.uid === classData?.ownerId;
+
+    // Modular hook for visibility toggles (CLASSPAGE-002, CLASSPAGE-003)
+    const { 
+        toggleGlobalVisibility, 
+        toggleFieldVisibility, 
+        isGlobalLoading, 
+        isFieldLoading,
+        error: settingError 
+    } = useClassSettings(classId);
 
     // Listen for the specific class document metadata
     useEffect(() => {
@@ -77,13 +90,19 @@ export const useClassPage = () => {
 
     // Listen for files in real-time from Firestore
     useEffect(() => {
-        if (!classId) return;
+        // Wait for class metadata to load so isOwner is correctly determined
+        if (!classId || classData === null) return;
 
-        const q = query(
+        let q = query(
             collection(db, 'files'),
             where('classId', '==', classId),
             orderBy('createdAt', 'desc')
         );
+
+        // Filter for public files if the user is not the owner to satisfy security rules
+        if (!isOwner) {
+            q = query(q, where('visibility', '==', 'public'));
+        }
 
         const unsubscribe = onSnapshot(q, (snapshot) => {
             const fetchedFiles = snapshot.docs.map(doc => ({
@@ -94,7 +113,7 @@ export const useClassPage = () => {
         });
 
         return () => unsubscribe();
-    }, [classId]);
+    }, [classId, isOwner]);
 
     const handleAddClick = () => {
         fileInputRef.current?.click();
@@ -239,6 +258,26 @@ export const useClassPage = () => {
         }
     };
 
+    /**
+     * Toggles the global visibility (Public/Private) of the class.
+     * This updates the class record and is used directly on the Class Page.
+     */
+    const handleToggleVisibility = async () => {
+        if (!classData || !user) return;
+        return await toggleGlobalVisibility(classData.visibility, classData.ownerId);
+    };
+
+    /**
+     * Toggles visibility for specific metadata fields.
+     * @param {string} field - The field name (e.g., 'showInstructor')
+     */
+    const handleToggleFieldVisibility = (field) => {
+        if (!classData) return;
+        // Default to true if the config doesn't exist yet
+        const currentVal = classData.displayConfig ? classData.displayConfig[field] : true;
+        toggleFieldVisibility(field, currentVal);
+    };
+
     return {
         classId,
         user,
@@ -261,6 +300,11 @@ export const useClassPage = () => {
         handleAddClick,
         handleFileChange,
         handleDeleteFile,
-        handleUpdateClass
+        handleUpdateClass,
+        handleToggleVisibility,
+        handleToggleFieldVisibility,
+        isOwner,
+        isGlobalLoading,
+        isFieldLoading
     };
 };

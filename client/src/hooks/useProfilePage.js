@@ -19,6 +19,7 @@ import {
     startAfter 
 } from 'firebase/firestore';
 import { ref, deleteObject } from 'firebase/storage';
+import { useProfileSettings } from './useProfileSettings';
 
 export const useProfilePage = () => {
 	const { userId } = useParams();
@@ -44,9 +45,17 @@ export const useProfilePage = () => {
 	const effectiveUserId = userId || user?.uid;
 	const isOwner = !userId || userId === user?.uid;
 
+	// Modular hook for field visibility (PROFILE-002)
+	const { 
+		toggleGlobalVisibility, 
+		setProfileFieldVisibility, 
+		isGlobalLoading, 
+		isFieldLoading 
+	} = useProfileSettings(user?.uid);
+
 	// Fetch User Profile Data
 	useEffect(() => {
-		if (!effectiveUserId) return;
+		if (!effectiveUserId || typeof effectiveUserId !== 'string') return;
 		const userRef = doc(db, 'users', effectiveUserId);
 		const unsubscribe = onSnapshot(userRef, (docSnap) => {
 			if (docSnap.exists()) {
@@ -156,19 +165,9 @@ export const useProfilePage = () => {
 		setInputModal({ ...inputModal, isOpen: false, data: null });
 	};
 
-	const handleUpdateClassVisibility = async (classId, newVisibility) => {
+	const handleProfileVisibilityChange = async (currentVisibility) => {
 		try {
-			const classRef = doc(db, 'classes', classId);
-			await updateDoc(classRef, { visibility: newVisibility });
-		} catch (error) {
-			console.error("Error updating visibility:", error);
-		}
-	};
-
-	const handleProfileVisibilityChange = async (newVisibility) => {
-		try {
-			const userRef = doc(db, 'users', user.uid);
-			await setDoc(userRef, { visibility: newVisibility }, { merge: true });
+			await toggleGlobalVisibility(currentVisibility);
 		} catch (error) {
 			console.error("Error updating profile visibility:", error);
 		}
@@ -182,6 +181,18 @@ export const useProfilePage = () => {
 		} catch (error) {
 			console.error("Error updating profile:", error);
 		}
+	};
+
+	/**
+	 * Toggles visibility for specific profile fields.
+	 * @param {string} field - The field name (e.g., 'showMajor')
+	 */
+	const handleToggleFieldVisibility = (field) => {
+		if (!profileData) return;
+		// Use current state to flip visibility
+		const currentConfig = profileData.profileConfig || {};
+		const isVisible = currentConfig[field] !== false; // Default to true if undefined
+		setProfileFieldVisibility(field, !isVisible);
 	};
 
 	const handleDeleteClass = async (classData) => {
@@ -229,9 +240,11 @@ export const useProfilePage = () => {
 		handleCreateClass,
 		handleEditClass,
 		handleModalSubmit,
-		handleUpdateClassVisibility,
 		handleProfileVisibilityChange,
 		handleUpdateProfile,
-		handleDeleteClass
+		handleDeleteClass,
+		handleToggleFieldVisibility,
+		isGlobalLoading,
+		isFieldLoading
 	};
 };

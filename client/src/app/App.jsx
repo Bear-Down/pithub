@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from '../context/AuthContext';
+import { ThemeProvider } from '../context/ThemeContext';
 
 import ClassList from '../features/classes/ClassList';
 import ClassPage from '../features/classes/ClassPage';
@@ -48,9 +49,11 @@ function AppContent() {
 
 function App() {
 	return (
-		<AuthProvider>
-			<AppContent />
-		</AuthProvider>
+		<ThemeProvider>
+			<AuthProvider>
+				<AppContent />
+			</AuthProvider>
+		</ThemeProvider>
 	);
 }
 

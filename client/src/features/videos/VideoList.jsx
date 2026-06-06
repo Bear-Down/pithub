@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useVideos } from '../../hooks/useVideos';
+import { useTheme } from '../../context/ThemeContext';
 
 export default function VideoList() {
 	const { videos, loading, error, nextPage, prevPage, page, hasNext } = useVideos();
+	const { theme } = useTheme();
+	const [hoverPrev, setHoverPrev] = useState(false);
+	const [hoverNext, setHoverNext] = useState(false);
 
 	if (loading) return <div className="status">Loading uploads...</div>;
 	if (error) return <div className="status" style={{ color: 'red' }}>Error: {error}</div>;
@@ -47,14 +51,38 @@ export default function VideoList() {
 					className="pagination-btn" 
 					onClick={prevPage} 
 					disabled={page === 1}
+					onMouseEnter={() => setHoverPrev(true)}
+					onMouseLeave={() => setHoverPrev(false)}
+					style={{
+						backgroundColor: theme === 'dark' ? '#374151' : undefined,
+						color: (theme === 'dark' && hoverPrev) ? '#3b82f6' : (theme === 'dark' ? '#f3f4f6' : undefined),
+						border: theme === 'dark' 
+							? (hoverPrev ? '1px solid #3b82f6' : '1px solid #4b5563') 
+							: undefined,
+						opacity: page === 1 ? 0.5 : 1,
+						transition: 'all 0.2s ease'
+					}}
 				>
 					Previous
 				</button>
-				<span className="page-indicator">Page {page}</span>
+				<span className="page-indicator" style={{ color: theme === 'dark' ? '#f3f4f6' : 'inherit' }}>
+					Page {page}
+				</span>
 				<button 
 					className="pagination-btn" 
 					onClick={nextPage} 
 					disabled={!hasNext}
+					onMouseEnter={() => setHoverNext(true)}
+					onMouseLeave={() => setHoverNext(false)}
+					style={{
+						backgroundColor: theme === 'dark' ? '#374151' : undefined,
+						color: (theme === 'dark' && hoverNext) ? '#3b82f6' : (theme === 'dark' ? '#f3f4f6' : undefined),
+						border: theme === 'dark' 
+							? (hoverNext ? '1px solid #3b82f6' : '1px solid #4b5563') 
+							: undefined,
+						opacity: !hasNext ? 0.5 : 1,
+						transition: 'all 0.2s ease'
+					}}
 				>
 					Next
 				</button>
