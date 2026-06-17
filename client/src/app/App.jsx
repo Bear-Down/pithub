@@ -10,11 +10,28 @@ import LogoutPage from '../features/auth/LogoutPage';
 import ProfilePage from '../features/profile/ProfilePage';
 import Layout from './Layout';
 import ProtectedRoute from '../components/ProtectedRoute';
+import AdminLoginPage from '../features/admin/pages/AdminLoginPage';
+import AdminDashboardPage from '../features/admin/pages/AdminDashboardPage';
+import { useAdminAuth } from '../features/admin/hooks/useAdminAuth';
 
 import About from '../features/info/About';
 import Terms from '../features/info/Terms';
 
 import '../styles/style.css';
+
+/**
+ * Protected route specifically for administrators.
+ * Leverages useAdminAuth to verify the admin role and handle unauthorized redirects.
+ */
+const AdminProtectedRoute = ({ children }) => {
+	const { adminCheckLoading } = useAdminAuth();
+
+	if (adminCheckLoading) {
+		return <div className="text-center py-10">Verifying administrator access...</div>;
+	}
+
+	return children;
+};
 
 function AppContent() {
 	const { user, loading } = useAuth();
@@ -32,6 +49,25 @@ function AppContent() {
 			/>
 			{/* LOGOUT PAGE */}
 			<Route path="/logout" element={<LogoutPage />} />
+
+			{/* ADMIN ROUTES */}
+			<Route path="/admin/login" element={<AdminLoginPage />} />
+			<Route
+				path="/admin"
+				element={
+					<AdminProtectedRoute>
+						<AdminDashboardPage />
+					</AdminProtectedRoute>
+				}
+			/>
+			<Route
+				path="/admin/:section"
+				element={
+					<AdminProtectedRoute>
+						<AdminDashboardPage />
+					</AdminProtectedRoute>
+				}
+			/>
 
 			{/* AUTHENTICATED ROUTES: Wrapped in Layout (header/footer/dropdown) */}
 			<Route element={<Layout />}>

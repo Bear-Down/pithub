@@ -1,9 +1,72 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+    
+    // Helper Functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    
+    function isAdmin() {
+      return isSignedIn() && 
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.get('role', 'user') == 'admin';
+    }
+
+    function isNotSuspended() {
+      let userPath = /databases/$(database)/documents/users/$(request.auth.uid);
+      return !exists(userPath) || get(userPath).data.get('isSuspended', false) == false;
+    }
+    
+    function isReported(fileId) {
+      let reportPath = /databases/$(database)/documents/reports/$(fileId);
+      return exists(reportPath) && get(reportPath).data.get('status', 'resolved') == 'pending';
+    }
+
+    // Users Collection
+    match /users/{userId} {
+      allow read: if isSignedIn();
+      allow write: if request.auth.uid == userId && isNotSuspended();
+      // Allow owners to update themselves if not suspended, OR allow admins
+      allow update: if (request.auth.uid == userId && isNotSuspended()) || isAdmin();
+    }
+
+    // Classes Collection
+    match /classes/{classId} {
+      allow read: if isAdmin() || 
+                     resource.data.get('visibility', 'private') == 'public' || 
+                     request.auth.uid == resource.data.get('ownerId', '');
+      allow create: if isSignedIn() && isNotSuspended();
+      allow update, delete: if isAdmin() || request.auth.uid == resource.data.get('ownerId', '');
+    }
+
+    // Files Collection
+    match /files/{fileId} {
+      // Allow read if admin, or if public, or if owner. 
+      // Admin needs full read access to support collection counts and dashboard overview.
+      allow read: if isAdmin() || 
+                     resource.data.get('visibility', 'private') == 'public' || 
+                     request.auth.uid == resource.data.get('ownerId', '');
+      
+      allow create: if isSignedIn() && isNotSuspended();
+      allow update, delete: if isAdmin() || request.auth.uid == resource.data.get('ownerId', '');
+    }
+
+    // Reports Collection
+    match /reports/{fileId} {
+      allow read: if isAdmin();
+      allow create: if isSignedIn(); // Any user can report
+      allow update: if isAdmin();
+    }
+
+    // Admin Logs
+    match /admin_logs/{logId} {
+      allow read: if isAdmin();
+      allow create: if isAdmin(); // Only admins can log their actions
+    }
+
+    // Default fallback (development safety)
     match /{document=**} {
-      // Unrestricted access until the end of 2026 for development
-      allow read, write: if request.time < timestamp.date(2026, 12, 31);
+      allow read, write: if false; 
     }
   }
 }

@@ -11,20 +11,21 @@
 | UI-002 | As a user, I want to switch between dark and light mode for the application interface. | Done |
 | UI-FEEDBACK-001 | As a user, I want to view a loading indicator when videos or classes are being fetched. | Done |
 | UPLOAD-001 | As a user, I want to upload large video files with progress feedback. | Done |
+| ADMIN-002 | As an administrator, I want to log in to a dedicated admin portal using specific credentials. | Done |
+| ADMIN-DASH-001 | As an admin, I want to view an overview dashboard showing system-wide statistics. | Done |
+| ADMIN-REPORT-001 | As an admin, I want to review flagged content and take moderation actions. | Done |
+| SECURITY-001 | [Consolidated] Security & Access Control: Implement Firebase rules and frontend route protection. | Done |
 
 ## IN PROGRESS
 
 | **ID** | **User Story / Task** | **Status** |
 |--------|------------------------|------------|
 | ADMIN-001 | **[Consolidated] Moderation Suite**: Admin dashboard for reviewing reports and moderating content/users. | In Progress |
-| ADMIN-002 | As an administrator, I want to log in to a dedicated admin portal using specific credentials. | In Progress |
 | ADMIN-ANALYTICS-002 | As an admin, I want to monitor platform analytics including engagement trends and distribution. | In Progress |
 | ADMIN-AUDIT-001 | As an admin, I want to track and log all admin actions with actor details and timestamps. | In Progress |
 | ADMIN-CLASS-002 | As an admin, I want to browse/manage all classes and associate files. | In Progress |
 | ADMIN-CONFIG-001 | As an admin, I want to manage platform controls like domains and upload limits. | In Progress |
-| ADMIN-DASH-001 | As an admin, I want to view an overview dashboard showing system-wide statistics. | In Progress |
 | ADMIN-MEDIA-001 | As an admin, I want to browse all files regardless of visibility and delete inappropriate content. | In Progress |
-| ADMIN-REPORT-001 | As an admin, I want to review flagged content and take moderation actions. | In Progress |
 | ADMIN-SECURITY-001 | As an admin, I want to detect orphaned files and monitor abnormal usage patterns. | In Progress |
 | ADMIN-USER-001 | As an admin, I want to manage user roles, suspend accounts, and track activity. | In Progress |
 | ANALYTICS-001 | **[Consolidated] Engagement Analytics**: Track and display view counts and usage metrics. | In Progress |
@@ -46,12 +47,15 @@
 | SEARCH-FEEDBACK-001 | As a user, I want to see a message when no search results are found. | In Progress |
 | SEARCH-FILTER-001 | As a user, I want to filter videos by date and class efficiently. | In Progress |
 | SEARCH-SORT-001 | As a user, I want to sort videos by upload date or title. | In Progress |
-| SECURITY-001 | **[Consolidated] Security & Access Control**: Implement Firebase rules and frontend route protection. | In Progress |
 | SECURITY-002 | As a developer, I want to verify the security of logins and video files. | In Progress |
 | SOCIAL-001 | **[Consolidated] Social Engagement**: Star/Favorite content for quick access on the dashboard. | In Progress |
 | UI-RESPONSIVE-001 | As a user, I want to access the platform on different screen sizes (mobile/desktop). | In Progress |
 | VIDEO-METADATA-001 | As a user, I want to edit video metadata (title, description, visibility). | In Progress |
 | VIDEO-THUMBNAIL-001 | As a user, I want to upload a custom thumbnail for my videos. | In Progress |
+| ADMIN-UI-001 | Implement a collapsible sidebar for the admin panel to maximize content area on small screens. | To Do |
+| ADMIN-USER-MOD | Build the User Management module allowing admins to search users and manage roles. | To Do |
+| ADMIN-CLASS-MOD | Build the Class Directory module to manage global class visibility and ownership. | To Do |
+| ADMIN-FILE-MOD | Build the full File Explorer module for administrative auditing of all uploaded media. | To Do |
 
 ## DEFERRED / LOW PRIORITY
 
@@ -65,3 +69,7 @@
 | DEFERRED-CLI-001 | [Out of Scope] Command line interface (CLI) in GO for file uploads. | Deferred |
 | DEFERRED-EXTERNAL-001 | [External] Support for Capstone "Celebration of Scholarship Lite" events. | Deferred |
 | DEFERRED-LOGISTICS-001 | [Logistics] Verify team attendance for May 14 Product Presentation. | Deferred |
+
+## BUGS
+| **ID** | **Description** | **Status** |
+| BUG-001 | Profile Pages - Unable to view other user's uploads within their classes | To Do | 
