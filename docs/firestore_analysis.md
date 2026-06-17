@@ -4,12 +4,16 @@
 - `/users/{userId}`: User profile and settings.
 - `/classes/{classId}`: Class information.
 - `/files/{fileId}`: File metadata and storage references.
+- `/reports/{fileId}`: Aggregated user reports for specific files.
+- `/admin_logs/{logId}`: Audit trail for critical admin actions.
 
 ## Data Models
 
 ### User (`/users/{userId}`)
 - **Document ID**: `auth.uid`
 - **Fields**:
+  - `role`: string ('user', 'admin') - Default: 'user'
+  - `isSuspended`: boolean - Default: false
   - `major`: string (optional, < 100 chars)
   - `minor`: string (optional, < 100 chars)
   - `gradSemester`: string (optional, < 20 chars)
@@ -68,6 +72,27 @@
   - `createdAt`: timestamp (required, serverTimestamp)
   - `visibility`: string ('private', 'public') - Inherited from class
 
+### Report (`/reports/{fileId}`)
+- **Document ID**: The ID of the reported file
+- **Fields**:
+  - `fileId`: string (required)
+  - `reportCount`: number (required, total count)
+  - `status`: string ('pending', 'resolved')
+  - `reporters`: map (key: uid, value: {timestamp, email, reason})
+  - `latestReportedAt`: timestamp
+  - `fileVisibility`: string (captured at time of report)
+
+### Admin Log (`/admin_logs/{logId}`)
+- **Document ID**: auto-generated
+- **Fields**:
+  - `action`: string (e.g., 'DELETE_FILE', 'DELETE_CLASS', 'RESOLVE_REPORT')
+  - `targetId`: string (ID of the item acted upon)
+  - `targetName`: string (Name/Title of the item)
+  - `performedBy`: string (The name typed by admin in sign-off)
+  - `adminEmail`: string (The email typed by admin in sign-off)
+  - `reason`: string (Provided in the sign-off modal)
+  - `timestamp`: timestamp (serverTimestamp)
+
 ## Queries Identified
 - `classes`: `where('ownerId', '==', user.uid)`
 - `classes`: `where('ownerId', '==', effectiveUserId)` AND `where('visibility', '==', 'public')`
@@ -77,15 +102,19 @@
 - `files`: `where('ownerId', '==', userId)` AND `where('visibility', '==', 'public')` AND `orderBy('createdAt', 'desc')` AND `limit(11)`
 - `files`: `where('visibility', '==', 'public')` AND `orderBy('createdAt', 'desc')` AND `limit(6)` (for videos)
 - `users`: `where('visibility', '==', 'public')` AND `limit(20)` (search)
+- `reports`: `where('status', '==', 'pending')` AND `orderBy('reportCount', 'desc')`
+- `admin_logs`: `orderBy('timestamp', 'desc')`
 
 ## Authentication
 - Restricted to `lewisu.edu` email domain.
 - `request.auth.token.email.endsWith('@lewisu.edu')`
+  - Or specifically for admin: `admin@pithub.local` via Email/Password.
 
 ## Access Patterns
 - **Users**: Read own always. Read others only if `visibility == 'public'`. Update only own.
-- **Classes**: Read if owner OR `visibility == 'public'`. Create if authenticated (set own UID). Update/Delete if owner.
-- **Files**: Read if owner OR `visibility == 'public'`. Create if authenticated (set own UID). Update/Delete if owner.
+ - **Classes**: Read if owner OR `visibility == 'public'`. Create if authenticated AND !isSuspended. Update/Delete if owner OR isAdmin.
+ - **Files**: Read if owner OR `visibility == 'public'` OR (isAdmin AND isReported). Create if authenticated AND !isSuspended. Update/Delete if owner OR isAdmin.
+ - **Admin**: Can read all metadata. Can read content if public or file has a 'pending' report.
 
 ## Phase 3: Devil's Advocate Attack Outcomes
 
