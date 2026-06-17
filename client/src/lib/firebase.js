@@ -54,4 +54,4 @@ provider.setCustomParameters({
 	hd: "lewisu.edu",
 	prompt: "select_account"
 });
-export { db, storage, auth, provider};
+export { app, db, storage, auth, provider};

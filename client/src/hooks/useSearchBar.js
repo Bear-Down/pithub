@@ -1,8 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
 import { db } from '../lib/firebase';
 import { collection, query, where, getDocs, limit } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
 
 export const useSearchBar = () => {
+	const navigate = useNavigate();
 	// State for the current text in the search input
 	const [searchTerm, setSearchTerm] = useState('');
 	// State for storing categorized results from Firestore (videos/files, classes, users)
@@ -27,6 +29,14 @@ export const useSearchBar = () => {
 	// Main search effect that executes when searchTerm changes
 	useEffect(() => {
 		const performSearch = async () => {
+			// Special case: Redirect to admin login if exactly '/admin' is typed
+			if (searchTerm.trim() === '/admin') {
+				setSearchTerm('');
+				setIsOpen(false);
+				navigate('/admin/login');
+				return;
+			}
+
 			// Clear results and hide dropdown if search term is less than 2 characters
 			if (searchTerm.trim().length < 2) {
 				setResults({ videos: [], classes: [], users: [] });
@@ -76,7 +86,7 @@ export const useSearchBar = () => {
 		const timeoutId = setTimeout(performSearch, 400);
 		// Cleanup the timeout if the user types again within the 400ms window
 		return () => clearTimeout(timeoutId);
-	}, [searchTerm]);
+	}, [searchTerm, navigate]);
 
 	const handleInputFocus = () => {
 		if (searchTerm.length >= 2) {
