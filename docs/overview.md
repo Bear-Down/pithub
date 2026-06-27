@@ -21,33 +21,71 @@ When working on this project, consistency with Git and dependencies is important
 
 ### Working with Git and Branches
 
-All active development should take place in the `dev` branch. We recommend that you create feature-specific branches off of `dev` to keep your work isolated. 
+All active development should take place in the `dev` branch. We recommend creating feature-specific branches off of `dev` to keep your work isolated.
+
+ **First-time setup:** If you have just cloned the repository, your local repository may only contain the `main` branch even though the remote repository has both `main` and `dev`. Fetch the latest remote branches and create a local `dev` branch that tracks the remote branch:
 
 ```bash
-# Standard workflow for starting a new feature
-git checkout dev        # use 'dev' branch
-git pull origin dev     # fetch latest changes from remote branch of 'dev' 
+# Check for remote dev branch
+git branch -r       # you should see 'origin/dev' and 'origin/main'
+git switch dev
+# or
+git fetch origin
+git checkout -b dev origin/dev
+```
+You only need to do this once. Afterward, you can switch to the `dev` branch normally using:
+```bash
+git checkout dev
+```
 
-# Create a new branch within 'dev' branch for your whatever you're working on
-git branch <your-feature> && git checkout <your-feature>
-# or...
+A normal workflow would be like this:
+```bash
+# Switch to the development branch
+git checkout dev
+
+# Pull the latest changes from the remote dev branch
+git pull origin dev
+
+# Create a feature branch from dev
 git checkout -b <your-feature>
 
 # Work on your feature
 git add .
-git commmit -m "<your-commit-message>"
+git commit -m "<your-commit-message>"
 
-# When satisfied with what you have, merge it with 'dev' branch
-git checkout dev 
+# Merge your feature branch back into dev
+git checkout dev
 git merge <your-feature>
-# Optional - delete your branch when done with it
+
+# Optional: Delete your local feature branch when finished
 git branch -d <your-feature>
 
-# Create pull request to merge with 'main' branch
-git push origin dev     # push your changes onto 'dev' branch which creates a pull request
+# Push the updated dev branch to GitHub
+git push origin dev
 ```
 
-Once changes are ready, pushing the code to the remote `dev` branch will usually trigger a Pull Request process in GitHub, or you can also create one manually through the GitHub interface. This then allows us to review the latest code changes before code is merged to production.
+Once your changes have been pushed to the remote `dev` branch, create a Pull Request to merge `dev` into `main` through GitHub. This allows the team to review, test, and approve your changes before they are merged into the production branch.
+
+> **Note**
+>
+> Running `npm run dev` starts local Firebase emulators (e.g., Authentication, Firestore, and Storage). These emulators do **not** contain real user data, allowing you to safely develop and test features without affecting the production environment.
+>
+> After verifying that your changes work correctly in the local emulators, you may deploy only the frontend to Firebase Hosting to test your changes against the live backend:
+>
+> ```bash
+> firebase deploy --only hosting
+> ```
+>
+> Before opening a Pull Request, verify that your changes behave as expected in both the local emulators and the deployed application.
+>
+> If your deployment introduces bugs or unexpected behavior:
+>
+> * Identify and fix the issue in your local development environment first.
+> * Re-test your changes using `npm run dev` before deploying again.
+> * Re-deploy to Firebase Hosting if additional verification is needed.
+> * Only create or merge the Pull Request once the issue has been resolved and the application is functioning as expected.
+>
+> Avoid merging changes into the `main` branch until they have been thoroughly tested and confirmed to be stable.
 
 ### Managing Dependencies
 
@@ -74,7 +112,7 @@ This project is configured to use Firebase App Hosting. When code is merged into
 
 ### Manual Firebase Hosting (CLI)
 
-If a manual deployment is necessary for testing or specific updates, then we use Firebase Hosting. This requires building the frontend locally before pushing the assets.
+If a manual deployment is necessary for testing or specific updates (as specified above in **Note**), then we use Firebase Hosting. This requires building the frontend locally before pushing the assets.
 
 ```bash
 # Manual deployment steps
@@ -87,7 +125,7 @@ firebase deploy --only hosting
 ## Firebase Integration
 
 *   **Firestore (NoSQL)**: Stores metadata for classes and files. It also tracks ownership using the user's UID to ensure security rules are enforced.
-*   **Cloud Storage**: Used for storing raw binary data. 
+*   **Cloud Storage**: Used for storing raw binary data (videos, images, etc.). 
 *   **Environment Variables**: API keys and identifiers are managed via `.env` (ask, and it will be given) files locally and through Secret Manager for App Hosting on Firebase Console.
 
 ## Troubleshooting and Contact
@@ -95,7 +133,7 @@ firebase deploy --only hosting
 If any significant issues arise during development or deployment that cannot be resolved through the documentation, please reach out to us.
 
 - [Kevin Dacanay](kevinbrianfdacanay@lewisu.edu)
-- [Erick Hernandez](erickrdhernandez@lewisu.edu)
-- [Seb Jaculbe](sebastiandjaculbe@lewisu.edu)
-- [Kaleb Richardson](kalebrrichardon@lewisu.edu)
-- [Eddy Rodriguez](edwardjrodriguez@lewisu.edu)
+- [Erick Hernandez](erickrhhernandez@lewisu.edu)
+- [Sebastian Jaculbe](sebastiandjaculbe@lewisu.edu)
+- [Kaleb Richardson](kalebjrichardon@lewisu.edu)
+- [Eddy Rodriguez](edwardhrodriguez@lewisu.edu)
