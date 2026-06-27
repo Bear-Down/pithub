@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { format } from 'date-fns';
+import { Link } from 'react-router-dom';
 import SignOffModal from './SignOffModal';
 import { adminService } from '../services/adminService';
 
@@ -54,12 +55,15 @@ const RecentUploadsTable = ({ uploads }) => {
 				) : (
 				uploads.map((file) => (
 					<tr key={file.id}>
-					<td>
-						<div className="admin-flex admin-flex-col">
-						<span style={{ fontWeight: 700 }}>{file.name}</span>
-						<span style={{ fontSize: '10px', color: 'var(--admin-text-muted)', textTransform: 'uppercase' }}>{file.id.slice(0, 8)}</span>
-						</div>
-					</td>
+                        <td>
+                            {file.visibility === 'public' ? (
+                                <Link to={file.url} target="_blank" rel="noopener" className="admin-link" style={{ color: 'var(--admin-link-color)' }}>{file.name}</Link>
+                            ) : (
+                                <span>{file.name}</span>
+                            )}
+                            <br />
+                            <span style={{ fontSize: '10px', color: 'var(--admin-text-muted)', textTransform: 'uppercase' }}>{file.id.slice(0, 8)}</span>
+                        </td>
 					<td>
 						<div className="admin-flex admin-flex-col">
 						<span style={{ fontWeight: 700, fontSize: '12px' }}>{file.ownerName}</span>

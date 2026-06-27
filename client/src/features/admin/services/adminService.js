@@ -38,7 +38,7 @@ export const adminService = {
 
 		try {
 		// 1. Delete from Firebase Storage
-		const storageRef = ref(storage, fileData.storagePath);
+		const storageRef = fileData.storagePath ? ref(storage, fileData.storagePath) : ref(storage, fileData.url);
 		await deleteObject(storageRef);
 		if (fileData.thumbnailPath) {
 			const thumbnailRef = ref(storage, fileData.thumbnailPath);
