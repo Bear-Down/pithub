@@ -30,7 +30,6 @@ const LoginPage = () => {
 				<div className="login-card">
 					<div className="login-header">
 						<div className="login-logo">PitHub</div>
-						<h1>Welcome Back</h1>
 						<p>Sign in to access your classes and content</p>
 					</div>
 
