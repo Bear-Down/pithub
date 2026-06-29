@@ -8,6 +8,7 @@ export default function FlaggedContentQueue({ flaggedItems }) {
 	const [actionType, setActionType] = useState('');
 	const [targetItem, setTargetItem] = useState(null);
 	const [modalError, setModalError] = useState('');
+	const [isSubmitting, setIsSubmitting] = useState(false);
 
 	const handleAction = (item, type) => {
 		setTargetItem(item);
@@ -17,17 +18,20 @@ export default function FlaggedContentQueue({ flaggedItems }) {
 	};
 
 	const handleSignOffSubmit = async (adminName, adminEmail, reason) => {
+		setIsSubmitting(true);
 		setModalError('');
 		try {
-		if (actionType === 'delete_file') {
-			await adminService.deleteFile(targetItem.fileId, adminName, adminEmail, reason);
-		} else if (actionType === 'resolve_report') {
-			await adminService.resolveReport(targetItem.fileId, adminName, adminEmail, reason);
-		}
-		setShowSignOffModal(false);
+			if (actionType === 'delete_file') {
+				await adminService.deleteFile(targetItem.fileId, adminName, adminEmail, reason);
+			} else if (actionType === 'resolve_report') {
+				await adminService.resolveReport(targetItem.fileId, adminName, adminEmail, reason);
+			}
+			setShowSignOffModal(false);
 		} catch (error) {
-		console.error('Error performing admin action:', error);
-		setModalError('Failed to complete action');
+			console.error('Error performing admin action:', error);
+			setModalError('Failed to complete action');
+		} finally {
+			setIsSubmitting(false);
 		}
 	};
 
@@ -97,6 +101,7 @@ export default function FlaggedContentQueue({ flaggedItems }) {
 			onSubmit={handleSignOffSubmit}
 			actionType={actionType}
 			error={modalError}
+			isSubmitting={isSubmitting}
 		/>
 		</div>
 	);
