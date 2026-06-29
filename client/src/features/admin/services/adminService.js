@@ -1,125 +1,252 @@
-import { getFirestore, doc, getDoc, deleteDoc, collection, query, where, getDocs, updateDoc, addDoc, serverTimestamp } from 'firebase/firestore';
+import {
+	getFirestore,
+	doc,
+	getDoc,
+	deleteDoc,
+	collection,
+	query,
+	where,
+	getDocs,
+	updateDoc,
+	addDoc,
+	serverTimestamp,
+	increment,
+	setDoc,
+} from 'firebase/firestore';
 import { getStorage, ref, deleteObject } from 'firebase/storage';
-import { app } from '../../../lib/firebase'; // Assuming firebase.js exports 'app'
-
-/**
- * @file adminService.js
- * @description Centralized service for all administrative actions.
- *              Handles interactions with Firestore (deletions, updates, logging)
- *              and Firebase Storage (file deletions).
- *              Ensures all critical actions are logged with admin sign-off.
- */
+import { app } from '../../../lib/firebase';
 
 const db = getFirestore(app);
 const storage = getStorage(app);
 
+const logAdminAction = async (action, targetId, targetName, adminName, adminEmail, reason) => {
+	await addDoc(collection(db, 'admin_logs'), {
+		action,
+		targetId,
+		targetName,
+		performedBy: adminName,
+		adminEmail,
+		reason,
+		timestamp: serverTimestamp(),
+	});
+};
+
+const deleteFileFromStorage = async (fileData) => {
+	try {
+		const storageRef = fileData.storagePath
+			? ref(storage, fileData.storagePath)
+			: ref(storage, fileData.url);
+		await deleteObject(storageRef);
+		if (fileData.thumbnailPath) {
+			await deleteObject(ref(storage, fileData.thumbnailPath));
+		}
+	} catch (err) {
+		console.warn('Storage deletion warning:', err.message);
+	}
+};
+
 export const adminService = {
-	/**
-	 * Deletes a file from Firestore and Firebase Storage.
-	 * Requires admin sign-off.
-	 * @param {string} fileId - The ID of the file to delete.
-	 * @param {string} adminName - Name of the admin performing the action.
-	 * @param {string} adminEmail - Email of the admin performing the action.
-	 * @param {string} reason - Reason for deletion.
-	 */
 	deleteFile: async (fileId, adminName, adminEmail, reason) => {
 		if (!fileId || !adminName || !adminEmail || !reason) {
-		throw new Error("Missing required parameters for file deletion.");
+			throw new Error('Missing required parameters for file deletion.');
 		}
 
 		const fileRef = doc(db, 'files', fileId);
 		const fileSnap = await getDoc(fileRef);
-
-		if (!fileSnap.exists()) {
-		throw new Error("File not found.");
-		}
+		if (!fileSnap.exists()) throw new Error('File not found.');
 
 		const fileData = fileSnap.data();
-
-		try {
-		// 1. Delete from Firebase Storage
-		const storageRef = fileData.storagePath ? ref(storage, fileData.storagePath) : ref(storage, fileData.url);
-		await deleteObject(storageRef);
-		if (fileData.thumbnailPath) {
-			const thumbnailRef = ref(storage, fileData.thumbnailPath);
-			await deleteObject(thumbnailRef);
-		}
-
-		// 2. Delete from Firestore 'files' collection
+		await deleteFileFromStorage(fileData);
 		await deleteDoc(fileRef);
 
-		// 3. Update associated report status to 'resolved' or delete it
 		const reportRef = doc(db, 'reports', fileId);
 		const reportSnap = await getDoc(reportRef);
 		if (reportSnap.exists()) {
 			await updateDoc(reportRef, {
-			status: 'resolved',
-			resolvedBy: { adminName, adminEmail, timestamp: serverTimestamp() },
-			reason: reason,
+				status: 'resolved',
+				resolution: 'purged',
+				resolvedBy: { adminName, adminEmail, timestamp: serverTimestamp() },
+				reason,
 			});
 		}
 
-		// 4. Log the action
-		await addDoc(collection(db, 'admin_logs'), {
-			action: 'DELETE_FILE',
-			targetId: fileId,
-			targetName: fileData.name,
-			performedBy: adminName,
-			adminEmail: adminEmail,
-			reason: reason,
-			timestamp: serverTimestamp(),
-		});
-
-		console.log(`File ${fileId} deleted and logged by ${adminName}.`);
-		} catch (error) {
-		console.error("Error deleting file:", error);
-		throw new Error(`Failed to delete file: ${error.message}`);
-		}
+		await logAdminAction('DELETE_FILE', fileId, fileData.name, adminName, adminEmail, reason);
 	},
 
-	/**
-	 * Resolves a report without deleting the content.
-	 * Requires admin sign-off.
-	 * @param {string} fileId - The ID of the reported file.
-	 * @param {string} adminName - Name of the admin performing the action.
-	 * @param {string} adminEmail - Email of the admin performing the action.
-	 * @param {string} reason - Reason for resolving the report.
-	 */
 	resolveReport: async (fileId, adminName, adminEmail, reason) => {
 		if (!fileId || !adminName || !adminEmail || !reason) {
-		throw new Error("Missing required parameters for report resolution.");
+			throw new Error('Missing required parameters for report resolution.');
 		}
 
 		const reportRef = doc(db, 'reports', fileId);
-		try {
 		await updateDoc(reportRef, {
 			status: 'resolved',
+			resolution: 'dismissed',
 			resolvedBy: { adminName, adminEmail, timestamp: serverTimestamp() },
-			reason: reason,
+			reason,
+			resolvedAt: serverTimestamp(),
 		});
 
-		await addDoc(collection(db, 'admin_logs'), {
-			action: 'RESOLVE_REPORT',
-			targetId: fileId,
-			targetName: `Report for file ${fileId}`, // Consider fetching file name for better log
-			performedBy: adminName,
-			adminEmail: adminEmail,
-			reason: reason,
-			timestamp: serverTimestamp(),
-		});
-		console.log(`Report for file ${fileId} resolved and logged by ${adminName}.`);
-		} catch (error) {
-		console.error("Error resolving report:", error);
-		throw new Error(`Failed to resolve report: ${error.message}`);
-		}
+		await logAdminAction('RESOLVE_REPORT', fileId, `Report for file ${fileId}`, adminName, adminEmail, reason);
 	},
 
-	/**
-	 * Helper function to create a Firestore query for reports with a specific status.
-	 * @param {string} status - The status to filter by ('pending', 'resolved').
-	 * @returns {QueryConstraint} - A Firestore query constraint.
-	 */
-	whereReportStatus: (status) => where('status', '==', status),
+	suspendUser: async (userId, adminName, adminEmail, reason) => {
+		if (!userId || !adminName || !adminEmail || !reason) {
+			throw new Error('Missing required parameters for suspension.');
+		}
 
-	// TODO: Add deleteClass, suspendUser, etc. methods here
+		const userRef = doc(db, 'users', userId);
+		const userSnap = await getDoc(userRef);
+		if (!userSnap.exists()) throw new Error('User not found.');
+
+		const userData = userSnap.data();
+		await updateDoc(userRef, {
+			isSuspended: true,
+			suspendedAt: serverTimestamp(),
+			suspensionReason: reason,
+		});
+
+		await logAdminAction(
+			'SUSPEND_USER',
+			userId,
+			userData.displayName || userData.email || userId,
+			adminName,
+			adminEmail,
+			reason,
+		);
+	},
+
+	unsuspendUser: async (userId, adminName, adminEmail, reason) => {
+		if (!userId || !adminName || !adminEmail || !reason) {
+			throw new Error('Missing required parameters for unsuspension.');
+		}
+
+		const userRef = doc(db, 'users', userId);
+		const userSnap = await getDoc(userRef);
+		if (!userSnap.exists()) throw new Error('User not found.');
+
+		const userData = userSnap.data();
+		await updateDoc(userRef, {
+			isSuspended: false,
+			suspendedAt: null,
+			suspensionReason: null,
+		});
+
+		await logAdminAction(
+			'UNSUSPEND_USER',
+			userId,
+			userData.displayName || userData.email || userId,
+			adminName,
+			adminEmail,
+			reason,
+		);
+	},
+
+	updateUserRole: async (userId, newRole, adminName, adminEmail, reason) => {
+		if (!userId || !newRole || !adminName || !adminEmail || !reason) {
+			throw new Error('Missing required parameters for role update.');
+		}
+		if (!['user', 'admin'].includes(newRole)) {
+			throw new Error('Invalid role. Must be "user" or "admin".');
+		}
+
+		const userRef = doc(db, 'users', userId);
+		const userSnap = await getDoc(userRef);
+		if (!userSnap.exists()) throw new Error('User not found.');
+
+		const userData = userSnap.data();
+		await updateDoc(userRef, { role: newRole });
+
+		await logAdminAction(
+			'UPDATE_USER_ROLE',
+			userId,
+			`${userData.displayName || userData.email} → ${newRole}`,
+			adminName,
+			adminEmail,
+			reason,
+		);
+	},
+
+	deleteClass: async (classId, adminName, adminEmail, reason) => {
+		if (!classId || !adminName || !adminEmail || !reason) {
+			throw new Error('Missing required parameters for class deletion.');
+		}
+
+		const classRef = doc(db, 'classes', classId);
+		const classSnap = await getDoc(classRef);
+		if (!classSnap.exists()) throw new Error('Class not found.');
+
+		const classData = classSnap.data();
+		const filesQuery = query(collection(db, 'files'), where('classId', '==', classId));
+		const filesSnap = await getDocs(filesQuery);
+
+		for (const fileDoc of filesSnap.docs) {
+			const fileData = fileDoc.data();
+			await deleteFileFromStorage(fileData);
+			await deleteDoc(doc(db, 'files', fileDoc.id));
+
+			const reportRef = doc(db, 'reports', fileDoc.id);
+			const reportSnap = await getDoc(reportRef);
+			if (reportSnap.exists()) {
+				await deleteDoc(reportRef);
+			}
+		}
+
+		await deleteDoc(classRef);
+		await logAdminAction(
+			'DELETE_CLASS',
+			classId,
+			classData.name,
+			adminName,
+			adminEmail,
+			reason,
+		);
+
+		return filesSnap.size;
+	},
+
+	whereReportStatus: (status) => where('status', '==', status),
+};
+
+export const reportService = {
+	submitReport: async (fileId, userId, userEmail, reason, fileVisibility) => {
+		if (!fileId || !userId || !userEmail || !reason) {
+			throw new Error('Missing required parameters for report.');
+		}
+
+		const reportRef = doc(db, 'reports', fileId);
+		const reportSnap = await getDoc(reportRef);
+
+		if (reportSnap.exists()) {
+			const data = reportSnap.data();
+			if (data.reporters?.[userId]) {
+				throw new Error('You have already reported this content.');
+			}
+			await updateDoc(reportRef, {
+				reportCount: increment(1),
+				[`reporters.${userId}`]: {
+					timestamp: serverTimestamp(),
+					email: userEmail,
+					reason,
+				},
+				latestReportedAt: serverTimestamp(),
+				status: 'pending',
+			});
+		} else {
+			await setDoc(reportRef, {
+				fileId,
+				reportCount: 1,
+				status: 'pending',
+				reporters: {
+					[userId]: {
+						timestamp: serverTimestamp(),
+						email: userEmail,
+						reason,
+					},
+				},
+				latestReportedAt: serverTimestamp(),
+				fileVisibility: fileVisibility || 'public',
+			});
+		}
+	},
 };
