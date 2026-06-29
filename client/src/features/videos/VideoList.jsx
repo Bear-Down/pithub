@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useVideos } from '../../hooks/useVideos';
 import { useTheme } from '../../context/ThemeContext';
+import ReportButton from '../../components/ReportButton';
 
 export default function VideoList() {
 	const { videos, loading, error, nextPage, prevPage, page, hasNext } = useVideos();
@@ -43,6 +44,7 @@ export default function VideoList() {
 							</span>
 						</div>
 					</div>
+					<ReportButton file={video} />
 				</li>
 			))}
 			</ul>

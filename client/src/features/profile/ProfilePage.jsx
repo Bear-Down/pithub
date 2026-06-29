@@ -3,6 +3,7 @@ import ClassCard from '../classes/ClassCard';
 import ConfirmationModal from '../../components/ConfirmationModal';
 import InputModal from '../../components/InputModal';
 import LoadingOverlay from '../../components/LoadingOverlay';
+import ReportButton from '../../components/ReportButton';
 import { useProfilePage } from '../../hooks/useProfilePage';
 
 const ProfilePage = () => {
@@ -209,6 +210,7 @@ const ProfilePage = () => {
 											</span>
 										</div>
 									</div>
+									{!isOwner && <ReportButton file={file} />}
 								</li>
 							))}
 						</ul>

@@ -1,96 +1,116 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-/**
- * @file SignOffModal.jsx
- * @description A reusable modal component for admin actions requiring a sign-off.
- *              It collects the admin's name, email, and a reason for the action,
- *              which is then used for the audit log.
- */
-
-export default function SignOffModal({ isOpen, onClose, onSubmit, actionType, error }) {
-  const [adminName, setAdminName] = useState('');
-  const [adminEmail, setAdminEmail] = useState('');
-  const [reason, setReason] = useState('');
-
-  if (!isOpen) return null;
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!adminName || !adminEmail || !reason) {
-      // Basic client-side validation
-      return;
-    }
-    onSubmit(adminName, adminEmail, reason);
-  };
-
-  const getActionTitle = () => {
-    switch (actionType) {
-      case 'delete_file': return 'Delete File';
-      case 'delete_class': return 'Delete Class';
-      case 'resolve_report': return 'Resolve Report';
-      case 'suspend_user': return 'Suspend User';
-      default: return 'Admin Action';
-    }
-  };
-
-  return (
-    <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex justify-center items-center z-50">
-      <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-xl max-w-md w-full">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">{getActionTitle()} - Admin Sign-Off</h2>
-        <p className="text-gray-700 dark:text-gray-300 mb-6">
-          Please provide your name, school email, and a reason for this action. This will be recorded in the audit log.
-        </p>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label htmlFor="adminName" className="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">
-              Your Name
-            </label>
-            <input
-              type="text"
-              id="adminName"
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-700 dark:text-white dark:border-gray-600"
-              value={adminName}
-              onChange={(e) => setAdminName(e.target.value)}
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="adminEmail" className="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">
-              Your School Email
-            </label>
-            <input
-              type="email"
-              id="adminEmail"
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-700 dark:text-white dark:border-gray-600"
-              value={adminEmail}
-              onChange={(e) => setAdminEmail(e.target.value)}
-              required
-            />
-          </div>
-          <div className="mb-6">
-            <label htmlFor="reason" className="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">
-              Reason for Action
-            </label>
-            <textarea
-              id="reason"
-              rows="3"
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-700 dark:text-white dark:border-gray-600"
-              value={reason}
-              onChange={(e) => setReason(e.target.value)}
-              required
-            ></textarea>
-          </div>
-          {error && <p className="text-red-500 text-xs italic mb-4">{error}</p>}
-          <div className="flex justify-end gap-4">
-            <button type="button" onClick={onClose} className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
-              Cancel
-            </button>
-            <button type="submit" className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700">
-              Confirm {getActionTitle()}
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  );
+const ACTION_CONFIG = {
+	delete_file: {
+		title: 'Delete File',
+		confirmText: 'Permanently Delete File',
+		confirmMessage: 'Are you absolutely sure you want to delete this file? This action cannot be undone.',
+	},
+	delete_class: {
+		title: 'Delete Class',
+		confirmText: 'Permanently Delete Class',
+		confirmMessage: 'This will permanently delete the class and ALL files within it — including videos, documents, and storage assets. This decision cannot be reversed.',
+	},
+	resolve_report: {
+		title: 'Resolve Report',
+		confirmText: 'Dismiss Report',
+		confirmMessage: 'Are you sure you want to dismiss this report without removing the content?',
+	},
+	suspend_user: {
+		title: 'Suspend User',
+		confirmText: 'Suspend Account',
+		confirmMessage: 'This user will be unable to upload or create content until unsuspended. Continue?',
+	},
+	unsuspend_user: {
+		title: 'Unsuspend User',
+		confirmText: 'Restore Account',
+		confirmMessage: 'This will restore the user\'s ability to upload and create content. Continue?',
+	},
+	update_user_role: {
+		title: 'Change User Role',
+		confirmText: 'Update Role',
+		confirmMessage: 'Are you sure you want to change this user\'s role? They will gain or lose administrative access.',
+	},
 };
+
+export default function SignOffModal({ isOpen, onClose, onSubmit, actionType, error, isSubmitting }) {
+	const [confirmStep, setConfirmStep] = useState(false);
+	const [adminName, setAdminName] = useState('');
+	const [adminEmail, setAdminEmail] = useState('');
+	const [reason, setReason] = useState('');
+
+	const config = ACTION_CONFIG[actionType] || {
+		title: 'Admin Action',
+		confirmText: 'Confirm',
+		confirmMessage: 'Are you sure you want to proceed with this action?',
+	};
+
+	useEffect(() => {
+		if (!isOpen) {
+			setConfirmStep(false);
+			setAdminName('');
+			setAdminEmail('');
+			setReason('');
+		}
+	}, [isOpen]);
+
+	if (!isOpen) return null;
+
+	const handleInitialSubmit = (e) => {
+		e.preventDefault();
+		if (!adminName || !adminEmail || !reason) return;
+		setConfirmStep(true);
+	};
+
+	const handleFinalConfirm = async () => {
+		await onSubmit(adminName, adminEmail, reason);
+	};
+
+	const handleClose = () => {
+		setConfirmStep(false);
+		onClose();
+	};
+
+	return (
+		<div className="modal-backdrop">
+			<div>
+				<h2>{config.title} — Admin Sign-Off</h2>
+				{confirmStep ? (
+					<div style={{ padding: '24px' }}>
+						<p style={{ marginBottom: '24px', lineHeight: 1.6 }}>{config.confirmMessage}</p>
+						{error && <p className="text-red-500" style={{ color: 'var(--admin-danger)', marginBottom: '16px' }}>{error}</p>}
+						<div className="flex justify-end">
+							<button type="button" onClick={() => setConfirmStep(false)} disabled={isSubmitting}>Back</button>
+							<button type="button" onClick={handleFinalConfirm} disabled={isSubmitting}>
+								{isSubmitting ? 'Processing...' : config.confirmText}
+							</button>
+						</div>
+					</div>
+				) : (
+					<form onSubmit={handleInitialSubmit}>
+						<p style={{ marginBottom: '16px', lineHeight: 1.6 }}>
+							Provide your name, school email, and a reason. This will be recorded in the audit log.
+						</p>
+						<div className="mb-4">
+							<label htmlFor="adminName">Your Name</label>
+							<input type="text" id="adminName" value={adminName} onChange={(e) => setAdminName(e.target.value)} required />
+						</div>
+						<div className="mb-4">
+							<label htmlFor="adminEmail">Your School Email</label>
+							<input type="email" id="adminEmail" value={adminEmail} onChange={(e) => setAdminEmail(e.target.value)} required />
+						</div>
+						<div className="mb-6">
+							<label htmlFor="reason">Reason for Action</label>
+							<textarea id="reason" rows="3" value={reason} onChange={(e) => setReason(e.target.value)} required />
+						</div>
+						{error && <p className="text-red-500" style={{ color: 'var(--admin-danger)' }}>{error}</p>}
+						<div className="flex justify-end">
+							<button type="button" onClick={handleClose}>Cancel</button>
+							<button type="submit">Continue to Confirmation</button>
+						</div>
+					</form>
+				)}
+			</div>
+		</div>
+	);
+}

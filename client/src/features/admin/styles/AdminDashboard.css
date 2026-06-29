@@ -2,8 +2,10 @@
 
 .admin-theme-wrapper {
     /* Theme Overrides for Admin Panel - Aligned with student view colors */
-    --admin-bg-primary: #f4f4f4; /* Grey background */
-    --admin-bg-secondary: #ffffff; /* White sections/cards */
+    --admin-bg-primary: #f4f4f4;
+    /* Grey background */
+    --admin-bg-secondary: #ffffff;
+    /* White sections/cards */
     --admin-text-main: #333333;
     --admin-text-muted: #666666;
     --admin-border-color: #e5e7eb;
@@ -25,7 +27,8 @@
     --admin-text-main: #e0e0e0;
     --admin-text-muted: #aaaaaa;
     --admin-border-color: #2a2a2a;
-    --admin-brand-color: #1e40af; /* Deep Royal Blue */
+    --admin-brand-color: #1e40af;
+    /* Deep Royal Blue */
     --admin-brand-hover: #1d4ed8;
     --admin-header-bg: #1a3da0;
     --admin-sidebar-bg: #222222;
@@ -46,7 +49,7 @@
 .admin-layout header {
     background-color: var(--admin-header-bg) !important;
     padding: 15px 30px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -167,20 +170,171 @@
 }
 
 /* Tables */
-.admin-table-container {
-    background-color: var(--admin-bg-secondary);
-    border-radius: 24px;
-    border: 1px solid var(--admin-border-color);
-    box-shadow: var(--admin-card-shadow);
-    overflow: hidden;
+/* Modal Backdrop */
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 32px;
+
+    background: rgba(0, 0, 0, 0.45);
+
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+
+    z-index: 9999;
+
+    overflow-y: auto;
 }
+
+/* MODAL CARD */
+.modal-backdrop > div {
+    width: 100%;
+    max-width: 560px;
+
+    background: var(--admin-bg-secondary);
+    border: 1px solid var(--admin-border-color);
+    border-radius: 24px;
+
+    box-shadow:
+        0px 20px 40px rgba(0,0,0,.20),
+        0px 8px 16px rgba(0,0,0,.12);
+
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+}
+
+/* HEADER BAR */
+.modal-backdrop h2 {
+    margin: 0;
+
+    padding: 18px 24px;
+
+    background: orange;
+    color: white;
+
+    font-size: 18px;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+}
+
+/* BODY WRAPPER (fix padding + spacing issue) */
+.modal-backdrop p,
+.modal-backdrop form,
+.modal-backdrop .mb-4,
+.modal-backdrop .mb-6 {
+    padding-left: 24px;
+    padding-right: 24px;
+}
+
+/* ensure form spacing looks clean */
+.modal-backdrop form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* INPUTS */
+.modal-backdrop input,
+.modal-backdrop textarea {
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 12px 14px;
+
+    border-radius: 10px;
+    border: 1px solid var(--admin-border-color);
+
+    background: var(--admin-bg-primary);
+    color: var(--admin-text-main);
+
+    margin-top: 6px;
+}
+
+.modal-backdrop input:focus,
+.modal-backdrop textarea:focus {
+    outline: none;
+    border-color: orange;
+    box-shadow: 0 0 0 3px rgba(255, 165, 0, 0.2);
+}
+
+/* ERROR TEXT */
+.modal-backdrop .text-red-500 {
+    padding: 0 24px;
+}
+
+/* BUTTON AREA */
+.modal-backdrop .flex.justify-end {
+    padding: 20px 24px 24px;
+
+    display: flex;
+    gap: 12px;
+}
+
+/* BASE BUTTON STYLE */
+.modal-backdrop button {
+    padding: 12px 18px;
+
+    border-radius: 8px;
+    font-weight: 800;
+
+    min-width: 160px;
+
+    transition: all 0.15s ease;
+}
+
+/* CANCEL BUTTON */
+.modal-backdrop button[type="button"] {
+    background: transparent;
+    border: 2px solid var(--admin-border-color);
+    color: var(--admin-text-main);
+}
+
+.modal-backdrop button[type="button"]:hover {
+    background: rgba(0,0,0,0.05);
+}
+
+/* CONFIRM DELETE BUTTON (red) */
+.modal-backdrop button[type="submit"] {
+    background: #ef4444;
+    border: 2px solid #ef4444;
+    color: white;
+}
+
+.modal-backdrop button[type="submit"]:hover {
+    background: #dc2626;
+    border-color: #dc2626;
+    transform: translateY(-1px);
+}
+
+.global-activity .admin-table {
+    width: 100%;
+    min-width: 0; /* allow table to shrink with viewport */
+    /* No horizontal scroll unless viewport shrinks */
+}
+
+.moderation-queue .admin-table {
+    min-width: 800px;
+}
+
+.admin-link {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 
 .admin-table {
     width: 100%;
-    border-collapse: collapse;
+    table-layout: auto;
 }
 
 .admin-table th {
+    width: auto;
     text-align: left;
     padding: 16px 24px;
     font-size: 10px;
@@ -188,7 +342,7 @@
     text-transform: uppercase;
     color: var(--admin-text-muted);
     border-bottom: 1px solid var(--admin-border-color);
-    background-color: rgba(0,0,0,0.01);
+    background-color: rgba(0, 0, 0, 0.01);
 }
 
 .admin-table td {
@@ -198,7 +352,7 @@
 }
 
 .admin-table tr:hover td {
-    background-color: rgba(0,0,0,0.01);
+    background-color: rgba(0, 0, 0, 0.01);
 }
 
 .admin-badge {
@@ -210,20 +364,53 @@
     display: inline-block;
 }
 
-.admin-badge-success { background-color: rgba(16, 185, 129, 0.1); color: #059669; }
-.admin-badge-warning { background-color: rgba(245, 158, 11, 0.1); color: #d97706; }
-.admin-badge-danger { background-color: rgba(239, 68, 68, 0.1); color: #dc2626; }
+.admin-badge-success {
+    background-color: rgba(16, 185, 129, 0.1);
+    color: #059669;
+}
 
-.admin-flex { display: flex; }
-.admin-flex-col { flex-direction: column; }
-.admin-items-center { align-items: center; }
-.admin-justify-between { justify-content: space-between; }
-.admin-gap-2 { gap: 8px; }
-.admin-mt-auto { margin-top: auto; }
+.admin-badge-warning {
+    background-color: rgba(245, 158, 11, 0.1);
+    color: #d97706;
+}
+
+.admin-badge-danger {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: #dc2626;
+}
+
+.admin-flex {
+    display: flex;
+}
+
+.admin-flex-col {
+    flex-direction: column;
+}
+
+.admin-items-center {
+    align-items: center;
+}
+
+.admin-justify-between {
+    justify-content: space-between;
+}
+
+.admin-gap-2 {
+    gap: 8px;
+}
+
+.admin-mt-auto {
+    margin-top: auto;
+}
 
 @keyframes admin-spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 .admin-loading-spinner {
@@ -234,3 +421,86 @@
     border-radius: 50%;
     animation: admin-spin 1s linear infinite;
 }
+
+.admin-search-input {
+    flex: 1;
+    min-width: 240px;
+    padding: 10px 16px;
+    border-radius: 10px;
+    border: 1px solid var(--admin-border-color);
+    background: var(--admin-bg-secondary);
+    color: var(--admin-text-main);
+    font-size: 14px;
+}
+
+.admin-select {
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: 1px solid var(--admin-border-color);
+    background: var(--admin-bg-secondary);
+    color: var(--admin-text-main);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.admin-action-btn {
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--admin-border-color);
+    background: var(--admin-bg-secondary);
+    color: var(--admin-text-main);
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.admin-action-btn:hover {
+    background: var(--admin-bg-primary);
+}
+
+.admin-action-danger {
+    background: rgba(239, 68, 68, 0.1);
+    border-color: rgba(239, 68, 68, 0.2);
+    color: var(--admin-danger);
+}
+
+.admin-action-success {
+    background: rgba(16, 185, 129, 0.1);
+    border-color: rgba(16, 185, 129, 0.2);
+    color: var(--admin-success);
+}
+
+.admin-action-warning {
+    background: rgba(245, 158, 11, 0.1);
+    border-color: rgba(245, 158, 11, 0.2);
+    color: var(--admin-warning);
+}
+
+.admin-tab-btn {
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: 1px solid var(--admin-border-color);
+    background: var(--admin-bg-secondary);
+    color: var(--admin-text-muted);
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+}
+
+.admin-tab-btn.active {
+    background: var(--admin-brand-color);
+    border-color: var(--admin-brand-color);
+    color: #fff;
+}
+
+.admin-table-container {
+    background: var(--admin-bg-secondary);
+    border: 1px solid var(--admin-border-color);
+    border-radius: 16px;
+    overflow-x: auto;
+}
+

@@ -1,5 +1,6 @@
 import React from 'react';
 import ConfirmationModal from '../../components/ConfirmationModal';
+import ReportButton from '../../components/ReportButton';
 import { useClassPage } from '../../hooks/useClassPage';
 
 const ClassPage = () => {
@@ -281,10 +282,12 @@ const ClassPage = () => {
 						{file.type.split('/')[1]?.toUpperCase() || 'FILE'}
 					</span>
 					</div>
-					{user?.uid === file.ownerId && (
+					{user?.uid === file.ownerId ? (
 					<button onClick={() => setConfirmDelete(file)} style={{ backgroundColor: '#ff4d4d', color: 'white', border: 'none', borderRadius: '4px', padding: '4px 10px', cursor: 'pointer', fontSize: '0.8rem' }}>
 						Delete
 					</button>
+					) : (
+					<ReportButton file={file} />
 					)}
 				</li>
 				))
