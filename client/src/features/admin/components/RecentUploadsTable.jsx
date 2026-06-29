@@ -8,6 +8,7 @@ const RecentUploadsTable = ({ uploads }) => {
 	const [showSignOffModal, setShowSignOffModal] = useState(false);
 	const [targetFile, setTargetFile] = useState(null);
 	const [modalError, setModalError] = useState('');
+	const [isSubmitting, setIsSubmitting] = useState(false);
 
 	const handleDeleteClick = (file) => {
 		setTargetFile(file);
@@ -16,14 +17,17 @@ const RecentUploadsTable = ({ uploads }) => {
 	};
 
 	const handleSignOffSubmit = async (adminName, adminEmail, reason) => {
+		setIsSubmitting(true);
 		setModalError('');
 		try {
-		await adminService.deleteFile(targetFile.id, adminName, adminEmail, reason);
-		setShowSignOffModal(false);
-		setTargetFile(null);
+			await adminService.deleteFile(targetFile.id, adminName, adminEmail, reason);
+			setShowSignOffModal(false);
+			setTargetFile(null);
 		} catch (error) {
-		console.error('Error deleting file:', error);
-		setModalError('Failed to delete file');
+			console.error('Error deleting file:', error);
+			setModalError('Failed to delete file');
+		} finally {
+			setIsSubmitting(false);
 		}
 	};
 
@@ -102,6 +106,7 @@ const RecentUploadsTable = ({ uploads }) => {
 			onSubmit={handleSignOffSubmit}
 			actionType="delete_file"
 			error={modalError}
+			isSubmitting={isSubmitting}
 		/>
 		</div>
 	);
