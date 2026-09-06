@@ -52,6 +52,10 @@ service cloud.firestore {
             isSignedIn() &&
             request.auth.uid == get(/databases/$(database)/documents/classes/$(resource.data.get('classId', ''))).data.get('ownerId', '') &&
             request.resource.data.diff(resource.data).affectedKeys().hasOnly(['visibility'])
+          ) ||
+          (
+            isSignedin() &&
+            request.resource.data.diff(resource.data).affectedKeys().hasOnly(['views'])
           );
 
         allow delete: if isAdmin() || request.auth.uid == resource.data.get('ownerId', '');

@@ -3,12 +3,25 @@ import { Link } from 'react-router-dom';
 import { useVideos } from '../hooks/useVideos';
 import { useTheme } from '../context/ThemeContext';
 import ReportButton from './ReportButton';
+import { doc, updateDoc, increment } from 'firebase/firestore';
+import { db } from "../lib/firebase";
 
 export default function VideoList() {
 	const { videos, loading, error, nextPage, prevPage, page, hasNext } = useVideos();
 	const { theme } = useTheme();
 	const [hoverPrev, setHoverPrev] = useState(false);
 	const [hoverNext, setHoverNext] = useState(false);
+
+	const handleVideoClick = async (videoId) => {
+	try {
+		const videoRef = doc(db, 'files', videoId);
+		await updateDoc(videoRef, {
+			views: increment(1)
+		});
+	} catch (err) {
+		console.error('Failed to update view count:', err);
+	}
+};
 
 	if (loading) return <div className="status">Loading uploads...</div>;
 	if (error) return <div className="status" style={{ color: 'red' }}>Error: {error}</div>;
@@ -30,7 +43,13 @@ export default function VideoList() {
 							<div className="thumbnail-placeholder">DOC</div>
 						)}
 						<div style={{ display: 'flex', flexDirection: 'column' }}>
-							<a href={video.url} target="_blank" rel="noreferrer" className="file-link">
+							<a 
+								href={video.url} 
+								target="_blank" 
+								rel="noreferrer" 
+								className="file-link"
+								onClick={() => handleVideoClick(video.id)}
+							>
 								{video.name}
 							</a>
 							<span style={{ fontSize: '0.75rem', color: '#777' }}>
@@ -40,7 +59,7 @@ export default function VideoList() {
 									</Link>
 								) : (
 									video.ownerName || 'Anonymous'
-								)} in {video.className || 'General'}
+								)} in {video.className || 'General'} · {video.views ?? 0} views
 							</span>
 						</div>
 					</div>
