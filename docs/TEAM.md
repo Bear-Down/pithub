@@ -144,7 +144,7 @@ Our team will:
 
 **Contribution Notes:**
 
-> Current contribution description:
+> Current contribution description: Frontend/backend development and feature implementation.
 
 ---
 
@@ -162,7 +162,7 @@ Our team will:
 
 > Current contribution description:
 
----
+--- Feature development, Testing, Debugging, Documentation.
 
 # 9. Definition of Done
 
@@ -176,3 +176,4 @@ At minimum, the Definition of Done requires:
 - The completed work has been integrated into the product.
 - The change has been reviewed and merged into the appropriate branch.
 - At least one GitHub commit exists on the product branch with a commit message following: Story [[STORY-NUMBER]] done
+
