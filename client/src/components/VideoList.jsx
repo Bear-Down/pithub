@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useVideos } from '../hooks/useVideos';
 import { useTheme } from '../context/ThemeContext';
 import ReportButton from './ReportButton';
+import DocumentPreviewModal from './DocumentPreviewModal';
 import { doc, updateDoc, increment } from 'firebase/firestore';
 import { db } from "../lib/firebase";
 
@@ -130,123 +131,7 @@ export default function VideoList() {
 			</ul>
 
 			{/* Fullscreen Overlay Document Preview Modal */}
-			{previewFile && (
-				<div
-					style={{
-						position: 'fixed',
-						top: 0,
-						left: 0,
-						width: '100vw',
-						height: '100vh',
-						backgroundColor: 'rgba(0, 0, 0, 0.65)',
-						backdropFilter: 'blur(8px)',
-						WebkitBackdropFilter: 'blur(8px)',
-						zIndex: 9999,
-						display: 'flex',
-						flexDirection: 'column',
-						padding: '20px',
-						boxSizing: 'border-box'
-					}}
-					onClick={handleClosePreview}
-				>
-					<div
-						style={{
-							backgroundColor: theme === 'dark' ? '#1e1e1e' : '#ffffff',
-							borderRadius: '12px',
-							width: '100%',
-							height: '100%',
-							display: 'flex',
-							flexDirection: 'column',
-							overflow: 'hidden',
-							boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.5)'
-						}}
-						onClick={(e) => e.stopPropagation()}
-					>
-						{/* Modal Header */}
-						<div
-							style={{
-								padding: '14px 20px',
-								display: 'flex',
-								justifyContent: 'space-between',
-								alignItems: 'center',
-								borderBottom: `1px solid ${theme === 'dark' ? '#333' : '#e5e7eb'}`,
-								backgroundColor: theme === 'dark' ? '#2a2a2a' : '#f9fafb'
-							}}
-						>
-							<div style={{ display: 'flex', alignItems: 'center', gap: '10px', overflow: 'hidden' }}>
-								<span style={{ fontSize: '1.1rem', fontWeight: 'bold', color: theme === 'dark' ? '#f3f4f6' : '#111827', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-									{previewFile.name}
-								</span>
-							</div>
-							<div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-								<a
-									href={previewFile.url}
-									target="_blank"
-									rel="noreferrer"
-									style={{
-										color: 'var(--brand-color)',
-										fontSize: '0.85rem',
-										fontWeight: '600',
-										textDecoration: 'none'
-									}}
-								>
-									Open in new tab ↗
-								</a>
-								<button
-									onClick={handleClosePreview}
-									style={{
-										background: 'none',
-										border: 'none',
-										fontSize: '1.4rem',
-										fontWeight: 'bold',
-										color: theme === 'dark' ? '#9ca3af' : '#6b7280',
-										cursor: 'pointer',
-										lineHeight: '1px',
-										padding: '4px 8px'
-									}}
-									title="Close Preview"
-								>
-									✕
-								</button>
-							</div>
-						</div>
-
-						{/* Modal Body - Iframe Preview */}
-						<div style={{ flex: 1, backgroundColor: '#f3f4f6', position: 'relative' }}>
-							{previewFile.type?.startsWith('video/') ? (
-								<div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#000' }}>
-									<video
-										src={previewFile.url}
-										controls
-										autoPlay
-										style={{ maxWidth: '100%', maxHeight: '100%' }}
-									/>
-								</div>
-							) : previewFile.type === 'application/pdf' ? (
-								<iframe
-									src={previewFile.url}
-									title={previewFile.name}
-									style={{ width: '100%', height: '100%', border: 'none' }}
-								/>
-							) : previewFile.type?.startsWith('image/') ? (
-								<div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px', boxSizing: 'border-box' }}>
-									<img
-										src={previewFile.url}
-										alt={previewFile.name}
-										style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', borderRadius: '4px' }}
-									/>
-								</div>
-							) : (
-								<iframe
-									src={`https://docs.google.com/gview?url=${encodeURIComponent(previewFile.url)}&embedded=true`}
-									title={previewFile.name}
-									style={{ width: '100%', height: '100%', border: 'none' }}
-								/>
-							)}
-						</div>
-					</div>
-				</div>
-			)}
+			<DocumentPreviewModal file={previewFile} onClose={handleClosePreview} />
 			<div className="pagination-controls">
 				<button
 					className="pagination-btn"

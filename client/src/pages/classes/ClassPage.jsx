@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ConfirmationModal from '../../components/ConfirmationModal';
 import ReportButton from '../../components/ReportButton';
+import DocumentPreviewModal from '../../components/DocumentPreviewModal';
 import { useClassPage } from '../../hooks/useClassPage';
+import { doc, updateDoc, increment } from 'firebase/firestore';
+import { db } from '../../lib/firebase';
 
 const ClassPage = () => {
 	const {
@@ -34,9 +37,32 @@ const ClassPage = () => {
 		classId
 	} = useClassPage();
 
-	const [showProfileWarning, setShowProfileWarning] = React.useState(false);
-	const [confirmClassPrivacyChange, setConfirmClassPrivacyChange] = React.useState(false);
-	
+	const [showProfileWarning, setShowProfileWarning] = useState(false);
+	const [confirmClassPrivacyChange, setConfirmClassPrivacyChange] = useState(false);
+	const [previewFile, setPreviewFile] = useState(null);
+
+	const handleFileClick = async (fileId) => {
+		try {
+			const fileRef = doc(db, 'files', fileId);
+			await updateDoc(fileRef, {
+				views: increment(1)
+			});
+		} catch (err) {
+			console.error('Failed to update view count:', err);
+		}
+	};
+
+	const handleOpenPreview = (file) => {
+		if (file?.id) {
+			handleFileClick(file.id);
+		}
+		setPreviewFile(file);
+	};
+
+	const handleClosePreview = () => {
+		setPreviewFile(null);
+	};
+
 	return (
 		<div className="container class-page">
 		{/* Hidden input to handle file selection */}
@@ -255,19 +281,62 @@ const ClassPage = () => {
 				files.map((file) => (
 				<li key={file.id} className="file-item">
 					<div className="file-info" style={{ display: 'flex', alignItems: 'center', gap: '15px', flex: 1 }}>
-					{file.thumbnailUrl ? (
-						<img 
-						src={file.thumbnailUrl} 
-						alt="thumbnail" 
-						style={{ width: '80px', height: '45px', objectFit: 'cover', borderRadius: '4px', border: '1px solid var(--border-color)' }}
-						/>
-					) : (
-						<div style={{ width: '80px', height: '45px', backgroundColor: 'var(--hidden-bg)', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.6rem', color: 'var(--text-muted)' }}>
-						DOC
+						{/* Thumbnail with preview indicator */}
+						<div 
+							onClick={() => handleOpenPreview(file)}
+							title="Click thumbnail to preview document"
+							style={{ 
+								position: 'relative', 
+								cursor: 'pointer', 
+								display: 'inline-block',
+								flexShrink: 0,
+								borderRadius: '4px',
+								overflow: 'hidden'
+							}}
+							className="thumbnail-wrapper"
+						>
+							{file.thumbnailUrl ? (
+								<img 
+									src={file.thumbnailUrl} 
+									alt="thumbnail" 
+									style={{ width: '80px', height: '45px', objectFit: 'cover', display: 'block', border: '1px solid var(--border-color)' }}
+								/>
+							) : (
+								<div className="thumbnail-placeholder" style={{ width: '80px', height: '45px' }}>
+									{file.type?.startsWith('video/') ? 'VIDEO' : 'DOC'}
+								</div>
+							)}
+							<div 
+								style={{
+									position: 'absolute',
+									top: 0,
+									left: 0,
+									width: '100%',
+									height: '100%',
+									backgroundColor: 'rgba(0, 0, 0, 0.4)',
+									display: 'flex',
+									alignItems: 'center',
+									justifyContent: 'center',
+									color: '#fff',
+									fontSize: '0.65rem',
+									fontWeight: 'bold',
+									opacity: 0.9,
+									transition: 'opacity 0.2s ease',
+									pointerEvents: 'none'
+								}}
+							>
+								🔍
+							</div>
 						</div>
-					)}
+
 					<div style={{ display: 'flex', flexDirection: 'column' }}>
-						<a href={file.url} target="_blank" rel="noreferrer" className="file-link">
+						<a 
+							href={file.url} 
+							target="_blank" 
+							rel="noreferrer" 
+							className="file-link"
+							onClick={() => handleFileClick(file.id)}
+						>
 							{file.name}
 						</a>
 						<span style={{ fontSize: '0.75rem', color: '#777' }}>
@@ -275,7 +344,7 @@ const ClassPage = () => {
 						</span>
 					</div>
 					<span className="file-type" style={{ fontSize: '0.8rem', color: '#888', marginLeft: 'auto', marginRight: '20px' }}>
-						{file.type.split('/')[1]?.toUpperCase() || 'FILE'}
+						{file.type ? (file.type.split('/')[1]?.toUpperCase() || 'FILE') : 'FILE'}
 					</span>
 					</div>
 					{user?.uid === file.ownerId ? (
@@ -294,6 +363,8 @@ const ClassPage = () => {
 			)}
 			</ul>
 		</section>
+
+		<DocumentPreviewModal file={previewFile} onClose={handleClosePreview} />
 
 		<ConfirmationModal
 		 isOpen={confirmClassPrivacyChange}
