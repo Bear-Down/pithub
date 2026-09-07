@@ -47,7 +47,9 @@ const Layout = () => {
 			<div className="header-right">
 			<ThemeToggle />
 			<SearchBar />
+			{/* Profile */}
 			{user && (
+				<div className="header-user-controls">
 				<div className="profile-container" ref={dropdownRef}>
 					<div className="circle" onClick={toggleDropdown} style={{ cursor: 'pointer', overflow: 'hidden' }}>
 						<img 
@@ -59,13 +61,13 @@ const Layout = () => {
 							}}
 						/>
 					</div>
+					{/* Dropdown*/}
 					{showDropdown && (
 						<div className="profile-dropdown">
 							<button className="dropdown-item" onClick={() => {
 								navigate('/profile');
 								setShowDropdown(false);
 							}}>Profile</button>
-							<button className="dropdown-item">Settings</button>
 							<>
 								{loading ? (
 									<Spinner />
@@ -77,6 +79,16 @@ const Layout = () => {
 							</>
 						</div>
 					)}
+				</div>
+				{/* Settings Page */}
+				<button
+				className="settings-button"
+				onClick={() => navigate('/settings')}
+				title="Settings"
+				aria-label="Settings"
+				>
+				⚙
+				</button>
 				</div>
 			)}
 			</div>
