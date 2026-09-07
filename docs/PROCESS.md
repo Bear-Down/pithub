@@ -21,7 +21,33 @@ Each sprint:
 - Uses Discord for asynchronous daily updates.
 - Ends with a Sprint Review and Sprint Retrospective.
 
-Our team uses each sprint to plan, develop, test, review, and improve the PitHub application.
+Our team uses each sprint to plan, develop, test, review, and improve the Pithub application.
+
+---
+
+## 3. Sprint Planning
+Sprint Planning determines the goals and work for each sprint.
+
+During Sprint Planning, Out team will:
+- Review and prioritize Product Backlog items.
+- Clarify requirements and acceptance criteria.
+- Select work for the Sprint Backlog.
+- Idenfity dependencies and potential blockers.
+
+The Product Owner manages priorities, Developers determine implementation details, and the Scrum Master facilitates the process.
+
+---
+
+## 4. Team Communication
+Our team uses Discord for daily communication and GitHub for project tracking and documentation.
+
+Team members should communicate:
+- Current and completed work.
+- Upcoming tasks.
+- Blockers or technical issues.
+- Information that may affect other team members.
+
+Important decisions should be documented in GitHub when appropriate.
 
 ---
 
