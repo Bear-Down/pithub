@@ -281,7 +281,7 @@ const ProfilePage = () => {
 												{file.name}
 											</a>
 											<span style={{ fontSize: '0.7rem', color: '#777' }}>
-												{file.ownerName || 'Anonymous'} in {file.className || 'General'}
+												{file.ownerName || 'Anonymous'} in {file.className || 'General'} · {file.views ?? 0} views
 											</span>
 										</div>
 									</div>

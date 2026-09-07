@@ -340,7 +340,7 @@ const ClassPage = () => {
 							{file.name}
 						</a>
 						<span style={{ fontSize: '0.75rem', color: '#777' }}>
-							Uploaded by {file.ownerName ? file.ownerName.split(' ')[0] : 'Unknown'}
+							Uploaded by {file.ownerName ? file.ownerName.split(' ')[0] : 'Unknown'} · {file.views ?? 0} views
 						</span>
 					</div>
 					<span className="file-type" style={{ fontSize: '0.8rem', color: '#888', marginLeft: 'auto', marginRight: '20px' }}>
