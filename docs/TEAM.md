@@ -137,7 +137,8 @@ Our team will:
 **Contribution Notes:**
 
 > Current contribution description:
-
+- Product Owner responsibilities including backlog management, product requirements, and stakeholder communication.
+- Development responsibilities alongside team
 ---
 
 ## Erick Hernandez
