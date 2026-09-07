@@ -8,7 +8,10 @@ import { useClassList } from '../hooks/useClassList';
 
 const ClassList = () => {
 	const {
-		classes,
+		classes = [],
+		fileCounts = {},
+		viewMode = 'grid',
+		setViewMode,
 		confirmDelete,
 		inputModal,
 		isDeleting,
@@ -19,7 +22,7 @@ const ClassList = () => {
 		closeInputModal,
 		setConfirmDeleteData,
 		cancelDelete
-	} = useClassList();
+	} = useClassList() || {};
 
 	return (
 		<div className="home-wrapper">
@@ -29,27 +32,48 @@ const ClassList = () => {
 				<VideoList />
 			</div>
 
-			{/* Bottom Section: Horizontal Classes Grid */}
+			{/* Bottom Section: Classes (Grid or Stacked List) */}
 			<div className="classes-section">
 				<div className="classes-header">
-				<h2>Your Classes</h2>
-				<button className="create-class-btn" onClick={handleCreateClass}>+ Create Class</button>
+					<h2>Your Classes</h2>
+					<div className="classes-header-actions">
+						<div className="view-toggle-group">
+							<button 
+								className={`view-toggle-btn ${viewMode === 'grid' ? 'active' : ''}`}
+								onClick={() => setViewMode && setViewMode('grid')}
+								title="Grid View (Boxes)"
+							>
+								Grid
+							</button>
+							<button 
+								className={`view-toggle-btn ${viewMode === 'list' ? 'active' : ''}`}
+								onClick={() => setViewMode && setViewMode('list')}
+								title="List View (Stacked)"
+							>
+								List
+							</button>
+						</div>
+						<button className="create-class-btn" onClick={handleCreateClass}>+ Create Class</button>
+					</div>
 				</div>
-				{classes.length > 0 ? (
-				<div className="classes-horizontal-scroll">
-					{classes.map((item) => (
-					<ClassCard 
-						key={item.id} 
-						classData={item} 
-						onEdit={handleEditClass}
-						onDelete={setConfirmDeleteData}
-					/>
-					))}
-				</div>
+
+				{classes && classes.length > 0 ? (
+					<div className={viewMode === 'grid' ? 'classes-grid-view' : 'classes-list-view'}>
+						{classes.map((item) => (
+							<ClassCard 
+								key={item.id} 
+								classData={item} 
+								onEdit={handleEditClass}
+								onDelete={setConfirmDeleteData}
+								viewMode={viewMode}
+								docCount={(fileCounts && item?.id && fileCounts[item.id]) || 0}
+							/>
+						))}
+					</div>
 				) : (
-				<div className="status">
-					<p>No classes created yet. Click the button above to get started!</p>
-				</div>
+					<div className="status">
+						<p>No classes created yet. Click the button above to get started!</p>
+					</div>
 				)}
 			</div>
 

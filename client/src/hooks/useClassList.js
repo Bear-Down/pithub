@@ -18,9 +18,18 @@ import { ref, deleteObject } from 'firebase/storage';
 export const useClassList = () => {
 	const { user } = useAuth();
 	const [classes, setClasses] = useState([]);
+	const [fileCounts, setFileCounts] = useState({});
+	const [viewMode, setViewModeState] = useState(() => {
+		return localStorage.getItem('pithub_class_view_mode') || 'grid';
+	});
 	const [confirmDelete, setConfirmDelete] = useState(null);
 	const [inputModal, setInputModal] = useState({ isOpen: false, mode: 'create', data: null });
 	const [isDeleting, setIsDeleting] = useState(false);
+
+	const setViewMode = (mode) => {
+		setViewModeState(mode);
+		localStorage.setItem('pithub_class_view_mode', mode);
+	};
 
 	// Fetch classes from Firestore
 	useEffect(() => {
@@ -39,6 +48,29 @@ export const useClassList = () => {
             }));
             setClasses(fetchedClasses);
 		});
+		return () => unsubscribe();
+	}, [user?.uid]);
+
+	// Fetch file counts per class for the current user
+	useEffect(() => {
+		if (!user?.uid) return;
+
+		const q = query(
+			collection(db, 'files'),
+			where('ownerId', '==', user.uid)
+		);
+
+		const unsubscribe = onSnapshot(q, (snapshot) => {
+			const counts = {};
+			snapshot.docs.forEach(doc => {
+				const data = doc.data();
+				if (data.classId) {
+					counts[data.classId] = (counts[data.classId] || 0) + 1;
+				}
+			});
+			setFileCounts(counts);
+		});
+
 		return () => unsubscribe();
 	}, [user?.uid]);
 
@@ -113,6 +145,9 @@ export const useClassList = () => {
 
 	return {
 		classes,
+		fileCounts,
+		viewMode,
+		setViewMode,
 		confirmDelete,
 		inputModal,
 		isDeleting,

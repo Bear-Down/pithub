@@ -23,28 +23,27 @@
 }
 
 [data-theme='dark'] {
-    --bg-primary: #1a1a1a; /* Main Page Background */
-    --bg-secondary: #222222; /* Elevated Container Background */
-    --text-main: #e0e0e0;
-    --text-muted: #aaaaaa;
-    --border-color: #2a2a2a;
-    --border-soft: #2a2a2a;
-    --section-border: rgba(255, 255, 255, 0.1);
-    --card-shadow: rgba(0, 0, 0, 0.5);
-    --brand-color: #1e40af; /* Deep Royal Blue */
-    --brand-hover: #1d4ed8;
-    --header-bg: #1a3da0; /* Darker header for blue theme */
+    --bg-primary: #121212;        /* Page background */
+    --bg-secondary: #1e1e1e;      /* Cards, elevated surfaces */
+    --text-main: #e0e0e0;         /* Light gray, not pure white */
+    --text-muted: #a0a0a0;        /* Muted text */
+    --border-color: #333333;      /* Subtle but visible on dark */
+    --border-soft: #2a2a2a;       /* Softer divider */
+    --section-border: transparent;
+    --card-shadow: rgba(0, 0, 0, 0.4); /* Deeper shadow for elevation */
+    --brand-color: #ffa726;       /* Lighter orange for dark contrast */
+    --brand-hover: #ffcc80;       /* Lighter still on hover */
+    --header-bg: #1e1e1e;         /* Dark surface (bright orange header is jarring in dark) */
     --overlay-bg: rgba(18, 18, 18, 0.8);
-    --input-bg: #222222;
-    --input-bg-raised: #2d2d2d;
-    --card-hover: #252525;
-    --private-text: #ffffff; /* White text on red in dark mode */
-    --link-color: #60a5fa;
-    --visible-bg: #1b5e20;
-    --hidden-bg: #333333;
-    --visible-text: #ffffff;
+    --input-bg: #1e1e1e;
+    --input-bg-raised: #2a2a2a;
+    --card-hover: #2a2a2a;        /* Slightly lighter than card */
+    --private-text: #111111;      /* Dark text on colored badge in dark mode */
+    --link-color: #60a5fa;        /* Lighter blue, ~5:1 contrast on #121212 */
+    --visible-bg: #1a3a1a;        /* Dark green tint */
+    --hidden-bg: #2a2a2a;
+    --visible-text: #4ade80;      /* Light green text on dark green bg */
     --modal-bg: #1e1e1e;
-    --modal-border: #333;
 }
 
 body { 
@@ -94,6 +93,36 @@ header {
     gap: 15px;
 }
 
+.header-user-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.settings-button {
+    width: 35px;
+    height: 35px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 21px;
+    line-height: 1px;
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.settings-button:hover {
+    background-color: rgba(255,255,255,0,15);
+    transform: scale(1.1);
+}
+
 .placeholder-box {
     width: 200px;
     height: 30px;
@@ -120,7 +149,7 @@ header {
     padding: 0.75rem; 
     border: 1px solid var(--border-soft); 
     margin-bottom: 0.5rem; 
-    border-radius: 8px; 
+    border-radius: 0px; 
     transition: background 0.2s; 
     background-color: var(--bg-secondary);
 }
@@ -173,7 +202,7 @@ main {
     margin: 40px auto;
     background-color: var(--bg-secondary);
     padding: 30px;
-    border-radius: 10px;
+    border-radius: 0px;
     border: 1px solid var(--section-border);
     box-shadow: 0 4px 10px var(--card-shadow);
     width: 100%;
@@ -230,6 +259,8 @@ footer {
     padding: 20px;
     max-width: 900px;
     margin: 0 auto 40px auto;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .classes-header {
@@ -237,67 +268,191 @@ footer {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 15px;
+    flex-wrap: wrap;
+    gap: 12px;
 }
 
-.classes-horizontal-scroll {
+.classes-header-actions {
     display: flex;
-    overflow-x: auto;
+    align-items: center;
+    gap: 12px;
+}
+
+.view-toggle-group {
+    display: flex;
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 3px;
+    gap: 2px;
+}
+
+.view-toggle-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 7px;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.view-toggle-btn.active {
+    background-color: var(--bg-secondary);
+    color: var(--brand-color);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.view-toggle-btn:hover:not(.active) {
+    color: var(--text-main);
+}
+
+/* Gridded Boxes View */
+.classes-grid-view {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
     gap: 20px;
-    padding: 10px 5px 20px 5px;
-    scrollbar-width: thin;
-    scrollbar-color: var(--brand-color) var(--bg-primary);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Stacked List View */
+.classes-list-view {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .class-card {
-    flex: 0 0 200px;
-    height: 150px;
     background-color: var(--bg-secondary);
     border: 1px solid var(--border-color);
-    border-radius: 16px;
+    border-radius: 0px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
+    justify-content: space-between;
     transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s, background-color 0.3s ease;
     position: relative;
-    padding: 15px;
-    text-align: center;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
+    box-sizing: border-box;
 }
 
 .class-card:hover {
-    transform: translateY(-4px);
+    transform: translateY(-3px);
     border-color: var(--brand-color);
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.12);
+}
+
+.class-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 12px;
 }
 
 .class-card h3 {
     font-size: 1.1rem;
     color: var(--text-main);
-    margin: 0 0 40px 0;
+    margin: 0;
+    font-weight: 700;
+    word-break: break-word;
+}
+
+.class-doc-count {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    background-color: var(--bg-primary);
+    padding: 4px 10px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    width: fit-content;
+}
+
+.class-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-top: auto;
+    padding-top: 10px;
+    border-top: 1px solid var(--border-soft);
+}
+
+/* Stacked List Item Specifics */
+.class-list-item {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px;
+    gap: 16px;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+}
+
+.class-list-item:hover {
+    border-color: var(--brand-color);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+.class-list-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex: 1;
+    min-width: 0;
+}
+
+.class-list-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.view-class-btn {
+    background-color: var(--brand-color);
+    color: white;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 0.8rem;
     font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.view-class-btn:hover {
+    background-color: var(--brand-hover);
 }
 
 .card-actions {
-    position: absolute;
-    bottom: 15px;
-    left: 0;
-    right: 0;
     display: flex;
-    justify-content: center;
-    gap: 8px;
-    padding: 0 15px;
+    align-items: center;
+    gap: 6px;
 }
 
-.card-actions button {
-    padding: 6px 12px;
+.card-actions button, .class-list-actions button {
+    padding: 6px 10px;
     border-radius: 8px;
     border: none;
     font-size: 0.75rem;
     font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: all 0.2s;
 }
 
 .edit-btn {

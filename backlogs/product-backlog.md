@@ -3,9 +3,9 @@ layout: default
 title: Product Backlog
 permalink: /backlogs/product-backlog/
 ---
-Product Owner: 
+Product Owner: Sebastian Jaculbe
 
-Scrum Master:  
+Scrum Master: Kevin Dacanay
 
 # 📋 Product Backlog – *Pithub*
 
@@ -76,13 +76,12 @@ Scrum Master:
 | RC-116 | As a user, I want to see view counts on videos and documents so that I can identify popular or useful academic resources. | 4 | 2 | N | -- | -- |
 | RC-117 | As a user, I want to bookmark notes and documents so that I can quickly revisit important study materials. | 5 | 2 | N | -- | -- |
 | RC-118 | As a developer, I want to separate moderation tools from regular user interfaces so that administrative functions remain secure and isolated. | 8 | 3 | Y | -- | -- |
-| RC-119 | As an developer, I want to be able to allow log ins with Lewis University Google gmails while running 'npm run dev' for testing | 10 | 6 | Y | -- | -- |
-| RC-120 | As a user, I want to have courtesy pop ups for when I switch my profile or classes to public/private | 7 | 2 | N | -- | -- |
-| RC-121 | As a user, I want a user-friendly and easy to navigate user interface with a modern design | 7 | 5 | N | -- | --
-| RC-122 | As a user, I want to be able to go to and manage my settings via a dedicated Settings page | 6 | 5 | N | -- | -- |
-| RC-123 | As a user, I would like the option to open videos directly on PitHub and not just be redirected to firebase storage | 4 | 3 | N | -- | -- | 
-| RC-124 | As a user, I want to be able change the view of my classes into either stacked tiles or gridded boxes | 3 | 4 | N |-- | -- |
-| RC-125 | As an administrator, I would like to see overall analytics for documents posted by users | 3 | 4 | Y | -- | -- |
-| RC-126 | As a user, I want to be able to see the number of views for my posts | 3 | 4 | N | -- | -- |
-| RC-127 | As an administrator, I want to improve the UI and functionalities of admin tools | 3 | 5 | Y | -- | -- |
-| RC-128 | As a developer, I want to fix the Search Bar component bug where classes aren't shown for the first search | 2 | 5 | N | -- | -- |
+| RC-130 | As a user, I want to filter search results by content type (video, document, notes, and classes) so that I can locate specific resources more efficiently. | 8 | 3 | N | -- | -- |
+| RC-131 | As a user, I want to upload multiple files at once so that I can add course materials faster and reduce repetitive uploads. | 8 | 4 | N | -- | -- |
+| RC-132 | As a user, I want to continue watching videos from where I previously stopped so that I can resume learning without manually searching for my place. | 7 | 4 | N | -- | -- |
+| RC-133 | As a user, I want to receive notifications when classes I follow receive new content so that I can stay updated with important academic resources. | 7 | 5 | Y | -- | -- |
+| RC-134 | As a developer, I want to implement automated testing for authentication and file upload workflows so that critical features remain reliable after updates. | 9 | 5 | Y | -- | -- |
+| RC-135 | As a developer, I want to create automated backups for user-uploaded content so that important academic resources can be recovered after unexpected failures. | 9 | 6 | Y | -- | -- |
+| RC-136 | As an administrator, I want to view user activity analytics (uploads, views, downloads, and reports) so that I can make informed decisions about platform improvements. | 8 | 5 | Y | -- | -- |
+| RC-137 | As a user, I want to control sharing permissions for my videos and documents so that I can decide who has access to my academic content. | 9 | 5 | Y | -- | -- |
+| RC-138 | As a developer, I want to implement accessibility improvements (keyboard navigation, contrast, and screen reader support) so that PitHub is usable by a wider range of users. | 8 | 5 | Y | -- | -- |

@@ -51,3 +51,8 @@ PitHub is built on a **Serverless React Architecture**:
 - [Seb Jaculbe](sebastiandjaculbe@lewisu.edu)
 - [Kaleb Richardson](kalebrrichardon@lewisu.edu)
 - [Eddy Rodriguez](edwardjrodriguez@lewisu.edu)
+
+## Team & Scrum Documentation
+
+- [Team Documentation](/docs/TEAM.md)
+- [Scrum Process](/docs/PROCESS.md)

@@ -26,6 +26,10 @@ export const useProfilePage = () => {
 	const { user } = useAuth();
 	const [profileData, setProfileData] = useState({ visibility: 'private' });
 	const [classes, setClasses] = useState([]);
+	const [fileCounts, setFileCounts] = useState({});
+	const [viewMode, setViewModeState] = useState(() => {
+		return localStorage.getItem('pithub_class_view_mode') || 'grid';
+	});
 	const [recentFiles, setRecentFiles] = useState([]);
 	const [page, setPage] = useState(1);
 	const [hasNext, setHasNext] = useState(false);
@@ -44,6 +48,11 @@ export const useProfilePage = () => {
 
 	const effectiveUserId = userId || user?.uid;
 	const isOwner = !userId || userId === user?.uid;
+
+	const setViewMode = (mode) => {
+		setViewModeState(mode);
+		localStorage.setItem('pithub_class_view_mode', mode);
+	};
 
 	// Modular hook for field visibility (PROFILE-002)
 	const { 
@@ -88,6 +97,33 @@ export const useProfilePage = () => {
 
 		const unsubscribe = onSnapshot(q, (snapshot) => {
 			setClasses(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+		});
+
+		return () => unsubscribe();
+	}, [effectiveUserId, isOwner]);
+
+	// Fetch file counts per class for the displayed user
+	useEffect(() => {
+		if (!effectiveUserId) return;
+
+		let q = query(
+			collection(db, 'files'),
+			where('ownerId', '==', effectiveUserId)
+		);
+
+		if (!isOwner) {
+			q = query(q, where('visibility', '==', 'public'));
+		}
+
+		const unsubscribe = onSnapshot(q, (snapshot) => {
+			const counts = {};
+			snapshot.docs.forEach(doc => {
+				const data = doc.data();
+				if (data.classId) {
+					counts[data.classId] = (counts[data.classId] || 0) + 1;
+				}
+			});
+			setFileCounts(counts);
 		});
 
 		return () => unsubscribe();
@@ -223,6 +259,9 @@ export const useProfilePage = () => {
 		user,
 		profileData,
 		classes,
+		fileCounts,
+		viewMode,
+		setViewMode,
 		recentFiles,
 		page,
 		setPage,

@@ -13,40 +13,57 @@ export const useProfileSettings = (userId) => {
      * Toggles global profile visibility.
      */
     const toggleGlobalVisibility = async (currentVisibility) => {
-        setIsGlobalLoading(true);
-        const newVisibility = currentVisibility === 'public' ? 'private' : 'public';
-        try {
-            const batch = writeBatch(db);
-            const userRef = doc(db, 'users', userId);
-            batch.update(userRef, { visibility: newVisibility });
+    setIsGlobalLoading(true);
+    const newVisibility = currentVisibility === 'public' ? 'private' : 'public';
 
-            // Requirement: If profile is private, all classes MUST be private
+    try {
+        // Step 1: Update user profile first
+        const userRef = doc(db, 'users', userId);
+        await updateDoc(userRef, { visibility: newVisibility });
+
+        // Step 2: If setting to private, update classes and files safely in chunks
+        // Requirement: If profile is private, all classes MUST be private
             if (newVisibility === 'private') {
                 const classesQuery = query(collection(db, 'classes'), where('ownerId', '==', userId));
                 const classSnaps = await getDocs(classesQuery);
                 
-                // We must fetch all file metadata to include them in the batch
-                for (const classDoc of classSnaps.docs) {
-                    // Update the class itself
-                    batch.update(classDoc.ref, { visibility: 'private' });
+                let count = 0;
+                let batch = writeBatch(db);
+                const commitBatch = async () => {
+                    if (count > 0) {
+                        await batch.commit();
+                        batch = writeBatch(db);
+                        count = 0;
+                    }
+                };
 
-                    // Fetch files for this class
-                    const filesQuery = query(collection(db, 'files'), where('classId', '==', classDoc.id));
+                for (const classDoc of classSnaps.docs) {
+                    batch.update(classDoc.ref, { visibility: 'private' });
+                    count++;
+                    if (count >= 300) await commitBatch();
+
+                    // Only update files owned by this user
+                    const filesQuery = query(
+                        collection(db, 'files'), 
+                        where('classId', '==', classDoc.id),
+                        where('ownerId', '==', userId)
+                    );
                     const fileSnaps = await getDocs(filesQuery);
                     
-                    fileSnaps.docs.forEach(fileDoc => {
+                    for (const fileDoc of fileSnaps.docs) {
                         batch.update(fileDoc.ref, { visibility: 'private' });
-                    });
+                        count++;
+                        if (count >= 300) await commitBatch();
+                    }
                 }
+                await commitBatch();
             }
-
-            await batch.commit();
-        } catch (error) {
-            console.error("Error updating profile visibility:", error);
-        } finally {
-            setIsGlobalLoading(false);
-        }
-    };
+    } catch (error) {
+        console.error("Profile privacy update failed:", error);
+    } finally {
+        setIsGlobalLoading(false);
+    }
+};
 
     /**
      * Updates the visibility of a profile field.

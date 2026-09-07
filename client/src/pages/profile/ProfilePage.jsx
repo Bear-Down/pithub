@@ -1,16 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ClassCard from '../../components/ClassCard';
 import ConfirmationModal from '../../components/ConfirmationModal';
 import InputModal from '../../components/InputModal';
 import LoadingOverlay from '../../components/LoadingOverlay';
 import ReportButton from '../../components/ReportButton';
+import DocumentPreviewModal from '../../components/DocumentPreviewModal';
 import { useProfilePage } from '../../hooks/useProfilePage';
+import { doc, updateDoc, increment } from 'firebase/firestore';
+import { db } from '../../lib/firebase';
 
 const ProfilePage = () => {
+	const [confirmPrivacyChange, setConfirmPrivacyChange] = useState(false);
+	const [previewFile, setPreviewFile] = useState(null);
 	const {
 		user,
 		profileData,
-		classes,
+		classes = [],
+		fileCounts = {},
+		viewMode = 'grid',
+		setViewMode,
 		recentFiles,
 		page,
 		setPage,
@@ -34,7 +42,29 @@ const ProfilePage = () => {
 		handleToggleFieldVisibility,
 		isGlobalLoading,
 		isFieldLoading
-	} = useProfilePage();
+	} = useProfilePage() || {};
+
+	const handleFileClick = async (fileId) => {
+		try {
+			const fileRef = doc(db, 'files', fileId);
+			await updateDoc(fileRef, {
+				views: increment(1)
+			});
+		} catch (err) {
+			console.error('Failed to update view count:', err);
+		}
+	};
+
+	const handleOpenPreview = (file) => {
+		if (file?.id) {
+			handleFileClick(file.id);
+		}
+		setPreviewFile(file);
+	};
+
+	const handleClosePreview = () => {
+		setPreviewFile(null);
+	};
 
 	return (
 		<div className="container profile-page">
@@ -42,12 +72,12 @@ const ProfilePage = () => {
 			
 			<div className="profile-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
 				<h1 style={{ color: 'var(--brand-color)', margin: 0 }}>
-					{isOwner ? `Hello, ${user?.displayName || 'User'}!` : `${profileData.displayName || 'User'}'s Profile`}
+					{isOwner ? `Hello, ${user?.displayName || 'User'}!` : `${profileData?.displayName || 'User'}'s Profile`}
 				</h1>
 				{isOwner && (
 					<div className="profile-visibility-toggle" style={{ marginLeft: 'auto' }}> {/* Added marginLeft: 'auto' for spacing */}
 						<button 
-							onClick={() => handleProfileVisibilityChange(profileData.visibility)}
+							onClick={() => setConfirmPrivacyChange(true)}
 							disabled={isGlobalLoading}
 							style={{ 
 								padding: '8px 16px', 
@@ -56,11 +86,11 @@ const ProfilePage = () => {
 								border: 'none',
 								fontWeight: 'bold',
 								cursor: isGlobalLoading ? 'not-allowed' : 'pointer',
-								backgroundColor: profileData.visibility === 'public' ? '#28a745' : '#ff4d4d',
+								backgroundColor: profileData?.visibility === 'public' ? '#28a745' : '#ff4d4d',
 								color: '#ffffff'
 							}}
 						>
-							{isGlobalLoading ? '...' : (profileData.visibility === 'public' ? 'Public Profile' : 'Private Profile')}
+							{isGlobalLoading ? '...' : (profileData?.visibility === 'public' ? 'Public Profile' : 'Private Profile')}
 						</button>
 					</div>
 				)}
@@ -135,14 +165,14 @@ const ProfilePage = () => {
 						<div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
 							<div style={{ minWidth: '150px' }}>
 								{/* Major */}
-								{profileData.major && (isOwner || profileData?.profileConfig?.showMajor !== false) && ( // Only show if data exists AND (owner OR visible)
+								{profileData?.major && (isOwner || profileData?.profileConfig?.showMajor !== false) && ( // Only show if data exists AND (owner OR visible)
 									<p style={{ margin: '5px 0', fontSize: '0.9rem', opacity: profileData?.profileConfig?.showMajor === false ? 0.6 : 1 }}>
 										<strong>Major:</strong> {profileData.major}
 										{isOwner && profileData?.profileConfig?.showMajor === false && <span style={{ fontSize: '0.65rem', color: '#888', marginLeft: '5px', fontStyle: 'italic' }}>(Hidden)</span>}
 									</p>
 								)}
 								{/* Minor */}
-								{profileData.minor && (isOwner || profileData?.profileConfig?.showMinor !== false) && ( // Only show if data exists AND (owner OR visible)
+								{profileData?.minor && (isOwner || profileData?.profileConfig?.showMinor !== false) && ( // Only show if data exists AND (owner OR visible)
 									<p style={{ margin: '5px 0', fontSize: '0.9rem', opacity: profileData?.profileConfig?.showMinor === false ? 0.6 : 1 }}>
 										<strong>Minor:</strong> {profileData.minor}
 										{isOwner && profileData?.profileConfig?.showMinor === false && <span style={{ fontSize: '0.65rem', color: '#888', marginLeft: '5px', fontStyle: 'italic' }}>(Hidden)</span>}
@@ -151,22 +181,22 @@ const ProfilePage = () => {
 							</div>
 							<div style={{ minWidth: '150px' }}>
 								{/* Graduation */}
-								{profileData.gradSemester && (isOwner || profileData?.profileConfig?.showGraduation !== false) && ( // Only show if data exists AND (owner OR visible)
+								{profileData?.gradSemester && (isOwner || profileData?.profileConfig?.showGraduation !== false) && ( // Only show if data exists AND (owner OR visible)
 									<p style={{ margin: '5px 0', fontSize: '0.9rem', opacity: profileData?.profileConfig?.showGraduation === false ? 0.6 : 1 }}>
 										<strong>Graduation:</strong> {profileData.gradSemester}
 										{isOwner && profileData?.profileConfig?.showGraduation === false && <span style={{ fontSize: '0.65rem', color: '#888', marginLeft: '5px', fontStyle: 'italic' }}>(Hidden)</span>}
 									</p>
 								)}
 								{/* Website */}
-								{profileData.website && (isOwner || profileData?.profileConfig?.showWebsite !== false) && ( // Only show if data exists AND (owner OR visible)
+								{profileData?.website && (isOwner || profileData?.profileConfig?.showWebsite !== false) && ( // Only show if data exists AND (owner OR visible)
 									<p style={{ margin: '5px 0', fontSize: '0.9rem', opacity: profileData?.profileConfig?.showWebsite === false ? 0.6 : 1 }}>
-										<strong>Website:</strong> <a href={profileData.website} target="_blank" rel="noreferrer" style={{ color: 'var(--link-color)' }}>View Repository</a>
+										<strong>Website:</strong> <a href={profileData.website} target="_blank" rel="noreferrer" style={{ color: 'var(--link-color)' }}>{profileData.website}</a>
 										{isOwner && profileData?.profileConfig?.showWebsite === false && <span style={{ fontSize: '0.65rem', color: '#888', marginLeft: '5px', fontStyle: 'italic' }}>(Hidden)</span>}
 									</p>
 								)}
 							</div>
 							{/* Bio */}
-							{profileData.bio && (isOwner || profileData?.profileConfig?.showBio !== false) && ( // Only show if data exists AND (owner OR visible)
+							{profileData?.bio && (isOwner || profileData?.profileConfig?.showBio !== false) && ( // Only show if data exists AND (owner OR visible)
 								<div style={{ flex: 1, minWidth: '200px', opacity: profileData?.profileConfig?.showBio === false ? 0.6 : 1 }}>
 									<p style={{ margin: '5px 0', fontSize: '0.9rem' }}>
 										<strong>About Me:</strong>
@@ -198,15 +228,60 @@ const ProfilePage = () => {
 							{recentFiles.map(file => (
 								<li key={file.id} className="file-item">
 									<div className="file-info" style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-										{file.thumbnailUrl ? (
-											<img src={file.thumbnailUrl} alt="thumb" style={{ width: '60px', height: '35px', objectFit: 'cover', borderRadius: '4px' }} />
-										) : (
-											<div className="thumbnail-placeholder" style={{ width: '60px', height: '35px' }}>DOC</div>
-										)}
+										{/* Thumbnail with preview indicator */}
+										<div 
+											onClick={() => handleOpenPreview(file)}
+											title="Click thumbnail to preview document"
+											style={{ 
+												position: 'relative', 
+												cursor: 'pointer', 
+												display: 'inline-block',
+												flexShrink: 0,
+												borderRadius: '4px',
+												overflow: 'hidden'
+											}}
+											className="thumbnail-wrapper"
+										>
+											{file.thumbnailUrl ? (
+												<img src={file.thumbnailUrl} alt="thumb" style={{ width: '60px', height: '35px', objectFit: 'cover', borderRadius: '4px', display: 'block' }} />
+											) : (
+												<div className="thumbnail-placeholder" style={{ width: '60px', height: '35px' }}>DOC</div>
+											)}
+											<div 
+												style={{
+													position: 'absolute',
+													top: 0,
+													left: 0,
+													width: '100%',
+													height: '100%',
+													backgroundColor: 'rgba(0, 0, 0, 0.4)',
+													display: 'flex',
+													alignItems: 'center',
+													justifyContent: 'center',
+													color: '#fff',
+													fontSize: '0.65rem',
+													fontWeight: 'bold',
+													opacity: 0.9,
+													transition: 'opacity 0.2s ease',
+													pointerEvents: 'none'
+												}}
+											>
+												🔍
+											</div>
+										</div>
+
 										<div style={{ display: 'flex', flexDirection: 'column' }}>
-											<a href={file.url} target="_blank" rel="noreferrer" className="file-link">{file.name}</a>
+											<a 
+												href={file.url} 
+												target="_blank" 
+												rel="noreferrer" 
+												className="file-link"
+												onClick={() => handleFileClick(file.id)}
+											>
+												{file.name}
+											</a>
 											<span style={{ fontSize: '0.7rem', color: '#777' }}>
-												{file.ownerName || 'Anonymous'} in {file.className || 'General'}
+												{file.ownerName || 'Anonymous'} in {file.className || 'General'} · {file.views ?? 0} views
 											</span>
 										</div>
 									</div>
@@ -237,15 +312,35 @@ const ProfilePage = () => {
 				)}
 			</section>
 
+			<DocumentPreviewModal file={previewFile} onClose={handleClosePreview} />
+
 			<section style={{ marginTop: '40px', padding: '20px', backgroundColor: 'var(--bg-secondary)', borderRadius: '10px', border: '1px solid var(--section-border)' }}>
-				<div className="classes-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+				<div className="classes-header">
 					<h2>{isOwner ? 'Your Classes' : 'Classes'}</h2>
-					{isOwner && (
-						<button className="create-class-btn" onClick={handleCreateClass}>+ Create Class</button>
-					)}
+					<div className="classes-header-actions">
+						<div className="view-toggle-group">
+							<button 
+								className={`view-toggle-btn ${viewMode === 'grid' ? 'active' : ''}`}
+								onClick={() => setViewMode('grid')}
+								title="Grid View (Boxes)"
+							>
+								Grid
+							</button>
+							<button 
+								className={`view-toggle-btn ${viewMode === 'list' ? 'active' : ''}`}
+								onClick={() => setViewMode('list')}
+								title="List View (Stacked)"
+							>
+								List
+							</button>
+						</div>
+						{isOwner && (
+							<button className="create-class-btn" onClick={handleCreateClass}>+ Create Class</button>
+						)}
+					</div>
 				</div>
 				{classes.length > 0 ? (
-					<div className="classes-horizontal-scroll">
+					<div className={viewMode === 'grid' ? 'classes-grid-view' : 'classes-list-view'}>
 						{classes.map((item) => (
 							<ClassCard 
 								key={item.id} 
@@ -253,6 +348,8 @@ const ProfilePage = () => {
 								onEdit={isOwner ? handleEditClass : null}
 								onDelete={isOwner ? (data) => setConfirmDelete(data) : null}
 								isOwner={isOwner}
+								viewMode={viewMode}
+								docCount={(fileCounts && item?.id && fileCounts[item.id]) || 0}
 							/>
 						))}
 					</div>
@@ -274,6 +371,22 @@ const ProfilePage = () => {
 					/>
 
 					<ConfirmationModal 
+						isOpen={confirmPrivacyChange}
+						title="Change Profile Privacy?"
+						message={
+							profileData.visibility === 'public'
+							? "Are you sure you want to make your profile private? Other users will no longer be able to view your public profile."
+							: "Are you sure you want to make your profile public? Other users will be able to view the information you've chosen to share."
+						}
+						confirmText="Yes, Change Privacy"
+						onConfirm={() => {
+							setConfirmPrivacyChange(false);
+							handleProfileVisibilityChange(profileData.visibility);
+						}}
+						onCancel={() => setConfirmPrivacyChange(false)}
+					/>
+
+					<ConfirmationModal
 						isOpen={!!confirmDelete}
 						title="Delete Class?"
 						message={

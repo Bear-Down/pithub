@@ -13,6 +13,7 @@ import ProtectedRoute from '../components/ProtectedRoute';
 import AdminLoginPage from '../pages/admin/AdminLoginPage';
 import AdminDashboardPage from '../pages/admin/AdminDashboardPage';
 import { useAdminAuth } from '../hooks/admin/useAdminAuth';
+import SettingsPage from '../pages/settings/SettingsPage';
 
 import About from '../pages/info/About';
 import Terms from '../pages/info/Terms';
@@ -74,6 +75,7 @@ function AppContent() {
 				<Route path="/classes" element={<ProtectedRoute user={user}><ClassList /></ProtectedRoute>} />
 				<Route path="/class/:classId" element={<ProtectedRoute user={user}><ClassPage /></ProtectedRoute>} />
 				<Route path="/profile" element={<ProtectedRoute user={user}><ProfilePage /></ProtectedRoute>} />
+				<Route path="/settings" element={<ProtectedRoute user={user}><SettingsPage /></ProtectedRoute>} />
 				<Route path="/profile/:userId" element={<ProtectedRoute user={user}><ProfilePage /></ProtectedRoute>} />
 				<Route path="/about" element={<About />} />
 				<Route path="/terms" element={<Terms />} />

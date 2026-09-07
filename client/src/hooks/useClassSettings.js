@@ -51,6 +51,7 @@ export const useClassSettings = (classId, initialData) => {
         } catch (err) {
             setError(err.message);
             console.error("Failed to update class visibility:", err);
+            return { success: false, error: err.message };
         } finally {
             setIsGlobalLoading(false);
         }
