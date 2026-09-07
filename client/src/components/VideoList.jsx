@@ -11,6 +11,7 @@ export default function VideoList() {
 	const { theme } = useTheme();
 	const [hoverPrev, setHoverPrev] = useState(false);
 	const [hoverNext, setHoverNext] = useState(false);
+	const [playingId, setPlayingId] = useState(null);
 
 	const handleVideoClick = async (videoId) => {
 	try {
@@ -43,15 +44,38 @@ export default function VideoList() {
 							<div className="thumbnail-placeholder">DOC</div>
 						)}
 						<div style={{ display: 'flex', flexDirection: 'column' }}>
-							<a 
-								href={video.url} 
-								target="_blank" 
-								rel="noreferrer" 
-								className="file-link"
-								onClick={() => handleVideoClick(video.id)}
-							>
-								{video.name}
-							</a>
+							{video.type?.startsWith('video/') ? (
+								<button
+									className="file-link"
+									style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', textAlign: 'left' }}
+									onClick={() => {
+										handleVideoClick(video.id);
+										setPlayingId(playingId === video.id ? null : video.id);
+									}}
+								>
+									{video.name}
+								</button>
+							) : (
+								<a 
+									href={video.url} 
+									target="_blank" 
+									rel="noreferrer" 
+									className="file-link"
+									onClick={() => handleVideoClick(video.id)}
+								>
+									{video.name}
+								</a>
+							)}
+
+							{playingId === video.id && (
+								<video 
+									src={video.url} 
+									controls 
+									autoPlay 
+									style={{ width: '100%', maxWidth: '480px', marginTop: '8px', borderRadius: '4px' }}
+								/>
+							)}
+							
 							<span style={{ fontSize: '0.75rem', color: '#777' }}>
 								{video.ownerId ? (
 									<Link to={`/profile/${video.ownerId}`} style={{ color: 'inherit', textDecoration: 'underline' }}>

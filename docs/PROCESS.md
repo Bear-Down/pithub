@@ -76,6 +76,37 @@ Each backlog item should contain:
 
 Our team refines backlog items as requirements change or become clearer.
 
+---
+
+## 7. Testing and Quality Assurance
+Testing is performed throughout development rather than only at the end.
+
+Testing may include:
+- User interface and feature testing.
+- Authentication and permission testing.
+- Firebase integration and security testing.
+- File upload/download testing.
+- Error handling and validation testing
+
+Completed work must meet our team's quality standards before being considered finished.
+
+---
+
+## 8. Code review and documentation
+Code reviews help maintain reliable, secure, and maintainable software.
+
+Reviews should consider:
+- Correct functionality.
+- Code Readability.
+- Security Concerns.
+- Error handling.
+- Potential Regressions.
+
+Documentation should be updated when changes affect system architecture, directory-structure,
+features, or overview.
+
+---
+
 ## 9. Definition of Ready and Done
 A backlog item is ready when:
 - Requirements are understood.

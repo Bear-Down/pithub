@@ -155,7 +155,7 @@ Our team will:
 
 > Current contribution description:
 
----
+--- Frontend/Backend development, Firebase integration, testing and debugging
 
 ## Kaleb Richardson
 
