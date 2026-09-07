@@ -23,28 +23,27 @@
 }
 
 [data-theme='dark'] {
-    --bg-primary: #1a1a1a; /* Main Page Background */
-    --bg-secondary: #222222; /* Elevated Container Background */
-    --text-main: #e0e0e0;
-    --text-muted: #aaaaaa;
-    --border-color: #2a2a2a;
-    --border-soft: #2a2a2a;
-    --section-border: rgba(255, 255, 255, 0.1);
-    --card-shadow: rgba(0, 0, 0, 0.5);
-    --brand-color: #1e40af; /* Deep Royal Blue */
-    --brand-hover: #1d4ed8;
-    --header-bg: #1a3da0; /* Darker header for blue theme */
+    --bg-primary: #121212;        /* Page background */
+    --bg-secondary: #1e1e1e;      /* Cards, elevated surfaces */
+    --text-main: #e0e0e0;         /* Light gray, not pure white */
+    --text-muted: #a0a0a0;        /* Muted text */
+    --border-color: #333333;      /* Subtle but visible on dark */
+    --border-soft: #2a2a2a;       /* Softer divider */
+    --section-border: transparent;
+    --card-shadow: rgba(0, 0, 0, 0.4); /* Deeper shadow for elevation */
+    --brand-color: #ffa726;       /* Lighter orange for dark contrast */
+    --brand-hover: #ffcc80;       /* Lighter still on hover */
+    --header-bg: #1e1e1e;         /* Dark surface (bright orange header is jarring in dark) */
     --overlay-bg: rgba(18, 18, 18, 0.8);
-    --input-bg: #222222;
-    --input-bg-raised: #2d2d2d;
-    --card-hover: #252525;
-    --private-text: #ffffff; /* White text on red in dark mode */
-    --link-color: #60a5fa;
-    --visible-bg: #1b5e20;
-    --hidden-bg: #333333;
-    --visible-text: #ffffff;
+    --input-bg: #1e1e1e;
+    --input-bg-raised: #2a2a2a;
+    --card-hover: #2a2a2a;        /* Slightly lighter than card */
+    --private-text: #111111;      /* Dark text on colored badge in dark mode */
+    --link-color: #60a5fa;        /* Lighter blue, ~5:1 contrast on #121212 */
+    --visible-bg: #1a3a1a;        /* Dark green tint */
+    --hidden-bg: #2a2a2a;
+    --visible-text: #4ade80;      /* Light green text on dark green bg */
     --modal-bg: #1e1e1e;
-    --modal-border: #333;
 }
 
 body { 
@@ -150,7 +149,7 @@ header {
     padding: 0.75rem; 
     border: 1px solid var(--border-soft); 
     margin-bottom: 0.5rem; 
-    border-radius: 8px; 
+    border-radius: 0px; 
     transition: background 0.2s; 
     background-color: var(--bg-secondary);
 }
@@ -203,7 +202,7 @@ main {
     margin: 40px auto;
     background-color: var(--bg-secondary);
     padding: 30px;
-    border-radius: 10px;
+    border-radius: 0px;
     border: 1px solid var(--section-border);
     box-shadow: 0 4px 10px var(--card-shadow);
     width: 100%;
@@ -334,7 +333,7 @@ footer {
 .class-card {
     background-color: var(--bg-secondary);
     border: 1px solid var(--border-color);
-    border-radius: 16px;
+    border-radius: 0px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -394,7 +393,7 @@ footer {
 .class-list-item {
     background-color: var(--bg-secondary);
     border: 1px solid var(--border-color);
-    border-radius: 12px;
+    border-radius: 0px;
     display: flex;
     align-items: center;
     justify-content: space-between;
