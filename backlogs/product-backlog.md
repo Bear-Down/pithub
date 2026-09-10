@@ -76,6 +76,8 @@ Scrum Master: Kevin Dacanay
 | RC-116 | As a user, I want to see view counts on videos and documents so that I can identify popular or useful academic resources. | 4 | 2 | N | -- | -- |
 | RC-117 | As a user, I want to bookmark notes and documents so that I can quickly revisit important study materials. | 5 | 2 | N | -- | -- |
 | RC-118 | As a developer, I want to separate moderation tools from regular user interfaces so that administrative functions remain secure and isolated. | 8 | 3 | Y | -- | -- |
+| RC-128 | As an Administrator, I want to be able to view user's profile and class pages directly from the admin account without having to relogin. | 8 | 3 | Y | -- | -- |
+| RC-129 | As an Administrator, I want the suspension feature to block suspended users from creating classes or posting documents effective immediately. | 8 | 3 | Y | -- | -- |
 | RC-130 | As a user, I want to filter search results by content type (video, document, notes, and classes) so that I can locate specific resources more efficiently. | 8 | 3 | N | -- | -- |
 | RC-131 | As a user, I want to upload multiple files at once so that I can add course materials faster and reduce repetitive uploads. | 8 | 4 | N | -- | -- |
 | RC-132 | As a user, I want to continue watching videos from where I previously stopped so that I can resume learning without manually searching for my place. | 7 | 4 | N | -- | -- |
@@ -85,3 +87,6 @@ Scrum Master: Kevin Dacanay
 | RC-136 | As an administrator, I want to view user activity analytics (uploads, views, downloads, and reports) so that I can make informed decisions about platform improvements. | 8 | 5 | Y | -- | -- |
 | RC-137 | As a user, I want to control sharing permissions for my videos and documents so that I can decide who has access to my academic content. | 9 | 5 | Y | -- | -- |
 | RC-138 | As a developer, I want to implement accessibility improvements (keyboard navigation, contrast, and screen reader support) so that PitHub is usable by a wider range of users. | 8 | 5 | Y | -- | -- |
+| RC-139 | As a developer, I want to implement accessibility improvements (keyboard navigation, contrast, and screen reader support) so that PitHub is usable by a wider range of users. | 8 | 5 | Y | -- | -- |
+| RC-139 | As a developer, I want to initialize planning for our team's  product presentation for recruitment. | 8 | 5 | Y | -- | -- |
+| RC-139 | As a developer, I want begin setting up our team's product review presentation. | 8 | 5 | Y | -- | -- |
