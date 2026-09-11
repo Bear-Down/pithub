@@ -87,4 +87,6 @@ Scrum Master: Kevin Dacanay
 | RC-142 | As a user, I want to view an updated version of the website's About Page so that I understand PitHub's mission statement, team details, an explanation of what the platform does, intended audience, and overall features | 6 | 4 | N | -- | -- |
 | RC-143 | As a user, I want to view an updated version of the website's Terms of Use Page so that I understand my rights, eligibility, security, privacy, actions I'm allowed to perform, content rules and moderation, third-party services, payments, and overall disclaimers with regards to PitHub  | 6 | 4 | N | -- | -- |
 | RC-144 | As a user, I want to view the website's Contact Page so that whenever I have issues with the webisite, I am able to report said issue to the admin | 6 | 4 | N | -- | -- |
+| RC-145 | As a developer, I want to be prepared for and fully participate in recruiting Software Engineering students on Tuesday, April 7 at 9:30 AM CT | 10 | 5 | Y | -- | -- |
+| RC-146 | As a developer, I want to be prepared for and fully participate in our mid-term Product Review on Tuesday, April 21 at 2 pm CT | 10 | 5 | Y | -- | -- |
 
