@@ -14,21 +14,17 @@ Scrum Master: Kevin Dacanay
 | RC-022 | As a developer, I want to verify the security of logins and video files. | 6 | 3 | Y | -- | -- |
 | RC-025 | As a developer, I want to create a timeline of what it takes to create a command line to upload a file from the command line interface using GO. | 1 | 2 | Y | -- | -- |
 | RC-029 | As product owner, I want to schedule support for the Capstone team's Celebration of Scholarship Lite upcoming events. | 3 | 1 | Y | -- | -- |
-| RC-031 | As a user, I want to favorite certain videos. | 5 | 3 | N | -- | -- |
+| RC-031 | As a user, I want to set as "favorite" certain videos so that I may have quick access to them when needed. | 6 | 5 | N | -- | -- |
 | RC-032 | As a user, I would like to commment on videos. | 2 | 1 | N | -- | -- |
 | RC-046 | As a user, I want to filter videos by date and class so that I can narrow down content efficiently. | 4 | 2 | N | -- | -- |
-| RC-047 | As a user, I want to view another user's public profile so that I can explore their shared classes and videos. | 5 | 1 | N | -- | -- |
-| RC-048 | As a user, I want to set my profile visibility to public or private so that I control who can see my content. | 5 | 2 | N | -- | -- |
-| RC-049 | As a user, I want to star/favorite user profiles so that I can easily revisit their content. | 4 | 1 | N | -- | -- |
-| RC-050 | As a user, I want to star/favorite classes so that I can quickly access frequently used courses. | 4 | 1 | N | -- | -- |
-| RC-051 | As a user, I want to see a list of my starred profiles and classes on my dashboard so that I have quick access to them. | 4 | 2 | N | -- | -- |
+| RC-049 | As a user, I want to star/favorite user profiles so that I can easily revisit their content. | 5 | 4 | N | -- | -- |
+| RC-050 | As a user, I want to star/favorite classes so that I can quickly access frequently used courses. | 6 | 5 | N | -- | -- |
+| RC-051 | As a user, I want to see a list of my starred profiles, classes, and videos on my dashboard so that I have quick access to them. | 6 | 5 | N | -- | -- |
 | RC-052 | As a user, I want to upload a custom thumbnail for my videos so that they are visually identifiable. | 3 | 1 | N | -- | -- |
 | RC-053 | As a user, I want to edit video metadata (title, description, visibility) so that my content remains accurate. | 4 | 2 | N | -- | -- |
-| RC-055 | As a developer, I want to enforce authentication on protected routes so that only authorized users can access sensitive data. | 8 | 6 | Y | -- | -- |
-| RC-056 | As a developer, I want to validate all incoming API requests so that invalid or malicious data is rejected. | 8 | 5 | Y | -- | -- |
 | RC-057 | As a developer, I want to structure API responses consistently so that frontend integration is predictable and maintainable. | 8 | 5 | Y | -- | -- |
 | RC-058 | As a developer, I want to implement role-based permissions (future) so that professors and students may have different capabilities. | 8 | 5 | Y | -- | -- |
-| RC-060 | As a user, I want to be able to report videos or documents that have bad or illegal content | 7 | 7 | N | -- | -- |
+| RC-060 | As a user, I want to be able to report videos or documents that have bad or illegal content | 7 | 5 | N | -- | -- |
 | RC-061 | As a user, I want to view a loading indicator when videos or classes are being fetched so that I understand the system is processing my request. | 6 | 2 | N | -- | -- |
 | RC-063 | As a user, I want to upload large video files with progress feedback so that I can track upload completion. | 8 | 5 | N | -- | -- |
 | RC-066 | As a user, I want to sort videos by upload date or title so that I can organize content based on preference. | 5 | 2 | N | -- | -- |
@@ -49,20 +45,18 @@ Scrum Master: Kevin Dacanay
 | RC-083 | As a user, I want to see recently viewed classes so that I can quickly return to them. | 5 | 2 | N | -- | -- |
 | RC-089 | As a user, I want to access the platform on different screen sizes so that I can use it on mobile and desktop devices. | 7 | 4 | N | -- | -- |
 | RC-090 | As a user, I want to see a message when no search results are found so that I understand the outcome of my query. | 5 | 1 | N | -- | -- |
-| RC-092 | As a developer, I want to rerify that our team will attend in person and deliver our Class Product Presentation on Thursday, May 14 from 8 AM to 10 AM CT. | 6 | 6 | Y | -- | -- |
-| RC-093 | As a user, I want to be able to share my classes to other users via links generated for my classes regardless of class visibility. | 5 | 6 | N | -- | -- |
+| RC-093 | As a user, I want to be able to share my classes with other users through their emails via links generated for my classes so that they may have access to my class regardless of class visibility. | 6 | 6 | N | -- | -- |
 | RC-094 | As a user, I want to create notes within a class so that I can keep written study material alongside videos and documents. | 7 | 4 | N | -- | -- |
 | RC-095 | As a user, I want to edit and delete my notes so that I can keep my study materials accurate and updated. | 6 | 2 | N | -- | -- |
 | RC-096 | As a user, I want notes to support basic formatting (bold, lists, headings) so that my notes are easier to read and organize. | 5 | 3 | N | -- | -- |
 | RC-097 | As a developer, I want to create an algorithm that prioritizes recently uploaded and frequently viewed content on the dashboard so that users can quickly access relevant materials. | 7 | 5 | Y | -- | -- |
 | RC-098 | As a developer, I want the dashboard recommendation algorithm to display a balanced mix of videos and documents so that users are exposed to multiple forms of course content. | 6 | 4 | Y | -- | -- |
 | RC-099 | As a user, I want to see recommended videos and documents on the homepage so that I can discover useful academic resources. | 6 | 3 | N | -- | -- |
-| RC-100 | As an administrator, I want to access an admin dashboard so that I can monitor platform activity and moderation reports. | 9 | 5 | Y | -- | -- |
 | RC-101 | As an administrator, I want to review reported videos and documents so that inappropriate or illegal content can be moderated. | 9 | 4 | N | -- | -- |
 | RC-102 | As an administrator, I want to remove content that violates platform policies so that the platform remains safe and academically appropriate. | 9 | 3 | N | -- | -- |
 | RC-103 | As an administrator, I want to suspend or restrict user accounts that repeatedly violate policies so that abuse of the platform is minimized. | 8 | 4 | N | -- | -- |
 | RC-104 | As a user, I want to view a list of members enrolled or participating in a class so that I can identify classmates and collaborators. | 6 | 3 | N | -- | -- |
-| RC-105 | As a user, I want to invite other users to join a class so that collaboration and content sharing are easier. | 6 | 4 | N | -- | -- |
+| RC-105 | As a user, I want to invite other users to join a class so that collaboration and content sharing are easier and be able to change their permissions if I am the class owner, whether it is only "view only" or "upload allowed". | 6 | 5 | N | -- | -- |
 | RC-106 | As a user, I want to receive notifications when I am invited to a class so that I can quickly respond to invitations. | 5 | 3 | N | -- | -- |
 | RC-107 | As a first-time user, I want to see an onboarding tutorial so that I can understand how to navigate and use PitHub effectively. | 7 | 3 | N | -- | -- |
 | RC-108 | As a first-time user, I want tooltips and walkthrough prompts during onboarding so that I can learn platform features interactively. | 6 | 3 | N | -- | -- |
@@ -76,12 +70,21 @@ Scrum Master: Kevin Dacanay
 | RC-116 | As a user, I want to see view counts on videos and documents so that I can identify popular or useful academic resources. | 4 | 2 | N | -- | -- |
 | RC-117 | As a user, I want to bookmark notes and documents so that I can quickly revisit important study materials. | 5 | 2 | N | -- | -- |
 | RC-118 | As a developer, I want to separate moderation tools from regular user interfaces so that administrative functions remain secure and isolated. | 8 | 3 | Y | -- | -- |
+| RC-128 | As an Administrator, I want to be able to view user's profile and class pages directly from the admin account without having to relogin | 8 | 5 | Y | -- | -- |
+| RC-129 | As an Administrator, I want thhe suspension feature to block suspended users from reating classes or posting documents effective immediately | 8 | 5 | Y | -- | -- |
 | RC-130 | As a user, I want to filter search results by content type (video, document, notes, and classes) so that I can locate specific resources more efficiently. | 8 | 3 | N | -- | -- |
 | RC-131 | As a user, I want to upload multiple files at once so that I can add course materials faster and reduce repetitive uploads. | 8 | 4 | N | -- | -- |
 | RC-132 | As a user, I want to continue watching videos from where I previously stopped so that I can resume learning without manually searching for my place. | 7 | 4 | N | -- | -- |
-| RC-133 | As a user, I want to receive notifications when classes I follow receive new content so that I can stay updated with important academic resources. | 7 | 5 | Y | -- | -- |
+| RC-133 | As a user, I want to receive notifications when classes I follow receive new content so that I can stay updated with important academic resources. | 7 | 5 | N | -- | -- |
 | RC-134 | As a developer, I want to implement automated testing for authentication and file upload workflows so that critical features remain reliable after updates. | 9 | 5 | Y | -- | -- |
 | RC-135 | As a developer, I want to create automated backups for user-uploaded content so that important academic resources can be recovered after unexpected failures. | 9 | 6 | Y | -- | -- |
 | RC-136 | As an administrator, I want to view user activity analytics (uploads, views, downloads, and reports) so that I can make informed decisions about platform improvements. | 8 | 5 | Y | -- | -- |
-| RC-137 | As a user, I want to control sharing permissions for my videos and documents so that I can decide who has access to my academic content. | 9 | 5 | Y | -- | -- |
+| RC-137 | As a user, I want to control sharing permissions for my videos and documents so that I can decide who has access to my academic content. | 9 | 5 | N | -- | -- |
 | RC-138 | As a developer, I want to implement accessibility improvements (keyboard navigation, contrast, and screen reader support) so that PitHub is usable by a wider range of users. | 8 | 5 | Y | -- | -- |
+| RC-139 | As a developer, I want to initialize planning for our team's product presentation for recruitment from this semester's Software Engineering class. | 8 | 5 | Y | -- | -- |
+| RC-140 | As a developer, I want to begin setting up our team's product review presentation to be able to showcase our Minimum Viable Product. | 8 | 5 | Y | -- | -- |
+| RC-141 | As a user, I want to have a side panel on my main page that can redirect me to my "Dashboard", "Uploads", "Classes", "Playlists", "Settings" so that navigation within the website is easy| 8 | 6 | N | -- | -- |
+| RC-142 | As a user, I want to view an updated version of the website's About Page so that I understand PitHub's mission statement, team details, an explanation of what the platform does, intended audience, and overall features | 6 | 4 | N | -- | -- |
+| RC-143 | As a user, I want to view an updated version of the website's Terms of Use Page so that I understand my rights, eligibility, security, privacy, actions I'm allowed to perform, content rules and moderation, third-party services, payments, and overall disclaimers with regards to PitHub  | 6 | 4 | N | -- | -- |
+| RC-144 | As a user, I want to view the website's Contact Page so that whenever I have issues with the webisite, I am able to report said issue to the admin | 6 | 4 | N | -- | -- |
+
