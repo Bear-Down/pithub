@@ -38,7 +38,7 @@
     --input-bg: #1e1e1e;
     --input-bg-raised: #2a2a2a;
     --card-hover: #2a2a2a;        /* Slightly lighter than card */
-    --private-text: #111111;      /* Dark text on colored badge in dark mode */
+    --private-text: #ffffff;      /* Dark text on colored badge in dark mode */
     --link-color: #60a5fa;        /* Lighter blue, ~5:1 contrast on #121212 */
     --visible-bg: #1a3a1a;        /* Dark green tint */
     --hidden-bg: #2a2a2a;

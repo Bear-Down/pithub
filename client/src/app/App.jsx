@@ -76,8 +76,9 @@ function AppContent() {
 					<Route path="/dashboard" element={<ProtectedRoute user={user}><ClassList showRecentUploads={true} /></ProtectedRoute>} />
 					<Route path="/classes" element={<ProtectedRoute user={user}><ClassList showRecentUploads={false} /></ProtectedRoute>} />
 					<Route path="/uploads" element={<ProtectedRoute user={user}><UploadsPage /></ProtectedRoute>} />
-					<Route path="/playlists" element={<ProtectedRoute user={user}><WorkInProgressPage title="Playlists" icon="🎵" /></ProtectedRoute>} />
-					<Route path="/watch-later" element={<ProtectedRoute user={user}><WorkInProgressPage title="Watch Later" icon="🔖" /></ProtectedRoute>} />
+					<Route path="/favorites" element={<ProtectedRoute user={user}><WorkInProgressPage title="Favorites" /></ProtectedRoute>} />
+					<Route path="/playlists" element={<ProtectedRoute user={user}><WorkInProgressPage title="Playlists" /></ProtectedRoute>} />
+					<Route path="/watch-later" element={<ProtectedRoute user={user}><WorkInProgressPage title="Watch Later" /></ProtectedRoute>} />
 					<Route path="/class/:classId" element={<ProtectedRoute user={user}><ClassPage /></ProtectedRoute>} />
 					<Route path="/profile" element={<ProtectedRoute user={user}><ProfilePage /></ProtectedRoute>} />
 					<Route path="/settings" element={<ProtectedRoute user={user}><SettingsPage /></ProtectedRoute>} />

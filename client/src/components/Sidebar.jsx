@@ -6,6 +6,7 @@ const Sidebar = () => {
 		{ label: 'Dashboard', path: '/dashboard' },
 		{ label: 'Uploads', path: '/uploads' },
 		{ label: 'Classes', path: '/classes' },
+		{ label: 'Favorites', path: '/favorites', isWip: true },
 		{ label: 'Playlists', path: '/playlists', isWip: true },
 		{ label: 'Watch Later', path: '/watch-later', isWip: true },
 		{ label: 'Settings', path: '/settings' },
