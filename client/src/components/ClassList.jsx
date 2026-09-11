@@ -6,7 +6,7 @@ import ConfirmationModal from './ConfirmationModal';
 import InputModal from './InputModal';
 import { useClassList } from '../hooks/useClassList';
 
-const ClassList = () => {
+const ClassList = ({ showRecentUploads = true }) => {
 	const {
 		classes = [],
 		fileCounts = {},
@@ -26,11 +26,13 @@ const ClassList = () => {
 
 	return (
 		<div className="home-wrapper">
-			{/* Top Section: Recent Files/Videos */}
-			<div className="container">
-				<h1>Recent Uploads</h1>
-				<VideoList />
-			</div>
+			{/* Top Section: Recent Files/Videos (Dashboard only) */}
+			{showRecentUploads && (
+				<div className="container">
+					<h1>Recent Uploads</h1>
+					<VideoList />
+				</div>
+			)}
 
 			{/* Bottom Section: Classes (Grid or Stacked List) */}
 			<div className="classes-section">
