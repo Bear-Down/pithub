@@ -563,12 +563,12 @@ footer {
 }
 
 .delete-btn {
-    background-color: #fff1f1;
-    color: #ff4d4d;
+    background-color: #ff4d4d;
+    color: #ffffff;
 }
 
 .delete-btn:hover {
-    background-color: #fecaca;
+    background-color: #ff4d4d;
 }
 
 .create-class-btn {
@@ -915,3 +915,34 @@ footer {
     font-weight: 600;
     color: #666;
 }
+
+/* Playlist Specific Styles */
+.playlist-role-badge {
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.playlist-role-badge.owner {
+    background-color: var(--brand-color);
+    color: #ffffff;
+}
+
+.playlist-role-badge.shared {
+    background-color: #2563eb;
+    color: #ffffff;
+}
+
+.playlist-members-count-badge {
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 4px;
+    background-color: var(--bg-primary);
+    color: var(--text-muted);
+    border: 1px solid var(--border-color);
+}
+
