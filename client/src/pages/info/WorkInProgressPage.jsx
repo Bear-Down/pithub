@@ -12,7 +12,7 @@ const WorkInProgressPage = ({ title }) => {
 				Work In Progress
 			</div>
 			<div style={{ marginTop: '32px' }}>
-				<Link to="/classes" style={{ color: 'var(--link-color)', textDecoration: 'none', fontWeight: '600' }}>
+				<Link to="/dashboard" style={{ color: 'var(--link-color)', textDecoration: 'none', fontWeight: '600' }}>
 					Back to Dashboard
 				</Link>
 			</div>

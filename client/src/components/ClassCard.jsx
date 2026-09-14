@@ -8,7 +8,8 @@ const ClassCard = ({
 	onDelete,
 	isOwner = true,
 	viewMode = 'grid',
-	docCount = 0
+	docCount = 0,
+	linkPrefix = '/class'
 }) => {
 	const navigate = useNavigate();
 	const { theme } = useTheme();
@@ -49,7 +50,7 @@ const ClassCard = ({
 			<div className="class-list-item">
 				<div className="class-list-info">
 					<h3
-						onClick={() => classData?.id && navigate(`/class/${classData.id}`)}
+						onClick={() => classData?.id && navigate(`${linkPrefix}/${classData.id}`)}
 						style={{ cursor: 'pointer', margin: 0, fontSize: '1.05rem', color: 'var(--text-main)' }}
 					>
 						{classData?.name}
@@ -63,7 +64,7 @@ const ClassCard = ({
 				<div className="class-list-actions" onClick={(e) => e.stopPropagation()}>
 					<button
 						className="view-class-btn"
-						onClick={() => classData?.id && navigate(`/class/${classData.id}`)}
+						onClick={() => classData?.id && navigate(`${linkPrefix}/${classData.id}`)}
 					>
 						View Class
 					</button>
@@ -107,7 +108,7 @@ const ClassCard = ({
 	return (
 		<div className="class-card">
 			<div className="class-card-header">
-				<h3 onClick={() => classData?.id && navigate(`/class/${classData.id}`)} style={{ cursor: 'pointer' }}>
+				<h3 onClick={() => classData?.id && navigate(`${linkPrefix}/${classData.id}`)} style={{ cursor: 'pointer' }}>
 					{classData?.name}
 				</h3>
 				{isOwner && visibilityBadge}
@@ -118,7 +119,7 @@ const ClassCard = ({
 			<div className="class-card-footer" onClick={(e) => e.stopPropagation()}>
 				<button
 					className="view-class-btn"
-					onClick={() => classData?.id && navigate(`/class/${classData.id}`)}
+					onClick={() => classData?.id && navigate(`${linkPrefix}/${classData.id}`)}
 				>
 					View
 				</button>
