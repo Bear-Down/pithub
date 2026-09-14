@@ -47,6 +47,8 @@ export const useClassList = () => {
                 ...doc.data()
             }));
             setClasses(fetchedClasses);
+		}, (err) => {
+			console.error("Error fetching classes in useClassList:", err);
 		});
 		return () => unsubscribe();
 	}, [user?.uid]);
@@ -69,6 +71,8 @@ export const useClassList = () => {
 				}
 			});
 			setFileCounts(counts);
+		}, (err) => {
+			console.error("Error fetching file counts in useClassList:", err);
 		});
 
 		return () => unsubscribe();
