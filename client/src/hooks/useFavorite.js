@@ -19,7 +19,10 @@ export const useFavorite = (entityType, entityId) => {
 		setLoading(true);
 		const favRef = doc(db, 'favorites', favoriteId);
 		const unsubscribe = onSnapshot(favRef, (snap) => {
-			setIsFavorited(snap.exists());
+		    setIsFavorited(snap.exists());
+			setLoading(false);
+		}, (err) => {
+			console.error('Favorite read failed:', err);
 			setLoading(false);
 		});
 		return () => unsubscribe();

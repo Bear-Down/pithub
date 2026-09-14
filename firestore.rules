@@ -83,8 +83,8 @@ service cloud.firestore {
 
     // Favorites Collection
     match /favorites/{favoriteId} {
-      allow read: if isSignedIn() && request.auth.uid == 
-    resource.data.get('userId', '');
+      allow read: if isSignedIn() && (resource == null || request.auth.uid == 
+      resource.data.get('userId', ''));
       allow create: if isSignedIn() && 
         request.auth.uid == request.resource.data.userId &&
         favoriteId == request.auth.uid + '_' + request.resource.data.entityType + 

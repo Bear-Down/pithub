@@ -20,7 +20,7 @@ const FavoriteButton = ({ entityType, entityId, size = '1.1rem' }) => {
 			style={{
 				background: 'none',
 				border: 'none',
-				cursor: loading ? 'default' : 'pointer',
+				cursor: loading ? 'not-allowed' : 'pointer',
 				fontSize: size,
 				lineHeight: 1,
 				padding: '4px',
