@@ -81,6 +81,18 @@ service cloud.firestore {
       allow create: if isAdmin(); // Only admins can log their actions
     }
 
+    // Favorites Collection
+    match /favorites/{favoriteId} {
+      allow read: if isSignedIn() && request.auth.uid == 
+    resource.data.get('userId', '');
+      allow create: if isSignedIn() && 
+        request.auth.uid == request.resource.data.userId &&
+        favoriteId == request.auth.uid + '_' + request.resource.data.entityType + 
+    '_' + request.resource.data.entityId;
+      allow delete: if isSignedIn() && request.auth.uid == 
+    resource.data.get('userId', '');
+    }
+
     // Default fallback (development safety)
     match /{document=**} {
       allow read, write: if false; 

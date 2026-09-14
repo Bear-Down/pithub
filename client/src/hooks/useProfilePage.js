@@ -257,6 +257,7 @@ export const useProfilePage = () => {
 
 	return {
 		user,
+		effectiveUserId,
 		profileData,
 		classes,
 		fileCounts,

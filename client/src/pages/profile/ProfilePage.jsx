@@ -8,12 +8,14 @@ import DocumentPreviewModal from '../../components/DocumentPreviewModal';
 import { useProfilePage } from '../../hooks/useProfilePage';
 import { doc, updateDoc, increment } from 'firebase/firestore';
 import { db } from '../../lib/firebase';
+import FavoriteButton from '../../components/FavoriteButton';
 
 const ProfilePage = () => {
 	const [confirmPrivacyChange, setConfirmPrivacyChange] = useState(false);
 	const [previewFile, setPreviewFile] = useState(null);
 	const {
 		user,
+		effectiveUserId,
 		profileData,
 		classes = [],
 		fileCounts = {},
@@ -71,8 +73,9 @@ const ProfilePage = () => {
 			{isGlobalLoading && <LoadingOverlay message="Updating Profile & Class Privacy..." />}
 			
 			<div className="profile-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-				<h1 style={{ color: 'var(--brand-color)', margin: 0 }}>
+				<h1 style={{ color: 'var(--brand-color)', margin: 0, display: 'flex', alignItems: 'center', gap: '10px' }}>
 					{isOwner ? `Hello, ${user?.displayName || 'User'}!` : `${profileData?.displayName || 'User'}'s Profile`}
+					{!isOwner && <FavoriteButton entityType="profile" entityId={effectiveUserId} />}
 				</h1>
 				{isOwner && (
 					<div className="profile-visibility-toggle" style={{ marginLeft: 'auto' }}> {/* Added marginLeft: 'auto' for spacing */}
