@@ -11,7 +11,8 @@ import {
 	updateDoc, 
 	deleteDoc, 
 	getDocs,
-	where
+	where,
+	or
 } from 'firebase/firestore';
 import { ref, deleteObject } from 'firebase/storage';
 
@@ -31,21 +32,27 @@ export const usePlaylists = () => {
 		localStorage.setItem('pithub_playlist_view_mode', mode);
 	};
 
-	// Fetch playlists where current user is owner
+	// Fetch playlists where current user is owner or a member
 	useEffect(() => {
 		if (!user?.uid) return;
 
 		const q = query(
 			collection(db, 'playlists'),
-			where('ownerId', '==', user.uid)
+			or(
+				where('ownerId', '==', user.uid),
+				where(`members.${user.uid}.role`, 'in', ['view', 'upload', 'delete'])
+			)
 		);
 
 		const unsubscribe = onSnapshot(q, (snapshot) => {
-			const list = snapshot.docs.map(docSnap => ({
-				id: docSnap.id,
-				...docSnap.data(),
-				isOwner: true
-			}));
+			const list = snapshot.docs.map(docSnap => {
+				const data = docSnap.data();
+				return {
+					id: docSnap.id,
+					...data,
+					isOwner: data.ownerId === user.uid
+				};
+			});
 			setPlaylists(list);
 		}, (err) => {
 			console.error("Error fetching playlists:", err);
