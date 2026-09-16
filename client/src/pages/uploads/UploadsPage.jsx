@@ -10,7 +10,7 @@ const UploadsPage = () => {
 				<p style={{ color: 'var(--text-muted)', marginBottom: '20px' }}>
 					Showing all personal file and video uploads across your account regardless of class.
 				</p>
-				<VideoList />
+				<VideoList userOnly={true} showVisibilityBadge={true} showClassLink={true} />
 			</div>
 		</div>
 	);

@@ -7,8 +7,8 @@ import DocumentPreviewModal from './DocumentPreviewModal';
 import { doc, updateDoc, increment } from 'firebase/firestore';
 import { db } from "../lib/firebase";
 
-export default function VideoList() {
-	const { videos, loading, error, nextPage, prevPage, page, hasNext } = useVideos();
+export default function VideoList({ userOnly = false, showClassLink = true, showVisibilityBadge = false } = {}) {
+	const { videos, loading, error, nextPage, prevPage, page, hasNext } = useVideos({ userOnly });
 	const { theme } = useTheme();
 	const [hoverPrev, setHoverPrev] = useState(false);
 	const [hoverNext, setHoverNext] = useState(false);
@@ -95,15 +95,31 @@ export default function VideoList() {
 							</div>
 
 							<div style={{ display: 'flex', flexDirection: 'column' }}>
-								<a
-									href={video.url}
-									target="_blank"
-									rel="noreferrer"
-									className="file-link"
-									onClick={() => handleVideoClick(video.id)}
-								>
-									{video.name}
-								</a>
+								<div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+									<a
+										href={video.url}
+										target="_blank"
+										rel="noreferrer"
+										className="file-link"
+										onClick={() => handleVideoClick(video.id)}
+									>
+										{video.name}
+									</a>
+									{showVisibilityBadge && (
+										<span
+											style={{
+												fontSize: '0.65rem',
+												fontWeight: 'bold',
+												padding: '2px 8px',
+												borderRadius: '10px',
+												backgroundColor: video.visibility === 'public' ? '#28a745' : '#ff4d4d',
+												color: '#ffffff'
+											}}
+										>
+											{video.visibility === 'public' ? 'Public Class' : 'Private Class'}
+										</span>
+									)}
+								</div>
 
 								{playingId === video.id && video.type?.startsWith('video/') && (
 									<video
@@ -121,7 +137,16 @@ export default function VideoList() {
 										</Link>
 									) : (
 										video.ownerName || 'Anonymous'
-									)} in {video.className || 'General'} · {video.views ?? 0} views
+									)}
+									{' in '}
+									{showClassLink && video.classId ? (
+										<Link to={`/class/${video.classId}`} style={{ color: 'var(--link-color)', textDecoration: 'underline', fontWeight: '500' }}>
+											{video.className || 'General'}
+										</Link>
+									) : (
+										video.className || 'General'
+									)}
+									{` · ${video.views ?? 0} views`}
 								</span>
 							</div>
 						</div>
