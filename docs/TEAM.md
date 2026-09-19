@@ -127,6 +127,9 @@ Our team will:
 **Contribution Notes:**
 
 > Current contribution description:
+- Implemented Side Panel Component for major UI change and also initialized shared Playlist feature allowing users to collaborate and share content with exclusive Playlist members. 
+
+> Sprint 1:
 - My Scrum Master responsibilities including facilitation Scrum development, setting up meetings, tracking feature development, and team coordination.
 - I also have development responsibilities alongside our team.
 
@@ -137,6 +140,9 @@ Our team will:
 **Contribution Notes:**
 
 > Current contribution description:
+
+
+> Sprint 1:
 - Product Owner responsibilities including backlog management, product requirements, and stakeholder communication.
 - Development responsibilities alongside team
 ---
@@ -145,7 +151,10 @@ Our team will:
 
 **Contribution Notes:**
 
-> Current contribution description: Frontend/backend development and feature implementation.
+> Current contribution description: 
+
+> Sprint 1:
+- Frontend/backend development and feature implementation.
 
 ---
 
@@ -155,7 +164,8 @@ Our team will:
 
 > Current contribution description:
 
---- Frontend/Backend development, Firebase integration, testing and debugging
+> Sprint 1:
+- Frontend/Backend development, Firebase integration, testing and debugging
 
 ## Kaleb Richardson
 
@@ -163,7 +173,8 @@ Our team will:
 
 > Current contribution description:
 
---- Feature development, Testing, Debugging, Documentation.
+> Sprint 1:
+- Feature development, Testing, Debugging, Documentation.
 
 # 9. Definition of Done
 
