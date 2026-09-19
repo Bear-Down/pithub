@@ -35,9 +35,14 @@ const ClassList = ({ showRecentUploads = true }) => {
 			)}
 
 			{/* Bottom Section: Classes (Grid or Stacked List) */}
-			<div className="classes-section">
+			<div className="classes-section" style={{ marginTop: '20px' }}>
 				<div className="classes-header">
-					<h2>Your Classes</h2>
+					<div>
+						<h1 style={{ margin: 0, fontSize: '1.8rem', color: 'var(--brand-color)' }}>Your Classes</h1>
+						<p style={{ color: 'var(--text-muted)', margin: '4px 0 0 0', fontSize: '0.95rem' }}>
+							Manage your classes.
+						</p>
+					</div>
 					<div className="classes-header-actions">
 						<div className="view-toggle-group">
 							<button 
@@ -73,8 +78,11 @@ const ClassList = ({ showRecentUploads = true }) => {
 						))}
 					</div>
 				) : (
-					<div className="status">
-						<p>No classes created yet. Click the button above to get started!</p>
+					<div className="status" style={{ textAlign: 'center', padding: '40px 20px' }}>
+						<h3>No Classes Found</h3>
+						<p style={{ color: 'var(--text-muted)', maxWidth: '400px', margin: '0 auto 20px auto' }}>
+							Create your first class to share videos and documents!
+						</p>
 					</div>
 				)}
 			</div>

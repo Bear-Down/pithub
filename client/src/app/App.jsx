@@ -16,6 +16,7 @@ import { useAdminAuth } from '../hooks/admin/useAdminAuth';
 import SettingsPage from '../pages/settings/SettingsPage';
 import UploadsPage from '../pages/uploads/UploadsPage';
 import WorkInProgressPage from '../pages/info/WorkInProgressPage';
+import FavoritesPage from '../pages/favorites/FavoritesPage';
 
 import PlaylistList from '../pages/playlists/PlaylistList';
 import PlaylistPage from '../pages/playlists/PlaylistPage';
@@ -79,7 +80,7 @@ function AppContent() {
 					<Route path="/dashboard" element={<ProtectedRoute user={user}><ClassList showRecentUploads={true} /></ProtectedRoute>} />
 					<Route path="/classes" element={<ProtectedRoute user={user}><ClassList showRecentUploads={false} /></ProtectedRoute>} />
 					<Route path="/uploads" element={<ProtectedRoute user={user}><UploadsPage /></ProtectedRoute>} />
-					<Route path="/favorites" element={<ProtectedRoute user={user}><WorkInProgressPage title="Favorites" /></ProtectedRoute>} />
+					<Route path="/favorites" element={<ProtectedRoute user={user}><FavoritesPage /></ProtectedRoute>} />
 					<Route path="/playlists" element={<ProtectedRoute user={user}><PlaylistList /></ProtectedRoute>} />
 					<Route path="/playlist/:playlistId" element={<ProtectedRoute user={user}><PlaylistPage /></ProtectedRoute>} />
 					<Route path="/watch-later" element={<ProtectedRoute user={user}><WorkInProgressPage title="Watch Later" /></ProtectedRoute>} />

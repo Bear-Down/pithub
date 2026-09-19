@@ -4,10 +4,10 @@ import { NavLink } from 'react-router-dom';
 const Sidebar = () => {
 	const navItems = [
 		{ label: 'Dashboard', path: '/dashboard' },
-		{ label: 'Uploads', path: '/uploads' },
 		{ label: 'Classes', path: '/classes' },
-		{ label: 'Favorites', path: '/favorites', isWip: true },
 		{ label: 'Playlists', path: '/playlists' },
+		{ label: 'Uploads', path: '/uploads' },
+		{ label: 'Favorites', path: '/favorites' },
 		{ label: 'Watch Later', path: '/watch-later', isWip: true },
 		{ label: 'Settings', path: '/settings' },
 	];

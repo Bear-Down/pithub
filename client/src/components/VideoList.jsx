@@ -4,6 +4,7 @@ import { useVideos } from '../hooks/useVideos';
 import { useTheme } from '../context/ThemeContext';
 import ReportButton from './ReportButton';
 import DocumentPreviewModal from './DocumentPreviewModal';
+import FavoriteButton from './FavoriteButton';
 import { doc, updateDoc, increment } from 'firebase/firestore';
 import { db } from "../lib/firebase";
 
@@ -150,7 +151,10 @@ export default function VideoList({ userOnly = false, showClassLink = true, show
 								</span>
 							</div>
 						</div>
-						<ReportButton file={video} />
+						<div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+							<FavoriteButton entityType="upload" entityId={video.id} />
+							<ReportButton file={video} />
+						</div>
 					</li>
 				))}
 			</ul>
