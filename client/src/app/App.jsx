@@ -23,6 +23,7 @@ import PlaylistPage from '../pages/playlists/PlaylistPage';
 
 import About from '../pages/info/About';
 import Terms from '../pages/info/Terms';
+import Contact from '../pages/info/Contact'
 
 import '../styles/style.css';
 
@@ -90,6 +91,7 @@ function AppContent() {
 					<Route path="/profile/:userId" element={<ProtectedRoute user={user}><ProfilePage /></ProtectedRoute>} />
 					<Route path="/about" element={<About />} />
 					<Route path="/terms" element={<Terms />} />
+					<Route path="/contact" element={<Contact />} />
 				</Route>
 			</Routes>
 		</Router>

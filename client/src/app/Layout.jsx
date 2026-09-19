@@ -99,6 +99,7 @@ const Layout = () => {
 					<div className="footer-links">
 						<Link to="/about">About</Link>
 						<Link to="/terms">Terms</Link>
+						<Link to="/contact">Contact</Link>
 					</div>
 				</div>
 			</footer>
