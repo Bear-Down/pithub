@@ -144,7 +144,20 @@ Our team will:
 
 > Sprint 1:
 - Product Owner responsibilities including backlog management, product requirements, and stakeholder communication.
-- Development responsibilities alongside team
+- Development responsibilities alongside team.
+- Created a Settings page featuring an Account tab, Profile tab, Appearance tab, and Preferences tab.
+- The Account tab features the Display Name, Email, and Account Type. Cannot be changed through PitHub, but can be managed through the Google account within Google's services.
+- The Profile tab features Profile Visibilty and text boxes for users to fill out their Major, Minor, Expected Graduation, Website, and Bio.
+- The Appearance tab features the ability for users to change the Theme of their interface: light or dark mode.
+- The Preferences tab features the ability for users to change how their class are displayed: Grid style or List style.
+
+> Sprint 2:
+- Product Owner responsibilities including backlog management, product requirements, and stakeholder communication.
+- Created an Analytics page for the Reports section of the Admin account.
+- The Analytics page consists of charts: Upload Tends, Document Types, Visibility Distribution, Documents by Class, Report Reasons, and Report Status.
+- The page displays statistics: Total Documents, Total Views, Avg Views/Document, and the number of Public Documents.
+- The page tracks Engagement, Report Health, and Top Content (Most viewed files).
+- The page also has a range for Administrators to select: 7 days, 30 days, 90 days, and All Time.
 ---
 
 ## Erick Hernandez
