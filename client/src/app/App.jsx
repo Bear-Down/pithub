@@ -4,6 +4,7 @@ import { AuthProvider, useAuth } from '../context/AuthContext';
 import { ThemeProvider } from '../context/ThemeContext';
 
 import ClassList from '../components/ClassList';
+import ScrollToTop from "../components/ScrollToTop";
 import ClassPage from '../pages/classes/ClassPage';
 import LoginPage from '../pages/auth/LoginPage';
 import LogoutPage from '../pages/auth/LogoutPage';
@@ -48,6 +49,7 @@ function AppContent() {
 
 	return (
 		<Router>
+			<ScrollToTop />
 			<Routes>
 				{/* LOGIN PAGE: Standalone without the header/footer */}
 				<Route

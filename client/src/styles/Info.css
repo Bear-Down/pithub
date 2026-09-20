@@ -10,14 +10,28 @@
 
 h1 {
     color: orange;
+    margin-bottom: 10px;
 }
 
 h2 {
-    margin-top: 25px;
+    margin-top: 30px;
     color: #444;
 }
 
 p {
     line-height: 1.6;
     margin: 10px 0;
+}
+
+.last-updated {
+    font-style: italic;
+    color: gray;
+    text-align: center;
+}
+.faq-question {
+    font-style: bold;
+}
+.faq-answer {
+    font-style: italic;
+    color: #444;
 }
