@@ -67,13 +67,18 @@ export const AuthProvider = ({ children }) => {
 						console.log("Login successful.");
 
 						// 4. Start real-time listener for changes (Read-only for state sync)
-						userDocUnsubscribe = onSnapshot(userDocRef, (snap) => {
-							const data = snap.data();
-							if (data) {
-								setIsAdmin(data.role === 'admin');
-								setIsSuspended(data.isSuspended || false);
+						userDocUnsubscribe = onSnapshot(userDocRef, 
+							(snap) => {
+								const data = snap.data();
+								if (data) {
+									setIsAdmin(data.role === 'admin');
+									setIsSuspended(data.isSuspended || false);
+								}
+							},
+							(err) => {
+								console.error("User doc listener error:", err);
 							}
-						});
+						);
 					} else {
 						console.log("Rejected email:", firebaseUser.email);
 						alert("Access Denied: Please use a Lewis University email or valid admin credentials.");

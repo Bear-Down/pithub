@@ -11,18 +11,21 @@ Scrum Master: Kevin Dacanay
 
 | **ID** | **User Story / Task** | **Priority (1-10)** | **Estimate (SP)** | **Spike (Y/N)** | **Status** | **Assigned** |
 |--------|------------------------|--------------|--------------|------------|--------------|--------------|
-| RC-119 | As an developer, I want to be able to allow log ins with Lewis University Google gmails while running 'npm run dev' for testing | 10 | 6 | Y | Done | Kevin Dacanay |
-| RC-120 | As a user, I want to have courtesy pop ups for when I switch my profile or classes to public/private | 7 | 3 | N | Done | Erick Hernandez |
-| RC-121 | As a user, I want a user-friendly and easy to navigate user interface with a modern design | 7 | 5 | N | Done | Kaleb Richardson |
-| RC-122 | As a user, I want to be able to go to and manage my settings via a dedicated Settings page | 6 | 5 | N | Done | Sebastian Jaculbe |
-| RC-123 | As a user, I would like the option to open videos directly on PitHub and not just be redirected to firebase storage | 4 | 4 | N | Done | Edward Rodriguez | 
-| RC-124 | As a user, I want to be able change the view of my classes into either stacked tiles or gridded boxes | 3 | 4 | N | Done | Kaleb Richardson |
-| RC-125 | As an administrator, I would like to see overall analytics for documents posted by users | 3 | 4 | Y | Done | Sebastian Jaculbe |
-| RC-126 | As a user, I want to be able to see the number of views for my posts | 3 | 4 | N | Done | Edward Rodriguez |
-| RC-127 | As an administrator, I want to improve the UI and functionalities of admin tools | 3 | 5 | Y | Done | Erick Hernandez |
-| RC-128 | As a developer, I want to fix the Search Bar component bug where classes aren't shown for the first search | 2 | 5 | Y | Done | Kevin Dacanay |
+| RC-031 | As a user, I want to set as "favorite" certain videos so that I may have quick access to them when needed. | 6 | 5 | N | Done | Edward Rodriguez |
+| RC-049 | As a user, I want to star/favorite user profiles so that I can easily revisit their content. | 5 | 4 | N | Done | Erick Hernandez |
+| RC-050 | As a user, I want to star/favorite classes so that I can quickly access frequently used courses. | 6 | 5 | N | Done | Erick Hernandez |
+| RC-060 | As a user, I want to be able to report videos or documents that have bad or illegal content | 7 | 5 | N | Done | Sebastian Jaculbe |
+| RC-069 | As a user, I want to preview documents (PDFs) directly in the browser so that I do not need to download them first. | 7 | 4 | N | Done | Edward Rodriguez |
+| RC-093 | As a user, I want to be able to share my classes with other users through their emails via links generated for my classes so that they may have access to my class regardless of class visibility. | 6 | 6 | N | Done | Kevin Dacanay |
+| RC-104 | As a user, I want to view a list of members enrolled or participating in a class so that I can identify classmates and collaborators. | 6 | 3 | N | Done | Edward Rodriguez |
+| RC-105 | As a user, I want to invite other users to join a class so that collaboration and content sharing are easier and be able to change their permissions if I am the class owner, whether it is only "view only" or "upload allowed". | 6 | 5 | N | Done | Erick Hernandez |
+| RC-139 | As a developer, I want to initialize planning for our team's product presentation for recruitment from this semester's Software Engineering class on on Tuesday, April 7 at 9:30 AM CT. | 8 | 5 | Y | Done | Sebastian Jaculbe |
+| RC-140 | As a developer, I want to begin setting up our team's product review presentation to be able to showcase our Minimum Viable Product on Tuesday, April 21 at 2 pm CT. | 8 | 5 | Y | Done | Sebastian Jaculbe |
+| RC-141 | As a user, I want to have a side panel on my main page that can redirect me to my "Dashboard", "Uploads", "Classes", "Playlists", "Settings" so that navigation within the website is easy| 8 | 6 | N | Done | Kevin Dacanay |
+| RC-142 | As a user, I want to view an updated version of the website's About Page so that I understand PitHub's mission statement, team details, an explanation of what the platform does, intended audience, and overall features | 6 | 4 | N | Done | Kaleb Richardson |
+| RC-143 | As a user, I want to view an updated version of the website's Terms of Use Page so that I understand my rights, eligibility, security, privacy, actions I'm allowed to perform, content rules and moderation, third-party services, payments, and overall disclaimers with regards to PitHub  | 6 | 4 | N | Done | Kaleb Richardson |
+| RC-144 | As a user, I want to view the website's Contact Page so that whenever I have issues with the webisite, I am able to report said issue to the admin | 6 | 4 | N | Done | Kaleb Richardson |
 
+Team Capacity: 60 Story Points
 
-Team Capacity: 40 Story Points
-
-Story Points: 45 points
+Story Points: 65 points

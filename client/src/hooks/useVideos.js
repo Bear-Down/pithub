@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { collection, query, orderBy, limit, onSnapshot, startAfter, where } from "firebase/firestore";
-import { db } from "../lib/firebase"; // Import db from firebase.js
+import { db } from "../lib/firebase";
+import { useAuth } from "../context/AuthContext";
 
-export function useVideos() {
+export function useVideos({ userOnly = false } = {}) {
+	const { user } = useAuth();
 	const [videos, setVideos] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
@@ -16,16 +18,22 @@ export function useVideos() {
 		// To get page N, we startAfter the last doc of page N-1
 		const cursor = page > 1 ? lastDocs[page - 2] : null;
 
-		// Create a query to get recent files from Firestore
-		const filesQuery = cursor 
-			? query(
-				collection(db, "files"), 
-				where("visibility", "==", "public"), 
-				orderBy("createdAt", "desc"), 
-				startAfter(cursor), 
-				limit(pageSize + 1)
-			)
-			: query(collection(db, "files"), where("visibility", "==", "public"), orderBy("createdAt", "desc"), limit(pageSize + 1));
+		let constraints = [];
+		if (userOnly) {
+			if (!user?.uid) {
+				setVideos([]);
+				setLoading(false);
+				return;
+			}
+			constraints.push(where("ownerId", "==", user.uid));
+		} else {
+			constraints.push(where("visibility", "==", "public"));
+		}
+		constraints.push(orderBy("createdAt", "desc"));
+		if (cursor) constraints.push(startAfter(cursor));
+		constraints.push(limit(pageSize + 1));
+
+		const filesQuery = query(collection(db, "files"), ...constraints);
 
 		const unsubscribe = onSnapshot(filesQuery, 
 			(snapshot) => {
@@ -60,7 +68,7 @@ export function useVideos() {
 		);
 
 		return () => unsubscribe(); // Cleanup the listener
-	}, [page]);
+	}, [page, userOnly, user?.uid]);
 
 	const nextPage = () => setPage(p => p + 1);
 	const prevPage = () => setPage(p => Math.max(1, p - 1));

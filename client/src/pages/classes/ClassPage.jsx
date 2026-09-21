@@ -5,6 +5,7 @@ import DocumentPreviewModal from '../../components/DocumentPreviewModal';
 import { useClassPage } from '../../hooks/useClassPage';
 import { doc, updateDoc, increment } from 'firebase/firestore';
 import { db } from '../../lib/firebase';
+import FavoriteButton from '../../components/FavoriteButton';
 
 const ClassPage = () => {
 	const {
@@ -76,8 +77,11 @@ const ClassPage = () => {
 			.jpg, .jpeg, .png, .gif, .bmp, .webp"
 		/>
 
-		<div className="class-page-header">
-			<h1>{classData ? classData.name : 'Loading...'}</h1>
+			<div className="class-page-header">
+				<h1 style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+					{classData ? classData.name : 'Loading...'}
+					{!isOwner && classData && <FavoriteButton entityType="class" entityId={classId} />}
+				</h1>
 			{isOwner && (
 				<div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
 					<button 

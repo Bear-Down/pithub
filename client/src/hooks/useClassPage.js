@@ -86,6 +86,8 @@ export const useClassPage = () => {
                 console.error("No such class document found!");
                 setClassData({ name: "Class Not Found" });
             }
+        }, (err) => {
+            console.error("Error fetching class doc:", err);
         });
 
         return () => unsubscribe();
@@ -113,6 +115,8 @@ export const useClassPage = () => {
                 ...doc.data()
             }));
             setFiles(fetchedFiles);
+        }, (err) => {
+            console.error("Error fetching class files:", err);
         });
 
         return () => unsubscribe();
