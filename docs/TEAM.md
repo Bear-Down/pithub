@@ -127,13 +127,22 @@ Our team will:
 **Contribution Notes:**
 
 > Current contribution description:
-- Implemented Side Panel Component for major UI change and also initialized shared Playlist feature allowing users to collaborate and share content with exclusive Playlist members. 
 
 > Sprint 1:
-- My Scrum Master responsibilities including facilitation Scrum development, setting up meetings, tracking feature development, and team coordination.
-- I also have development responsibilities alongside our team.
+- Scrum Master responsibilities, including facilitating Scrum development, organizing and setting up team meetings, tracking feature development, and coordinating team activities.
+- Assisted with maintaining communication between team members and helping ensure that sprint tasks remained organized and on schedule.
+- Participated in development activities alongside the team, contributing to the implementation and improvement of PitHub features.
 
----
+> Sprint 2:
+- Continued fulfilling Scrum Master responsibilities, including coordinating team activities, facilitating communication, and helping track sprint progress.
+- Implemented the Side Panel Component as a major user-interface improvement for the PitHub main page.
+- Added navigation options within the side panel for important sections of the application, including Dashboard, Classes, Playlists, Uploads, Favorites, Watch Later, and Settings.
+- Improved the overall accessibility and organization of the application by providing users with a centralized navigation area.
+- Initialized the shared Playlist feature, allowing users to create playlists or class-based collections for organizing and sharing content.
+- Implemented functionality that allows playlist owners to invite other users to participate in shared playlists.
+- Added the foundation for permission-based collaboration, allowing playlist owners to control whether invited members can post, view, or delete files.
+- Contributed to making PitHub more collaborative by allowing users to share content with selected Playlist members while maintaining owner-controlled access permissions.
+- Tested the new features locally and through the team's Firebase Hosting test environment before submitting the changes for review through GitHub.---
 
 ## Sebastian Jaculbe
 
