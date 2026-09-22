@@ -3,29 +3,27 @@ layout: default
 title: Product Backlog
 permalink: /backlogs/product-backlog/
 ---
-Product Owner: Sebastian Jaculbe
+Product Owner: 
 
-Scrum Master: Kevin Dacanay
+Scrum Master: 
 
 # 📋 Sprint Backlog – *Pithub*
 
 | **ID** | **User Story / Task** | **Priority (1-10)** | **Estimate (SP)** | **Spike (Y/N)** | **Status** | **Assigned** |
 |--------|------------------------|--------------|--------------|------------|--------------|--------------|
-| RC-031 | As a user, I want to set as "favorite" certain videos so that I may have quick access to them when needed. | 6 | 5 | N | Done | Edward Rodriguez |
-| RC-049 | As a user, I want to star/favorite user profiles so that I can easily revisit their content. | 5 | 4 | N | Done | Erick Hernandez |
-| RC-050 | As a user, I want to star/favorite classes so that I can quickly access frequently used courses. | 6 | 5 | N | Done | Erick Hernandez |
-| RC-060 | As a user, I want to be able to report videos or documents that have bad or illegal content | 7 | 5 | N | Done | Sebastian Jaculbe |
-| RC-069 | As a user, I want to preview documents (PDFs) directly in the browser so that I do not need to download them first. | 7 | 4 | N | Done | Edward Rodriguez |
-| RC-093 | As a user, I want to be able to share my classes with other users through their emails via links generated for my classes so that they may have access to my class regardless of class visibility. | 6 | 6 | N | Done | Kevin Dacanay |
-| RC-104 | As a user, I want to view a list of members enrolled or participating in a class so that I can identify classmates and collaborators. | 6 | 3 | N | Done | Edward Rodriguez |
-| RC-105 | As a user, I want to invite other users to join a class so that collaboration and content sharing are easier and be able to change their permissions if I am the class owner, whether it is only "view only" or "upload allowed". | 6 | 5 | N | Done | Erick Hernandez |
-| RC-139 | As a developer, I want to initialize planning for our team's product presentation for recruitment from this semester's Software Engineering class on on Tuesday, April 7 at 9:30 AM CT. | 8 | 5 | Y | Done | Sebastian Jaculbe |
-| RC-140 | As a developer, I want to begin setting up our team's product review presentation to be able to showcase our Minimum Viable Product on Tuesday, April 21 at 2 pm CT. | 8 | 5 | Y | Done | Sebastian Jaculbe |
-| RC-141 | As a user, I want to have a side panel on my main page that can redirect me to my "Dashboard", "Uploads", "Classes", "Playlists", "Settings" so that navigation within the website is easy| 8 | 6 | N | Done | Kevin Dacanay |
-| RC-142 | As a user, I want to view an updated version of the website's About Page so that I understand PitHub's mission statement, team details, an explanation of what the platform does, intended audience, and overall features | 6 | 4 | N | Done | Kaleb Richardson |
-| RC-143 | As a user, I want to view an updated version of the website's Terms of Use Page so that I understand my rights, eligibility, security, privacy, actions I'm allowed to perform, content rules and moderation, third-party services, payments, and overall disclaimers with regards to PitHub  | 6 | 4 | N | Done | Kaleb Richardson |
-| RC-144 | As a user, I want to view the website's Contact Page so that whenever I have issues with the webisite, I am able to report said issue to the admin | 6 | 4 | N | Done | Kaleb Richardson |
+| RC-147 | As a user, I want view the full content of a document from the preview, especially for video files so that I can still control video playback | 6 | 5 | Y | -- | -- |
+| RC-161 | As a developer, I want to improve the first-time user experience based on onboarding feedback so that new users can complete their first meaningful task with fewer difficulties. | 9 | 5 | N | -- | -- |
+| RC-162 | As a user, I want the existing help text and instructions to use clear, understandable language so that I can learn how to use PitHub without additional assistance. | 8 | 5 | N | -- | -- |
+| RC-163 | As a developer, I want to review existing security and privacy configurations before user demonstrations so that potential customers can receive accurate information about data protection. | 10 | 6 | Y | -- | -- |
+| RC-165 | As a user, I want to view a customer-facing FAQ covering existing PitHub workflows, limitations, and security practices so that potential users can make informed adoption decisions. | 8 | 6 | N | -- | -- |
+| RC-166 | As a product owner, I want to establish a process for responding to user feedback and support requests so that existing users receive timely and consistent assistance. | 8 | 5 | N | -- | -- |
+| RC-168 | As a user, I want to be able to delete my account along with all of its content securely if I no longer want to use PitHub | 7 | 5 | N | -- | -- |
+| RC-169 | As a first time user, I want to be shown a tutorial or walkthrough of how the app works on my very first login so that I know how to utilize PitHub | 7 | 6 | N | -- | -- |
+| RC-170 | As a user, I want to be able to view Frequently Asked Questions with regards to PitHub so that if I have a question, I may refer to the FAQ instead of reaching out to the developers right away | 7 | 5 | N | -- | -- |
+| RC-171 | As a user, I want to be able to submit questions directly to PitHub developers either via email or a textbox which I can submit through the Product's Contact Us Page.| 7 | 6 | N | -- | -- |
+| RC-173 | As a developer, I want to generate a set of videos giving a walkthrough or tutorial of PitHub and its features for new users to view | 7 | 7 | Y | -- | -- |
+
 
 Team Capacity: 60 Story Points
 
-Story Points: 65 points
+Story Points:  points
