@@ -8,8 +8,8 @@ service cloud.firestore {
     }
     
     function isAdmin() {
-      return isSignedIn() && 
-        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.get('role', 'user') == 'admin';
+      let userPath = /databases/$(database)/documents/users/$(request.auth.uid);
+      return isSignedIn() && exists(userPath) && get(userPath).data.get('role', 'user') == 'admin';
     }
 
     function isNotSuspended() {
@@ -38,28 +38,65 @@ service cloud.firestore {
       allow update, delete: if isAdmin() || request.auth.uid == resource.data.get('ownerId', '');
     }
 
-    // Files Collection
-      match /files/{fileId} {
-        allow read: if isAdmin() || 
-                      resource.data.get('visibility', 'private') == 'public' || 
-                      request.auth.uid == resource.data.get('ownerId', '') ||
-                      request.auth.uid == get(/databases/$(database)/documents/classes/$(resource.data.get('classId', ''))).data.get('ownerId', '');
-      
-        allow create: if isSignedIn() && isNotSuspended();
-        allow update: if isAdmin() || 
-          (isSignedIn() && request.auth.uid == resource.data.get('ownerId', '')) ||
-          (
-            isSignedIn() &&
-            request.auth.uid == get(/databases/$(database)/documents/classes/$(resource.data.get('classId', ''))).data.get('ownerId', '') &&
-            request.resource.data.diff(resource.data).affectedKeys().hasOnly(['visibility'])
-          ) ||
-          (
-            isSignedin() &&
-            request.resource.data.diff(resource.data).affectedKeys().hasOnly(['views'])
-          );
+    // Playlists Collection
+    match /playlists/{playlistId} {
+      allow read: if isAdmin() || 
+                     request.auth.uid == resource.data.get('ownerId', '') || 
+                     (isSignedIn() && request.auth.uid in resource.data.get('members', {}));
+      allow create: if isSignedIn() && isNotSuspended();
+      allow update: if isAdmin() || 
+                       request.auth.uid == resource.data.get('ownerId', '') ||
+                       (isSignedIn() && request.auth.uid in resource.data.get('members', {}));
+      allow delete: if isAdmin() || request.auth.uid == resource.data.get('ownerId', '');
+    }
 
-        allow delete: if isAdmin() || request.auth.uid == resource.data.get('ownerId', '');
-      }
+    // Files Collection
+    match /files/{fileId} {
+      allow read: if isAdmin() || 
+                    resource.data.get('visibility', 'private') == 'public' || 
+                    request.auth.uid == resource.data.get('ownerId', '') ||
+                    (
+                      resource.data.keys().hasAll(['classId']) && 
+                      exists(/databases/$(database)/documents/classes/$(resource.data.get('classId', ''))) &&
+                      request.auth.uid == get(/databases/$(database)/documents/classes/$(resource.data.get('classId', ''))).data.get('ownerId', '')
+                    ) ||
+                    (
+                      resource.data.keys().hasAll(['playlistId']) && 
+                      exists(/databases/$(database)/documents/playlists/$(resource.data.get('playlistId', ''))) && (
+                        request.auth.uid == get(/databases/$(database)/documents/playlists/$(resource.data.get('playlistId', ''))).data.get('ownerId', '') ||
+                        request.auth.uid in get(/databases/$(database)/documents/playlists/$(resource.data.get('playlistId', ''))).data.get('members', {})
+                      )
+                    );
+    
+      allow create: if isSignedIn() && isNotSuspended();
+      allow update: if isAdmin() || 
+        (isSignedIn() && request.auth.uid == resource.data.get('ownerId', '')) ||
+        (
+          isSignedIn() &&
+          resource.data.keys().hasAll(['classId']) &&
+          resource.data.get('classId', '') != '' &&
+          exists(/databases/$(database)/documents/classes/$(resource.data.get('classId', ''))) &&
+          request.auth.uid == get(/databases/$(database)/documents/classes/$(resource.data.get('classId', ''))).data.get('ownerId', '') &&
+          request.resource.data.diff(resource.data).affectedKeys().hasOnly(['visibility'])
+        ) ||
+        (
+          isSignedIn() &&
+          request.resource.data.diff(resource.data).affectedKeys().hasOnly(['views'])
+        );
+
+      allow delete: if isAdmin() || request.auth.uid == resource.data.get('ownerId', '') ||
+        (
+          isSignedIn() &&
+          resource.data.keys().hasAll(['playlistId']) &&
+          resource.data.get('playlistId', '') != '' &&
+          exists(/databases/$(database)/documents/playlists/$(resource.data.get('playlistId', ''))) &&
+          (
+            request.auth.uid == get(/databases/$(database)/documents/playlists/$(resource.data.get('playlistId', ''))).data.get('ownerId', '') ||
+            (request.auth.uid in get(/databases/$(database)/documents/playlists/$(resource.data.get('playlistId', ''))).data.get('members', {}) &&
+             get(/databases/$(database)/documents/playlists/$(resource.data.get('playlistId', ''))).data.members[request.auth.uid].role == 'delete')
+          )
+        );
+    }
     
     // Reports Collection
     match /reports/{fileId} {
@@ -79,6 +116,16 @@ service cloud.firestore {
     match /admin_logs/{logId} {
       allow read: if isAdmin();
       allow create: if isAdmin(); // Only admins can log their actions
+    }
+
+    // Favorites Collection
+    match /favorites/{favoriteId} {
+      allow read: if isSignedIn() && (resource == null || request.auth.uid == resource.data.userId);
+      allow create: if isSignedIn() && 
+        request.auth.uid == request.resource.data.userId &&
+        favoriteId == request.auth.uid + '_' + request.resource.data.entityType + '_' + request.resource.data.entityId;
+      allow update: if isSignedIn() && request.auth.uid == resource.data.userId && request.auth.uid == request.resource.data.userId;
+      allow delete: if isSignedIn() && request.auth.uid == resource.data.userId;
     }
 
     // Default fallback (development safety)

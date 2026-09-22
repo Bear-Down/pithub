@@ -7,6 +7,7 @@ import { adminService } from '../../services/adminService';
 import AdminPagination from './AdminPagination';
 import AdminEmptyState from './AdminEmptyState';
 import SignOffModal from './SignOffModal';
+import AdminAnalytics from './AdminAnalytics';
 
 const db = getFirestore(app);
 
@@ -191,16 +192,7 @@ export default function ReportManagement() {
 
 			{activeTab === 'pending' && <ReportTable status="pending" onAction={handleAction} />}
 			{activeTab === 'resolved' && <ReportTable status="resolved" onAction={handleAction} />}
-			{activeTab === 'analytics' && (
-				<div className="admin-table-container" style={{ padding: '60px', textAlign: 'center' }}>
-					<p style={{ fontWeight: 900, fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.3 }}>
-						Platform Analytics
-					</p>
-					<h3 style={{ fontSize: '18px', marginTop: '16px', opacity: 0.4 }}>
-						Upload trends, engagement metrics, and distribution charts coming soon.
-					</h3>
-				</div>
-			)}
+			{activeTab === 'analytics' && <AdminAnalytics />}
 
 			<SignOffModal
 				isOpen={signOff.open}
@@ -213,3 +205,4 @@ export default function ReportManagement() {
 		</div>
 	);
 }
+

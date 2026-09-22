@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
+import FavoriteButton from './FavoriteButton';
 
 const ClassCard = ({
 	classData,
@@ -8,7 +9,8 @@ const ClassCard = ({
 	onDelete,
 	isOwner = true,
 	viewMode = 'grid',
-	docCount = 0
+	docCount = 0,
+	linkPrefix = '/class'
 }) => {
 	const navigate = useNavigate();
 	const { theme } = useTheme();
@@ -48,12 +50,15 @@ const ClassCard = ({
 		return (
 			<div className="class-list-item">
 				<div className="class-list-info">
-					<h3
-						onClick={() => classData?.id && navigate(`/class/${classData.id}`)}
-						style={{ cursor: 'pointer', margin: 0, fontSize: '1.05rem', color: 'var(--text-main)' }}
-					>
-						{classData?.name}
-					</h3>
+					<div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+						<h3
+							onClick={() => classData?.id && navigate(`${linkPrefix}/${classData.id}`)}
+							style={{ cursor: 'pointer', margin: 0, fontSize: '1.05rem', color: 'var(--text-main)' }}
+						>
+							{classData?.name}
+						</h3>
+						{!isOwner && classData?.id && <FavoriteButton entityType="class" entityId={classData.id} size="1rem" />}
+					</div>
 					{isOwner && visibilityBadge}
 					<div className="class-doc-count" style={{ margin: 0 }}>
 						{docCount} {docCount === 1 ? 'doc' : 'docs'}
@@ -63,7 +68,7 @@ const ClassCard = ({
 				<div className="class-list-actions" onClick={(e) => e.stopPropagation()}>
 					<button
 						className="view-class-btn"
-						onClick={() => classData?.id && navigate(`/class/${classData.id}`)}
+						onClick={() => classData?.id && navigate(`${linkPrefix}/${classData.id}`)}
 					>
 						View Class
 					</button>
@@ -107,9 +112,12 @@ const ClassCard = ({
 	return (
 		<div className="class-card">
 			<div className="class-card-header">
-				<h3 onClick={() => classData?.id && navigate(`/class/${classData.id}`)} style={{ cursor: 'pointer' }}>
-					{classData?.name}
-				</h3>
+				<div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+					<h3 onClick={() => classData?.id && navigate(`${linkPrefix}/${classData.id}`)} style={{ cursor: 'pointer', margin: 0 }}>
+						{classData?.name}
+					</h3>
+					{!isOwner && classData?.id && <FavoriteButton entityType="class" entityId={classData.id} size="1rem" />}
+				</div>
 				{isOwner && visibilityBadge}
 			</div>
 
@@ -118,7 +126,7 @@ const ClassCard = ({
 			<div className="class-card-footer" onClick={(e) => e.stopPropagation()}>
 				<button
 					className="view-class-btn"
-					onClick={() => classData?.id && navigate(`/class/${classData.id}`)}
+					onClick={() => classData?.id && navigate(`${linkPrefix}/${classData.id}`)}
 				>
 					View
 				</button>

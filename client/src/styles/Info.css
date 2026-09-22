@@ -1,0 +1,290 @@
+.container {
+    max-width: 950px;
+    margin: 40px auto;
+    background-color: var(--bg-secondary);
+    padding: 35px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 15px var(--card-shadow);
+}
+
+h1 {
+    color: var(--brand-color);
+    margin-bottom: 15px;
+}
+
+h2 {
+    margin-top: 35px;
+    margin-bottom: 15px;
+    color: var(--text-main);
+    border-bottom: 2px solid var(--border-soft);
+    padding-bottom: 8px;
+}
+
+p {
+    line-height: 1.6;
+    margin: 10px 0;
+    color: var(--text-main);
+}
+
+.contact-subtitle {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    margin-bottom: 30px;
+}
+
+/* Support Card Styling */
+.support-card {
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-left: 5px solid var(--brand-color);
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin-bottom: 35px;
+}
+
+.support-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.support-header h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: var(--text-main);
+}
+
+.support-details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.support-detail-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.support-label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.support-value {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.support-value a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+.support-value a:hover {
+    text-decoration: underline;
+}
+
+/* Team Grid Styling */
+.team-group-section {
+    margin-bottom: 30px;
+}
+
+.team-group-title {
+    font-size: 1.25rem;
+    color: var(--brand-color);
+    margin: 15px 0 15px 0;
+    font-weight: 700;
+}
+
+.members-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 22px;
+    margin-bottom: 40px;
+}
+
+.member-card {
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.member-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px var(--card-shadow);
+    border-color: var(--brand-color);
+}
+
+.member-img-wrapper {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 15px;
+    border: 3px solid var(--brand-color);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.member-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.member-name {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin: 0 0 4px 0;
+    color: var(--text-main);
+}
+
+.member-role {
+    font-size: 0.85rem;
+    color: var(--brand-color);
+    font-weight: 600;
+    margin: 0 0 10px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.member-email {
+    font-size: 0.88rem;
+    color: var(--link-color);
+    text-decoration: none;
+    word-break: break-all;
+}
+
+.member-email:hover {
+    text-decoration: underline;
+}
+
+/* FAQ Accordion Styling */
+.faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 35px;
+}
+
+.faq-item {
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: var(--bg-primary);
+    transition: border-color 0.2s ease;
+}
+
+.faq-item.open {
+    border-color: var(--brand-color);
+}
+
+.faq-question-btn {
+    width: 100%;
+    padding: 16px 20px;
+    background: transparent;
+    border: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-main);
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.faq-question-btn:hover {
+    background-color: var(--card-hover);
+}
+
+.faq-toggle-icon {
+    font-size: 1.2rem;
+    color: var(--brand-color);
+    transition: transform 0.2s ease;
+}
+
+.faq-item.open .faq-toggle-icon {
+    transform: rotate(180deg);
+}
+
+.faq-answer-panel {
+    padding: 0 20px 16px 20px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+/* Contact Form Placeholder Styling */
+.contact-form-placeholder {
+    background-color: var(--bg-primary);
+    border: 2px dashed var(--border-color);
+    border-radius: 10px;
+    padding: 25px;
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.form-placeholder-badge {
+    display: inline-block;
+    background-color: var(--brand-color);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.form-placeholder-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 500px;
+    margin: 15px auto;
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.placeholder-input {
+    padding: 10px 14px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background-color: var(--bg-secondary);
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.placeholder-btn {
+    padding: 10px 20px;
+    background-color: var(--brand-color);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    align-self: flex-start;
+}
+
+.last-updated {
+    font-style: italic;
+    color: var(--text-muted);
+    text-align: center;
+    margin-top: 30px;
+    font-size: 0.85rem;
+}
