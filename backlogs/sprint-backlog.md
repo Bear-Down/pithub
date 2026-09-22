@@ -22,6 +22,7 @@ Scrum Master:
 | RC-170 | As a user, I want to be able to view Frequently Asked Questions with regards to PitHub so that if I have a question, I may refer to the FAQ instead of reaching out to the developers right away | 7 | 5 | N | -- | -- |
 | RC-171 | As a user, I want to be able to submit questions directly to PitHub developers either via email or a textbox which I can submit through the Product's Contact Us Page.| 7 | 6 | N | -- | -- |
 | RC-173 | As a developer, I want to generate a set of videos giving a walkthrough or tutorial of PitHub and its features for new users to view | 7 | 7 | Y | -- | -- |
+| RC-174 | As a devloper, I want to create marketing fliers that advertises PitHub to potential new users  | 7 | 6 | Y | -- | -- |
 
 
 Team Capacity: 60 Story Points

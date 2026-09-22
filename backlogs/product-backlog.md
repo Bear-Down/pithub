@@ -102,3 +102,4 @@ Scrum Master: Kevin Dacanay
 | RC-171 | As a user, I want to be able to submit questions directly to PitHub developers either via email or a textbox which I can submit through the Product's Contact Us Page.| 7 | 6 | N | -- | -- |
 | RC-172 | As a developer, I want to ensure that each user, on their first login, agrees to the Terms and Conditions, to be shown in the first walkthrough/tutorial of the app | 7 | 3 | N | -- | -- |
 | RC-173 | As a developer, I want to generate a set of videos giving a walkthrough or tutorial of PitHub and its features for new users to view | 7 | 7 | Y | -- | -- |
+| RC-174 | As a devloper, I want to create marketing fliers that advertises PitHub to potential new users  | 7 | 6 | Y | -- | -- |
