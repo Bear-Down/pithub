@@ -7,6 +7,9 @@ import erickImg from '../../assets/members/erick-800-by-800.jpg';
 import kalebImg from '../../assets/members/kaleb-800-by-800.jpg';
 import kevinImg from '../../assets/members/kevin-800-by-800.jpg';
 import sebastianImg from '../../assets/members/sebastian-800-by-800.jpg';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { db } from '../../lib/firebase';
+import { useAuth } from '../../context/AuthContext';
 
 // Do NOTTTT remove any members added below unless they were not part of the team to begin with!!!
 const teamGroups = [
@@ -80,7 +83,42 @@ const faqItems = [
 ];
 
 const Contact = () => {
+    const { user } = useAuth();
     const [openFaqIndex, setOpenFaqIndex] = useState(null);
+    const [subject, setSubject] = useState('');
+    const [message, setMessage] = useState('');
+    const [email, setEmail] = useState(user?.email || '');
+    const [submitting, setSubmitting] = useState(false);
+    const [submitted, setSubmitted] = useState(false);
+    const [formError, setFormError] = useState('');
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (!subject.trim() || !message.trim()) {
+            setFormError('Please fill out a subject and message.');
+            return;
+        }
+        setSubmitting(true);
+        setFormError('');
+        try {
+            await addDoc(collection(db, 'feedback'), {
+                subject: subject.trim(),
+                message: message.trim(),
+                userEmail: email.trim() || null,
+                userId: user?.uid || null,
+                createdAt: serverTimestamp(),
+                status: 'open',
+            });
+            setSubmitted(true);
+            setSubject('');
+            setMessage('');
+        } catch (err) {
+            console.error('Failed to submit feedback:', err);
+            setFormError('Something went wrong. Please try again.');
+        } finally {
+            setSubmitting(false);
+        }
+    };
 
     const toggleFaq = (index) => {
         setOpenFaqIndex(prevIndex => prevIndex === index ? null : index);
@@ -161,14 +199,45 @@ const Contact = () => {
 
             {/* Implement Next Sprint!!! Direct Support Contact Form */}
             <h2>Direct Support Message</h2>
-            <div className="contact-form-placeholder">
-                <span className="form-placeholder-badge">Work In Progresss</span>
+            <div className="contact-form">
                 <h3>Send a Message Directly to Admins</h3>
-                <div className="form-placeholder-fields">
-                    <input type="text" className="placeholder-input" placeholder="Subject / Topic" disabled />
-                    <textarea className="placeholder-input" rows="3" placeholder="Describe your issue or question..." disabled></textarea>
-                    <button className="placeholder-btn" disabled>Send Message</button>
-                </div>
+                {submitted ? (
+                    <p style={{ padding: '10px 0' }}>Thanks — your message has been sent to the PitHub team.</p>
+                ) : (
+                    <form onSubmit={handleSubmit} className="form-fields">
+                        <input
+                            type="email"
+                            className="form-input"
+                            placeholder="Your Email (optional)"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            maxLength={254}
+                        />
+                        <input
+                            type="text"
+                            className="form-input"
+                            placeholder="Subject / Topic"
+                            value={subject}
+                            onChange={(e) => setSubject(e.target.value)}
+                            maxLength={150}
+                        />
+                        <textarea
+                            className="form-input"
+                            rows="3"
+                            placeholder="Tell us more... We would love to hear your suggestions, feedback or questions!"
+                            maxLength={2000}
+                            value={message}
+                            onChange={(e) => setMessage(e.target.value)}
+                        ></textarea>
+                        <p style={{ fontSize: '0.75rem', opacity: 0.6, textAlign: 'right', margin: '4px 0 0' }}>
+                            {message.length}/2000
+                        </p>
+                        {formError && <p style={{ color: '#ff4d4d', fontSize: '0.85rem' }}>{formError}</p>}
+                        <button className="form-btn" disabled={submitting}>
+                            {submitting ? 'Sending...' : 'Send Message'}
+                        </button>
+                    </form>
+                )}
             </div>
 
             {/* Add Notification Pop Ups for submition success */}

@@ -99,6 +99,7 @@ const AdminDashboardLayout = ({ children }) => {
 				<NavItem to="/admin/files" label="Files"/>
 				<NavItem to="/admin/reports" label="Reports"/>
 				<NavItem to="/admin/logs" label="Audit Logs"/>
+				<NavItem to="/admin/feedback" label="Feedback"/>
 				</nav>
 
 				<div className="admin-mt-auto" style={{ padding: '24px' }}>
