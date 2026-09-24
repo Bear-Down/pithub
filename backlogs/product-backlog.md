@@ -3,9 +3,9 @@ layout: default
 title: Product Backlog
 permalink: /backlogs/product-backlog/
 ---
-Product Owner: Sebastian Jaculbe
+Product Owner: Kaleb Richardson
 
-Scrum Master: Kevin Dacanay
+Scrum Master: Erick Hernandez
 
 # 📋 Product Backlog – *Pithub*
 
@@ -103,3 +103,6 @@ Scrum Master: Kevin Dacanay
 | RC-172 | As a developer, I want to ensure that each user, on their first login, agrees to the Terms and Conditions, to be shown in the first walkthrough/tutorial of the app | 7 | 3 | N | -- | -- |
 | RC-173 | As a developer, I want to generate a set of videos giving a walkthrough or tutorial of PitHub and its features for new users to view | 7 | 7 | Y | -- | -- |
 | RC-174 | As a devloper, I want to create marketing fliers that advertises PitHub to potential new users  | 7 | 6 | Y | -- | -- |
+| RC-175 | As a devloper, I want to be able to present to the Software Engineering class on Tuesday, October 13 at 9:30 AM | 7 | 6 | Y | -- | -- |
+| RC-176 | As a devloper, I want to fully participate in our Fall 2026 mid-term Product Review on Tuesday, October 27 at 2 PM | 7 | 6 | Y | -- | -- |
+| RC-177 | As a devloper, I want to consolidate all individual MVP proposals into a single Minimum Viable Product, making sure that it is minimum andd deliverable by the end of sprint 5 | 7 | 6 | Y | -- | -- |
