@@ -7,9 +7,9 @@
     --border-soft: #eee;
     --section-border: transparent;
     --card-shadow: rgba(0, 0, 0, 0.1);
-    --brand-color: orange;
-    --brand-hover: #e69500;
-    --header-bg: orange;
+    --brand-color: #C22033;
+    --brand-hover: #e60000;
+    --header-bg: #C22033;
     --overlay-bg: rgba(255, 255, 255, 0.8);
     --input-bg: #fafafa;
     --input-bg-raised: #ffffff;
@@ -31,8 +31,8 @@
     --border-soft: #2a2a2a;       /* Softer divider */
     --section-border: transparent;
     --card-shadow: rgba(0, 0, 0, 0.4); /* Deeper shadow for elevation */
-    --brand-color: #ffa726;       /* Lighter orange for dark contrast */
-    --brand-hover: #ffcc80;       /* Lighter still on hover */
+    --brand-color: #ff2626;       /* Lighter orange for dark contrast */
+    --brand-hover: #ff8080;       /* Lighter still on hover */
     --header-bg: #1e1e1e;         /* Dark surface (bright orange header is jarring in dark) */
     --overlay-bg: rgba(18, 18, 18, 0.8);
     --input-bg: #1e1e1e;
