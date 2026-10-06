@@ -128,6 +128,14 @@ service cloud.firestore {
       allow delete: if isSignedIn() && request.auth.uid == resource.data.userId;
     }
 
+    // Feedback Collection (Contact page "Direct Support Message" form)
+    match /feedback/{feedbackId} {
+      allow read, update: if isAdmin();
+      allow create: if isNotSuspended() &&
+        (request.resource.data.userId == null || request.resource.data.userId == request.auth.uid);
+      allow delete: if isAdmin();
+    }
+
     // Default fallback (development safety)
     match /{document=**} {
       allow read, write: if false; 

@@ -231,7 +231,7 @@ p {
 }
 
 /* Contact Form Placeholder Styling */
-.contact-form-placeholder {
+.contact-form {
     background-color: var(--bg-primary);
     border: 2px dashed var(--border-color);
     border-radius: 10px;
@@ -252,17 +252,15 @@ p {
     text-transform: uppercase;
 }
 
-.form-placeholder-fields {
+.form-fields {
     display: flex;
     flex-direction: column;
     gap: 12px;
     max-width: 500px;
     margin: 15px auto;
-    opacity: 0.6;
-    pointer-events: none;
 }
 
-.placeholder-input {
+.form-input {
     padding: 10px 14px;
     border: 1px solid var(--border-color);
     border-radius: 6px;
@@ -271,7 +269,7 @@ p {
     font-size: 0.9rem;
 }
 
-.placeholder-btn {
+.form-btn {
     padding: 10px 20px;
     background-color: var(--brand-color);
     color: white;

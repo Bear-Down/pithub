@@ -10,6 +10,7 @@ import FileExplorer from '../../components/admin/FileExplorer';
 import ReportManagement from '../../components/admin/ReportManagement';
 import AdminLogsTable from '../../components/admin/AdminLogsTable';
 import { useAdminData } from '../../hooks/admin/useAdminData';
+import FeedbackTable from '../../components/admin/FeedbackTable';
 
 const AdminDashboardPage = () => {
 	const {
@@ -60,6 +61,8 @@ const AdminDashboardPage = () => {
 			return <ReportManagement />;
 		case 'logs':
 			return <AdminLogsTable />;
+		case 'feedback':
+			return <FeedbackTable />;
 		default:
 			return (
 				<div className="admin-flex admin-flex-col" style={{ gap: '24px' }}>
@@ -81,6 +84,7 @@ const AdminDashboardPage = () => {
 	const getTitle = () => {
 		if (!section) return 'System Overview';
 		if (section === 'logs') return 'Audit Logs';
+		if (section === 'feedback') return 'Feedback';
 		return section.charAt(0).toUpperCase() + section.slice(1);
 	};
 
