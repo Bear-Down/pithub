@@ -3,9 +3,9 @@ layout: default
 title: Product Backlog
 permalink: /backlogs/product-backlog/
 ---
-Product Owner: Sebastian Jaculbe
+Product Owner: Kaleb Richardson
 
-Scrum Master: Kevin Dacanay
+Scrum Master: Erick Hernandez
 
 # 📋 Product Backlog – *Pithub*
 
@@ -72,32 +72,30 @@ Scrum Master: Kevin Dacanay
 | RC-135 | As a developer, I want to create automated backups for user-uploaded content so that important academic resources can be recovered after unexpected failures. | 9 | 6 | Y | -- | -- |
 | RC-136 | As an administrator, I want to view user activity analytics (uploads, views, downloads, and reports) so that I can make informed decisions about platform improvements. | 8 | 5 | Y | -- | -- |
 | RC-137 | As a user, I want to control sharing permissions for my videos and documents so that I can decide who has access to my academic content. | 9 | 5 | N | -- | -- |
-| RC-138 | As a developer, I want to implement accessibility improvements (keyboard navigation, contrast, and screen reader support) so that PitHub is usable by a wider range of users. | 8 | 5 | Y | -- | -- |
+| RC-138 | As a developer, I want to implement accessibility improvements (keyboard navigation, contrast, and screen reader support) so that PitHub is usable byadmin a wider range of users. | 8 | 5 | Y | -- | -- |
 | RC-145 | As a developer, I want to be prepared for and fully participate in recruiting Software Engineering students on Tuesday, April 7 at 9:30 AM CT | 10 | 5 | Y | -- | -- |
 | RC-146 | As a developer, I want to be prepared for and fully participate in our mid-term Product Review on Tuesday, April 21 at 2 pm CT | 10 | 5 | Y | -- | -- |
-| RC-147 | As a user, I want view the full content of a document from the preview, especially for video files so that I can still control video playback | 9 | 5 | Y | -- | -- |
 | RC-148 | As a developer, I want to review and optimize Firebase Storage usage so that PitHub can reduce unnecessary storage and bandwidth costs. | 10 | 5 | Y | -- | -- |
 | RC-149 | As a developer, I want to identify and remove duplicate or unnecessary database queries so that existing pages load faster and use fewer resources. | 8 | 4 | Y | -- | -- |
 | RC-150 | As a user, I want the interface to use consistent buttons, spacing, colors, and typography so that the platform feels easier and more professional to use. | 8 | 4 | N | -- | -- |
 | RC-151 | As a developer, I want to conduct a usability review of the current user interface so that confusing workflows and unnecessary steps can be identified and documented. | 8 | 3 | Y | -- | -- |
 | RC-152 | As a user, I want the class, profile, and resource pages to have consistent navigation so that I can move through the platform without getting lost. | 8 | 3 | N | -- | -- |
 | RC-153 | As a developer, I want to test PitHub on commonly used desktop, tablet, and mobile screen sizes so that existing layout issues can be identified and corrected. | 8 | 4 | Y | -- | -- |
-| RC-154 | As a product owner, I want to conduct usability interviews with university faculty and staff so that the team can identify the most important improvements to the current product. | 9 | 3 | Y | -- | -- |
- RC-155 | As a product owner, I want to create a s product demonstration showing PitHub's existing upload, organization, and sharing workflows so that potential users can understand its value. | 9 | 3 | N | -- | -- |
-| RC-156 | As a product owner, I want to identify university departments and faculty groups that may benefit from PitHub so that outreach efforts can target relevant audiences. | 8 | 3 | Y | -- | -- |
+| RC-154 | As a developer, I want to conduct usability interviews with university faculty and staff so that the team can identify the most important improvements to the current product. | 9 | 3 | Y | -- | -- |
+ RC-155 | As a product owner, I want to create a product demonstration showing PitHub's existing upload, organization, and sharing workflows so that potential users can understand its value. | 9 | 3 | N | -- | -- |
+| RC-156 | As a developer, I want to identify university departments and faculty groups that may benefit from PitHub so that outreach efforts can target relevant audiences. | 8 | 3 | Y | -- | -- |
 | RC-157 | As a team member, I want to conduct product demonstrations for selected faculty and staff members so that the team can gather feedback from potential customers. | 9 | 4 | N | -- | -- |
 | RC-158 | As a product owner, I want to collect and document feedback from product demonstrations so that recurring usability concerns can be converted into actionable backlog items. | 9 | 3 | N | -- | -- |
 | RC-159 | As a developer, I want to create a customer feedback survey for existing users so that satisfaction with PitHub's current functionality can be measured. | 8 | 2 | Y | -- | -- |
 | RC-160 | As a product owner, I want to identify the most common reasons users stop using PitHub so that the team can prioritize improvements that address user retention concerns. | 8 | 3 | Y | -- | -- |
-| RC-161 | As a developer, I want to improve the first-time user experience based on onboarding feedback so that new users can complete their first meaningful task with fewer difficulties. | 9 | 4 | N | -- | -- |
-| RC-162 | As a user, I want the existing help text and instructions to use clear, understandable language so that I can learn how to use PitHub without additional assistance. | 8 | 3 | N | -- | -- |
-| RC-163 | As a developer, I want to review existing security and privacy configurations before user demonstrations so that potential customers can receive accurate information about data protection. | 10 | 4 | Y | -- | -- |
-| RC-164 | As a developer, I want to resolve high-priority bugs discovered through user testing so that the reliability of existing functionality improves before additional outreach. | 10 | 5 | N | -- | -- |
-| RC-165 | As a product owner, I want to prepare a customer-facing FAQ covering existing PitHub workflows, limitations, and security practices so that potential users can make informed adoption decisions. | 8 | 3 | N | -- | -- |
-| RC-166 | As a product owner, I want to establish a process for responding to user feedback and support requests so that existing users receive timely and consistent assistance. | 8 | 3 | N | -- | -- |
+| RC-161 | As a developer, I want to improve the first-time user experience based on onboarding feedback so that new users can complete their first meaningful task with fewer difficulties. | 9 | 5 | N | -- | -- |
+| RC-162 | As a user, I want the existing help text and instructions to use clear, understandable language so that I can learn how to use PitHub without additional assistance. | 8 | 5 | N | -- | -- |
+| RC-164 | As a developer, I want to resolve high-priority bugs discovered thro ugh user testing so that the reliability of existing functionality improves before additional outreach. | 10 | 5 | N | -- | -- |
+| RC-166 | As a developer, I want to establish a process for responding to user feedback and support requests so that existing users receive timely and consistent assistance. | 8 | 5 | N | -- | -- |
 | RC-167 | As a product owner, I want to review the effectiveness of customer outreach activities so that future demonstrations and promotional efforts can focus on the most productive channels. | 7 | 3 | Y | -- | -- |
-| RC-168 | As a user, I want to be able to delete my account along with all of its content securely if I no longer want to use PitHub | 7 | 3 | N | -- | -- |
-| RC-169 | As a first time user, I want to be shown a tutorial or walkthrough of how the app works on my very first login so that I know how to utilize PitHub | 7 | 3 | N | -- | -- |
-| RC-170 | As a user, I want to be able to view Frequently Asked Questions with regards to PitHub so that if I have a question, I may refer to the FAQ instead of reaching out to the developers right away | 7 | 3 | N | -- | -- |
-| RC-171 | As a user, I want to be able to submit questions directly to PitHub developers either via email or a textbox which I can submit through the Product's Contact Us Page.| 7 | 3 | N | -- | -- |
+| RC-169 | As a first time user, I want to be shown a tutorial or walkthrough of how the app works on my very first login so that I know how to utilize PitHub | 7 | 6 | N | -- | -- |
 | RC-172 | As a developer, I want to ensure that each user, on their first login, agrees to the Terms and Conditions, to be shown in the first walkthrough/tutorial of the app | 7 | 3 | N | -- | -- |
+| RC-178 | As a user, I want to be able to mark uploaded documents or videos as watch later so that I can view them at a later date | 5 | 6 | N | -- | -- |
+| RC-179 | As a user, I want to be able to share a direct link to a video or document by clicking a share button so that I can easily send resources other people. | 4 | 6 | N | -- | -- |
+| RC-180 | As a user, I want to be able to set an expiration for uploaded documents so that they do not stay on the platform for longer than intended or needed. | 5 | 7 | N | -- | -- |
+| RC-181 | As a user, I want the search bar to not constantly show results for my searches without me having to delete my input | 5 | 7 | N | -- | -- |
