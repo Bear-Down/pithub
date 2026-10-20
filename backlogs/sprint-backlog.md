@@ -11,19 +11,20 @@ Scrum Master: Erick Hernandez
 
 | **ID** | **User Story / Task** | **Priority (1-10)** | **Estimate (SP)** | **Spike (Y/N)** | **Status** | **Assigned** |
 |--------|------------------------|--------------|--------------|------------|--------------|--------------|
-| RC-147 | As a user, I want view the full content of a document from the preview, especially for video files so that I can still control video playback | 6 | 5 | N | Done | Edward Rodriguez |
-| RC-163 | As a developer, I want to review existing security and privacy configurations before user demonstrations so that potential customers can receive accurate information about data protection. | 10 | 6 | Y | Done | Erick Hernandez |
-| RC-165 | As a user, I want to view a customer-facing FAQ covering existing PitHub workflows, limitations, and security practices so that potential users can make informed adoption decisions. | 8 | 6 | N | Done | Kaleb Richardson |
-| RC-168 | As a user, I want to be able to delete my account along with all of its content securely if I no longer want to use PitHub | 7 | 5 | N | Done | Edward Rodriguez |
-| RC-170 | As a user, I want to be able to view Frequently Asked Questions with regards to PitHub so that if I have a question, I may refer to the FAQ instead of reaching out to the developers right away | 7 | 5 | N | Done | Edward Rodriguez |
-| RC-171 | As a user, I want to be able to submit questions directly to PitHub developers either via email or a textbox which I can submit through the Product's Contact Us Page.| 7 | 6 | N | Done | Kevin Dacanay |
-| RC-173 | As a developer, I want to generate a set of videos giving a walkthrough or tutorial of PitHub and its features for new users to view | 7 | 7 | Y | Done | Kevin Dacanay |
-| RC-174 | As a devloper, I want to create marketing fliers that advertises PitHub to potential new users  | 7 | 6 | Y | Done | Sebastian Jaculbe |
-| RC-175 | As a devloper, I want to be able to present to the Software Engineering class on Tuesday, October 13 at 9:30 AM | 7 | 6 | Y | Done | Sebastian Jaculbe |
-| RC-176 | As a devloper, I want to fully participate in our Fall 2026 mid-term Product Review on Tuesday, October 27 at 2 PM | 7 | 6 | Y | Done | Erick Hernandez |
-| RC-177 | As a devloper, I want to consolidate all individual MVP proposals into a single Minimum Viable Product, making sure that it is minimum andd deliverable by the end of sprint 5 | 7 | 6 | Y | Done | Kaleb Richardson |
+| RC-179 | As a user, I want to be able to share a direct link to a video or document by clicking a share button so that I can easily send resources to other people. | 4 | 4 | N | Done | Edward Rodriguez |
+| RC-158 | As a product owner, I want to collect and document feedback from product demonstrations so that recurring usability concerns can be converted into actionable backlog items. | 9 | 7 | N | Done | Kaleb Richardson |
+| RC-181 | As a user, I want the search bar to not constantly show results for my searches without me having to delete my input. | 5 | 4 | N | Done | Edward Rodriguez |
+| RC-182 | As an incoming developer, I want to be able to watch onboarding videos explaining PitHub's code infrastructure and workflow. | 8 | 7 | Y | Done | Kevin Dacanay |
+| RC-183 | As a current developer, I want to attend the incoming Software Engineering Scrum Team's scrum planning for October 20th, 2026, at 9:30 AM to onboard them onto the project. | 8 | 3 | Y | Done | Kevin Dacanay |
+| RC-184 | As a current developer, I want to reach out in person or via email to Lewis University Computer Science professors who may be interested in using PitHub as an alternative to Panopto. | 8 | 4 | Y | Done | Kevin Dacanay |
+| RC-185 | As a developer, I want to create a game plan for implementing payment for storage use on PitHub to cover the cost of Firebase Storage and App Hosting. | 8 | 6 | Y | Done | Sebastian Jaculbe |
+| RC-186 | As a developer, I want to research payment providers that can integrate with PitHub so that the team can determine an appropriate method for recovering Firebase storage and bandwidth costs. | 4 | 6 | Y | Done | Edward Rodriguez |
+| RC-187 | As a scrum master, I want to define potential pricing for PitHub so that storage, bandwidth, and operational costs can be covered. | 4 | 7 | Y | Done | Erick Hernandez |
+| RC-189 | As a product owner, I want to begin discussions and develop plans for transitioning PitHub toward a faculty-based target user model, while maintaining the flexibility to support student video uploads in the future. | 8 | 7 | Y | Done | Kaleb Richardson |
+| RC-190 | As a developer, I want to be able to present to the Software Engineering class on Tuesday, October 13 at 9:30 AM. | 9 | 4 | Y | Done | Sebastian Jaculbe |
+| RC-191 | As a developer, I want to fully participate in our Fall 2026 mid-term Product Review on Tuesday, October 27 at 2 PM. | 9 | 4 | Y | Done | Sebastian Jaculbe |
+| RC-192 | As a developer, I want to consolidate all individual MVP proposals into a single Minimum Viable Product, making sure that it is minimal and deliverable by the end of Sprint 5. | 9 | 7 | Y | Done | Erick Hernandez |
 
+Team Capacity: 70 Story Points
 
-Team Capacity: 60 Story Points
-
-Story Points: 64 points
+Story Points: 70 points
