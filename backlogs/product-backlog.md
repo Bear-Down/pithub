@@ -3,9 +3,10 @@ layout: default
 title: Product Backlog
 permalink: /backlogs/product-backlog/
 ---
-Product Owner: Kaleb Richardson
-
-Scrum Master: Erick Hernandez
+Bear Down Product Owner: Kaleb Richardson
+Bear Down Scrum Master: Erick Hernandez
+Red Dragon Product Owner: Josh
+Red Dragon Scrum Master: Jacob
 
 # 📋 Product Backlog – *Pithub*
 
@@ -32,7 +33,7 @@ Scrum Master: Erick Hernandez
 | RC-099 | As a user, I want to see recommended videos and documents on the homepage so that I can discover useful academic resources. | 6 | 3 | N | -- | -- |
 | RC-103 | As an administrator, I want to suspend or restrict user accounts that repeatedly violate policies so that abuse of the platform is minimized. | 8 | 4 | N | -- | -- |
 | RC-106 | As a user, I want to receive notifications when I am invited to a class so that I can quickly respond to invitations. | 5 | 3 | N | -- | -- |
-| RC-107 | As a first-time user, I want to see an onboarding tutorial so that I can understand how to navigate and use PitHub effectively. | 7 | 3 | N | -- | -- |
+| RC-107 | As a first-time user, I want to see an onboarding tutorial so that I can understand how to navigate and use PitHub effectively. | 7 | 4 | N | -- | -- |
 | RC-108 | As a first-time user, I want tooltips and walkthrough prompts during onboarding so that I can learn platform features interactively. | 6 | 3 | N | -- | -- |
 | RC-109 | As a user, I want to skip or revisit the onboarding tutorial so that I can review platform guidance when needed. | 5 | 2 | N | -- | -- |
 | RC-111 | As a user, I want to pin important videos, notes, or documents within a class so that critical resources remain easy to access. | 6 | 2 | N | -- | -- |
@@ -65,8 +66,43 @@ Scrum Master: Erick Hernandez
 | RC-169 | As a first time user, I want to be shown a tutorial or walkthrough of how the app works on my very first login so that I know how to utilize PitHub | 7 | 6 | N | -- | -- |
 | RC-178 | As a user, I want to be able to mark uploaded documents or videos as watch later so that I can view them at a later date | 5 | 6 | N | -- | -- |
 | RC-180 | As a user, I want to be able to set an expiration for uploaded documents so that they do not stay on the platform for longer than intended or needed. | 5 | 7 | N | -- | -- |
-| RC-193 | As a new developer, I want to add my information to the Contact Page so that users are able to see PitHub's current developers | 5 | 2 | N | -- | -- |
-| RC-194 | As a new developer, I want to add my information to the TEAM.md file so that PitHub documentation is up to date with regards to its development team | 5 | 2 | N | -- | -- |
-| RC-195 | As a new developer, I want to watch and follow along the onboarding videos uploaded to the PitHub Team Playlist so that I am familiar with the set up and development workflow for PitHub | 5 | 4 | N | -- | -- |
-| RC-196 | As a new developer, I want to answer the Onboarding Feedback Google Form so that the Bear Down scrum team has valuable information that can be used to improve PitHub or the onboarding process | 5 | 4 | N | -- | -- |
-| RC-197 | As the product owner, I want to have discussions about shifting the user base from Lewis University students and faculty to just faculty to manage storage cost and minimize the possibility of the abuse of our services | 5 | 6 | N | -- | -- |
+| RC-193 | As a new developer (Jacob), I want to add my information to the Contact Page so that users are able to see PitHub's current developers | 5 | 1 | Y | -- | -- |
+| RC-194 | As a new developer (Josh), I want to add my information to the Contact Page so that users are able to see PitHub's current developers | 5 | 1 | Y | -- | -- |
+| RC-195 | As a new developer (Java), I want to add my information to the Contact Page so that users are able to see PitHub's current developers | 5 | 1 | Y | -- | -- |
+| RC-196 | As a new developer (Chloe), I want to add my information to the Contact Page so that users are able to see PitHub's current developers | 5 | 1 | Y | -- | -- |
+| RC-197 | As a new developer (Jacob), I want to add my information to the TEAM.md file so that PitHub documentation is up to date with regards to its development team | 5 | 1 | Y | -- | -- |
+| RC-198 | As a new developer (Josh), I want to add my information to the TEAM.md file so that PitHub documentation is up to date with regards to its development team | 5 | 1 | Y | -- | -- |
+| RC-199 | As a new developer (Java), I want to add my information to the TEAM.md file so that PitHub documentation is up to date with regards to its development team | 5 | 1 | Y | -- | -- |
+| RC-200 | As a new developer (Chloe), I want to add my information to the TEAM.md file so that PitHub documentation is up to date with regards to its development team | 5 | 1 | Y | -- | -- |
+| RC-201 | As a new developer (Jacob), I want to watch and follow along the onboarding videos uploaded to the PitHub Team Playlist so that I am familiar with the set up and development workflow for PitHub | 5 | 2 | Y | -- | -- |
+| RC-202 | As a new developer (Josh), I want to watch and follow along the onboarding videos uploaded to the PitHub Team Playlist so that I am familiar with the set up and development workflow for PitHub | 5 | 2 | Y | -- | -- |
+| RC-203 | As a new developer (Java), I want to watch and follow along the onboarding videos uploaded to the PitHub Team Playlist so that I am familiar with the set up and development workflow for PitHub | 5 | 2 | Y | -- | -- |
+| RC-204 | As a new developer (Chloe), I want to watch and follow along the onboarding videos uploaded to the PitHub Team Playlist so that I am familiar with the set up and development workflow for PitHub | 5 | 2 | Y | -- | -- |
+| RC-205 | As a new developer (Jacob), I want to answer the Onboarding Feedback Google Form so that the Bear Down scrum team has valuable information that can be used to improve PitHub or the onboarding process | 5 | 1 | Y | -- | -- |
+| RC-206 | As a new developer (Josh), I want to answer the Onboarding Feedback Google Form so that the Bear Down scrum team has valuable information that can be used to improve PitHub or the onboarding process | 5 | 1 | Y | -- | -- |
+| RC-207 | As a new developer (Java), I want to answer the Onboarding Feedback Google Form so that the Bear Down scrum team has valuable information that can be used to improve PitHub or the onboarding process | 5 | 1 | Y | -- | -- |
+| RC-208 | As a new developer (Chloe), I want to answer the Onboarding Feedback Google Form so that the Bear Down scrum team has valuable information that can be used to improve PitHub or the onboarding process | 5 | 1 | Y | -- | -- |
+| RC-209 | As the product owner, I want to have discussions about shifting the user base from Lewis University students and faculty to just faculty to manage storage cost and minimize the possibility of the abuse of our services | 5 | 6 | Y | -- | -- |
+| RC-210 | As a developer (Jacob), I want to continue reaching out and pitching to Lewis University Computer Science professors, either in person or via email, who may be interested in using PitHub as an alternative to Panopto. | 5 | 1 | Y | -- | -- |
+| RC-211 | As a developer (Josh), I want to continue reaching out and pitching to Lewis University Computer Science professors, either in person or via email, who may be interested in using PitHub as an alternative to Panopto. | 5 | 1 | Y | -- | -- |
+| RC-212 | As a developer (Java), I want to continue reaching out and pitching to Lewis University Computer Science professors, either in person or via email, who may be interested in using PitHub as an alternative to Panopto. | 5 | 1 | Y | -- | -- |
+| RC-213 | As a developer (Chloe), I want to continue reaching out and pitching to Lewis University Computer Science professors, either in person or via email, who may be interested in using PitHub as an alternative to Panopto. | 5 | 1 | Y | -- | -- |
+| RC-214 | As a user, I want to see a clear progress indicator pop up telling me not to leave the page while uploading a file so that my uploads are successful. | 5 | 3 | N | -- | -- |
+| RC-215 | As a developer, I want to fully participate in our Fall 2026 mid-term Product Review on Tuesday, October 28 at 2 PM. | 9 | 4 | Y | -- | -- |
+| RC-216 | As a user, I want to be able to share a direct link to a video or document by clicking a share button so that I can easily send resources to other people. | 4 | 4 | N | -- | -- |
+| RC-217 | As a user, I want to open a video preview when I click on a video title so that I can watch the video without navigating through unnecessary pages. | 7 | 2 | N | -- | -- |
+| RC-218 | As a product owner, I want to meet with Dr. Klump to discuss Lewis University's potential takeover of Firebase payment responsibilities so that the team can determine a sustainable plan for PitHub's hosting and operating costs. | 9 | 3 | Y | -- | -- |
+| RC-219 | As a user, I want to upload a custom thumbnail for my classes so that I can visually distinguish them from other classes. | 6 | 2 | N | -- | -- |
+| RC-220 | As a user, I want to upload custom thumbnails for documents and edit document details after uploading so that I can make my shared resources easier to identify and keep their information accurate. | 7 | 3 | N | -- | -- |
+| RC-221 | As a user, I want to add and edit descriptions for uploaded files so that other users can understand the contents and purpose of a document before opening or downloading it. | 7 | 2 | N | -- | -- |
+| RC-222 | As the original development team, I want to evaluate options for PitHub after the current semester, including open-sourcing the project, so that we can establish a sustainable future for the platform. | 9 | 5 | Y | -- | -- |
+| RC-223 | As a system administrator, I want to create separate administrator accounts for developers so that administrative responsibilities can be managed independently. | 9 | 4 | N | -- | -- |
+| RC-224 | As a new developer (Jacob), I want to set up the local development environment so that I can run PitHub locally on my own machine and contribute to its development. | 9 | 2 | N | -- | -- |
+| RC-225 | As a new developer (Josh), I want to set up the local development environment so that I can run PitHub locally on my own machine and contribute to its development. | 9 | 2 | N | -- | -- |
+| RC-226 | As a new developer (Java), I want to set up the local development environment so that I can run PitHub locally on my own machine and contribute to its development. | 9 | 2 | N | -- | -- |
+| RC-227 | As a new developer (Chloe), I want to set up the local development environment so that I can run PitHub locally on my own machine and contribute to its development. | 9 | 2 | N | -- | -- |
+| RC-228 | As a product team member, I want to develop a plan for all product teams to fully participate in ECaMS Connect, as outlined in Discussion 5, so that teams can coordinate their involvement and meet participation expectations. | 8 | 3 | Y | -- | -- |
+| RC-229 | As a Scrum Master, I want to coordinate Sprint 5 backlog grooming and sprint planning across the Software Engineering and Capstone teams so that both teams have prioritized, refined, and actionable sprint backlogs. | 9 | 4 | N | -- | -- |
+| RC-230 | As a Product Owner, I want to receive coaching on Tuesday, October 20, 2026, at 9:30 AM CT so that I can improve my backlog management, prioritization, and communication with the Software Engineering team. | 8 | 2 | N | -- | -- |
+| RC-231 | As a Scrum Master, I want to track each member of the aligned Software Engineering team by name and verify that each member completes at least two user stories to the Definition of Done so that individual contributions and team progress can be evaluated. | 9 | 5 | N | -- | -- |
+| RC-232 | As a Scrum Master, I want to coordinate with the Software Engineering team to ensure that all team members participate in the Fall 2026 midterm Product Review so that the team can present its progress, demonstrate completed work, and gather feedback. | 9 | 3 | N | -- | -- |
