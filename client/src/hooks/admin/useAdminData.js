@@ -21,6 +21,10 @@ export const useAdminData = () => {
 	const [totalViews, setTotalViews] = useState(0);
 	const [totalDownloads, setTotalDownloads] = useState(0);
 	const [uploadRange, setUploadRange] = useState('all');
+	const [activeUsersInRange, setActiveUsersInRange] = useState(null);
+	const [classesInRange, setClassesInRange] = useState(null);
+	const [viewsInRange, setViewsInRange] = useState(null);
+	const [downloadsInRange, setDownloadsInRange] = useState(null);
 	const [uploadsInRange, setUploadsInRange] = useState(0);
 	const [recentUploads, setRecentUploads] = useState([]);
 	const [flaggedContent, setFlaggedContent] = useState([]);
@@ -130,10 +134,48 @@ export const useAdminData = () => {
 		loadUploadsInRange();
 	}, [db, uploadRange, totalFiles]);
 
+	useEffect(() => {
+		const loadRangeStats = async () => {
+			if (uploadRange === 'all') {
+				setActiveUsersInRange(null);
+				setClassesInRange(null);
+				setViewsInRange(null);
+				setDownloadsInRange(null);
+				return;
+			}
+			const cutoff = new Date();
+			cutoff.setHours(0, 0, 0, 0);
+			cutoff.setDate(cutoff.getDate() - (Number(uploadRange) - 1));
+			const ts = Timestamp.fromDate(cutoff);
+
+			const countSince = async (name, field) => {
+				try {
+					const snap = await getCountFromServer(query(collection(db, name), where(field, '>=', ts)));
+					return snap.data().count;
+				} catch (err) {
+					console.error(`Range count failed for ${name}:`, err);
+					return 0;
+				}
+			};
+
+			const [users, classes, views, downloads] = await Promise.all([
+				countSince('users', 'lastLogin'),
+				countSince('classes', 'createdAt'),
+				countSince('file_views', 'createdAt'),
+				countSince('file_downloads', 'createdAt'),
+			]);
+			setActiveUsersInRange(users);
+			setClassesInRange(classes);
+			setViewsInRange(views);
+			setDownloadsInRange(downloads);
+		};
+		loadRangeStats();
+	}, [db, uploadRange, totalUsers, totalClasses]);
+
 	const refreshStats = () => {
 		setLoading(true);
 		fetchAndCacheStats().finally(() => setLoading(false));
 	};
 
-	return { totalUsers, totalClasses, totalFiles, totalViews, totalDownloads, uploadRange, setUploadRange, uploadsInRange, recentUploads,  flaggedContent, loading, error, refreshStats };
+	return { totalUsers, totalClasses, totalFiles, totalViews, totalDownloads, uploadRange, setUploadRange, uploadsInRange, activeUsersInRange, classesInRange, viewsInRange, downloadsInRange, recentUploads, flaggedContent, loading, error, refreshStats };
 };
