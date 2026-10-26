@@ -104,7 +104,11 @@ export default function AdminAnalytics() {
 		if (!analytics) return [];
 		if (timeRange === 'all') return analytics.uploadsByDay;
 		const days = Number(timeRange);
-		return analytics.uploadsByDay.slice(-days);
+		const cutoff = new Date();
+		cutoff.setHours(0, 0, 0, 0);
+		cutoff.setDate(cutoff.getDate() - (days - 1));
+		const cutoffKey = `${cutoff.getFullYear()}-${String(cutoff.getMonth() + 1).padStart(2, '0')}-${String(cutoff.getDate()).padStart(2, '0')}`;
+		return analytics.uploadsByDay.filter((day) => day.date >= cutoffKey);
 	}, [analytics, timeRange]);
 
 	if (loading && !analytics) return <div className="admin-loading-spinner">Loading analytics...</div>;
@@ -131,6 +135,7 @@ export default function AdminAnalytics() {
 					<label>
 						<span>Range</span>
 						<select className="admin-select" value={timeRange} onChange={(event) => setTimeRange(event.target.value)}>
+							<option value="1">Last 24 Hours</option>
 							<option value="7">Last 7 Days</option>
 							<option value="30">Last 30 Days</option>
 							<option value="90">Last 90 Days</option>
@@ -143,7 +148,10 @@ export default function AdminAnalytics() {
 
 			<div className="stats-grid analytics-stats-grid">
 				<MetricCard label="Total Documents" value={formatNumber(analytics.totalFiles)} />
-				<MetricCard label="Total Views" value={formatNumber(analytics.totalViews)} />
+				<MetricCard label="Uploads (Selected Range)" value={formatNumber(uploadData.reduce((sum, day) => sum + day.value, 0))} />
+				<MetricCard label="Total Views" value={formatNumber(analytics.totalViews)} detail="All time" />
+				<MetricCard label="Total Downloads" value={formatNumber(analytics.totalDownloads || 0)} detail="All time" />
+				<MetricCard label="Total Reports" value={formatNumber(analytics.totalReports)} />
 				<MetricCard label="Avg Views / Document" value={formatDecimal(analytics.averageViews)} />
 				<MetricCard label="Public Documents" value={formatNumber(analytics.publicFiles)} detail={`${formatDecimal(analytics.totalFiles ? (analytics.publicFiles / analytics.totalFiles) * 100 : 0)}% of library`} />
 			</div>

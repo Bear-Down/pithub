@@ -1,10 +1,21 @@
 import React from 'react';
 import { useTheme } from '../context/ThemeContext';
+import { doc, updateDoc, increment } from 'firebase/firestore';
+import { db } from '../lib/firebase';
 
 export default function DocumentPreviewModal({ file, onClose }) {
 	const { theme } = useTheme();
 
 	if (!file) return null;
+
+	const handleDownloadClick = async () => {
+		if (!file?.id) return;
+		try {
+			await updateDoc(doc(db, 'files', file.id), { downloads: increment(1) });
+		} catch (err) {
+			console.error('Failed to update download count:', err);
+		}
+	};
 
 	return (
 		<div 
@@ -55,6 +66,21 @@ export default function DocumentPreviewModal({ file, onClose }) {
 						</span>
 					</div>
 					<div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+						<a
+							href={file.url}
+							download={file.name}
+							target="_blank"
+							rel="noreferrer"
+							onClick={handleDownloadClick}
+							style={{
+								color: 'var(--brand-color)',
+								fontSize: '0.85rem',
+								fontWeight: '600',
+								textDecoration: 'none'
+							}}
+						>
+							Download ⬇
+						</a>
 						<a
 							href={file.url}
 							target="_blank"

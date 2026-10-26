@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { getFirestore, collection, query, orderBy, limit, getDocs, doc, onSnapshot, updateDoc, getCountFromServer, getDoc } from 'firebase/firestore';
+import { getFirestore, collection, query, orderBy, limit, getDocs, doc, onSnapshot, updateDoc, getCountFromServer, getAggregateFromServer, sum, where, Timestamp, getDoc } from 'firebase/firestore';
 import { getStorage, ref, deleteObject } from 'firebase/storage';
 import { app } from '../../lib/firebase'; // Assuming firebase.js exports 'app'
 import { adminService } from '../../services/adminService'; // Import adminService for actions
@@ -18,6 +18,10 @@ export const useAdminData = () => {
 	const [totalUsers, setTotalUsers] = useState(0);
 	const [totalClasses, setTotalClasses] = useState(0);
 	const [totalFiles, setTotalFiles] = useState(0);
+	const [totalViews, setTotalViews] = useState(0);
+	const [totalDownloads, setTotalDownloads] = useState(0);
+	const [uploadRange, setUploadRange] = useState('all');
+	const [uploadsInRange, setUploadsInRange] = useState(0);
 	const [recentUploads, setRecentUploads] = useState([]);
 	const [flaggedContent, setFlaggedContent] = useState([]);
 	const [loading, setLoading] = useState(true);
@@ -34,6 +38,13 @@ export const useAdminData = () => {
 		setTotalUsers(usersCount.data().count);
 		setTotalClasses(classesCount.data().count);
 		setTotalFiles(filesCount.data().count);
+
+		const filesTotals = await getAggregateFromServer(collection(db, 'files'), {
+			views: sum('views'),
+			downloads: sum('downloads'),
+		});
+		setTotalViews(filesTotals.data().views || 0);
+		setTotalDownloads(filesTotals.data().downloads || 0);
 
 		// Optionally, update a 'system/stats' document in Firestore with these counts
 		// This would make subsequent dashboard loads faster if you read from this doc
@@ -95,10 +106,32 @@ export const useAdminData = () => {
 		return () => unsubscribe.forEach(unsub => unsub());
 	}, [db, storage]);
 
+	useEffect(() => {
+		const loadUploadsInRange = async () => {
+			try {
+				if (uploadRange === 'all') {
+					const snap = await getCountFromServer(collection(db, 'files'));
+					setUploadsInRange(snap.data().count);
+					return;
+				}
+				const cutoff = new Date();
+				cutoff.setHours(0, 0, 0, 0);
+				cutoff.setDate(cutoff.getDate() - (Number(uploadRange) - 1));
+				const snap = await getCountFromServer(
+					query(collection(db, 'files'), where('createdAt', '>=', Timestamp.fromDate(cutoff)))
+				);
+				setUploadsInRange(snap.data().count);
+			} catch (err) {
+				console.error('Error fetching uploads in range:', err);
+			}
+		};
+		loadUploadsInRange();
+	}, [db, uploadRange, totalFiles]);
+
 	const refreshStats = () => {
 		setLoading(true);
 		fetchAndCacheStats().finally(() => setLoading(false));
 	};
 
-	return { totalUsers, totalClasses, totalFiles, recentUploads, flaggedContent, loading, error, refreshStats };
+	return { totalUsers, totalClasses, totalFiles, totalViews, totalDownloads, uploadRange, setUploadRange, uploadsInRange, recentUploads,  flaggedContent, loading, error, refreshStats };
 };
