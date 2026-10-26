@@ -78,6 +78,10 @@ const faqItems = [
     {
         question: 'How can I report a bug or request support?',
         answer: 'You can email our developers directly or send a message through the Support Message section below. Support requests are typically processed within 1 business day between 6:00 AM and 11:00 PM.'
+    },
+    {
+        question: 'How do I access a class on PitHub?',
+        answer: 'After logging in, navigate to the Classes section to view available classes and access their instructional materials.'
     }
     // New FAQs add here!!!
 ];

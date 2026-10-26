@@ -7,9 +7,9 @@
     --border-soft: #eee;
     --section-border: transparent;
     --card-shadow: rgba(0, 0, 0, 0.1);
-    --brand-color: orange;
-    --brand-hover: #e69500;
-    --header-bg: orange;
+    --brand-color: #C22033;
+    --brand-hover: #e60000;
+    --header-bg: #C22033;
     --overlay-bg: rgba(255, 255, 255, 0.8);
     --input-bg: #fafafa;
     --input-bg-raised: #ffffff;
@@ -31,8 +31,8 @@
     --border-soft: #2a2a2a;       /* Softer divider */
     --section-border: transparent;
     --card-shadow: rgba(0, 0, 0, 0.4); /* Deeper shadow for elevation */
-    --brand-color: #ffa726;       /* Lighter orange for dark contrast */
-    --brand-hover: #ffcc80;       /* Lighter still on hover */
+    --brand-color: #ff2626;       /* Lighter orange for dark contrast */
+    --brand-hover: #ff8080;       /* Lighter still on hover */
     --header-bg: #1e1e1e;         /* Dark surface (bright orange header is jarring in dark) */
     --overlay-bg: rgba(18, 18, 18, 0.8);
     --input-bg: #1e1e1e;
@@ -944,5 +944,154 @@ footer {
     background-color: var(--bg-primary);
     color: var(--text-muted);
     border: 1px solid var(--border-color);
+}
+
+/* Upload Progress Modal (RC-214) */
+
+.upload-progress-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    animation: upload-overlay-in 0.25s ease forwards;
+}
+
+@keyframes upload-overlay-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+.upload-progress-card {
+    background-color: var(--modal-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 36px 40px;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.35);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    text-align: center;
+}
+
+
+.upload-progress-title {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-main);
+    border: none;
+    text-decoration: none;
+    box-shadow: none;
+}
+
+.upload-progress-filename {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    word-break: break-all;
+    max-width: 100%;
+    font-style: italic;
+}
+
+/* Track + fill */
+.upload-progress-track {
+    width: 100%;
+    height: 10px;
+    background-color: var(--bg-primary);
+    border-radius: 99px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+}
+
+.upload-progress-fill {
+    height: 100%;
+    background: var(--brand-color);
+    border-radius: 99px;
+    transition: width 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.upload-progress-percent {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--brand-color);
+    letter-spacing: -0.5px;
+}
+
+/* Warning banner */
+.upload-progress-warning {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    background-color: #fff7ed;
+    border: 1px solid #fed7aa;
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 0.82rem;
+    color: #92400e;
+    text-align: left;
+    line-height: 1.45;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+[data-theme='dark'] .upload-progress-warning {
+    background-color: #1c1309;
+    border-color: #854d0e;
+    color: #fbbf24;
+}
+
+.upload-warning-icon {
+    font-size: 1rem;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+@media (max-width: 480px) {
+    .upload-progress-card {
+        padding: 28px 20px;
+        border-radius: 16px;
+        max-width: calc(100% - 32px);
+    }
+}
+
+/* Cancel upload button */
+.upload-progress-cancel {
+    margin-top: 6px;
+    padding: 10px 22px;
+    background-color: transparent;
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease,
+                border-color 0.2s ease;
+}
+
+.upload-progress-cancel:hover {
+    background-color: var(--bg-primary);
+    border-color: var(--brand-color);
+}
+
+.upload-progress-cancel:focus-visible {
+    outline: 2px solid var(--brand-color);
+    outline-offset: 3px;
+}
+
+.upload-progress-cancel:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 

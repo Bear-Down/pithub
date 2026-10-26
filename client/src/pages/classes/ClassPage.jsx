@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import ConfirmationModal from '../../components/ConfirmationModal';
 import ReportButton from '../../components/ReportButton';
 import DocumentPreviewModal from '../../components/DocumentPreviewModal';
+import UploadProgressModal from '../../components/UploadProgressModal';
 import { useClassPage } from '../../hooks/useClassPage';
 import { doc, updateDoc, increment } from 'firebase/firestore';
 import { db } from '../../lib/firebase';
@@ -32,6 +33,7 @@ const ClassPage = () => {
 		handleUpdateClass,
 		handleToggleVisibility,
 		handleToggleFieldVisibility,
+		handleCancelUpload,
 		isOwner,
 		isGlobalLoading,
 		isFieldLoading,
@@ -334,15 +336,25 @@ const ClassPage = () => {
 						</div>
 
 					<div style={{ display: 'flex', flexDirection: 'column' }}>
-						<a 
-							href={file.url} 
-							target="_blank" 
-							rel="noreferrer" 
+						<div
+							type="button"
+							// href={video.url}
+							// target="_blank"
+							// rel="noreferrer"
 							className="file-link"
-							onClick={() => handleFileClick(file.id)}
+							// onClick={() => handleVideoClick(video.id)}
+							onClick={() => handleOpenPreview(file)}
+							style={{        
+								position: 'relative',
+								cursor: 'pointer',
+								display: 'inline-block',
+								flexShrink: 0,
+								borderRadius: '4px',
+								overflow: 'hidden'
+							}}
 						>
 							{file.name}
-						</a>
+						</div>
 						<span style={{ fontSize: '0.75rem', color: '#777' }}>
 							Uploaded by {file.ownerName ? file.ownerName.split(' ')[0] : 'Unknown'} · {file.views ?? 0} views
 						</span>
@@ -369,6 +381,14 @@ const ClassPage = () => {
 		</section>
 
 		<DocumentPreviewModal file={previewFile} onClose={handleClosePreview} />
+
+		{/* Upload Progress Modal – shown during active uploads (RC-214) */}
+		<UploadProgressModal
+			isOpen={uploading}
+			progress={uploadProgress}
+			fileName={fileInputRef.current?.files?.[0]?.name || ''}
+			onCancel={handleCancelUpload}
+		/>
 
 		<ConfirmationModal
 		 isOpen={confirmClassPrivacyChange}
