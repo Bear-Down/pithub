@@ -22,6 +22,10 @@ const AdminDashboardPage = () => {
 		uploadRange,
 		setUploadRange,
 		uploadsInRange,
+		activeUsersInRange,
+		classesInRange,
+		viewsInRange,
+		downloadsInRange,
 		recentUploads,
 		flaggedContent,
 		loading,
@@ -80,6 +84,10 @@ const AdminDashboardPage = () => {
 						uploadRange={uploadRange}
 						setUploadRange={setUploadRange}
 						uploadsInRange={uploadsInRange}
+						activeUsersInRange={activeUsersInRange}
+						classesInRange={classesInRange}
+						viewsInRange={viewsInRange}
+						downloadsInRange={downloadsInRange}
 						onRefresh={refreshStats}
 					/>
 					<div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(500px, 1fr))', gap: '32px' }}>
