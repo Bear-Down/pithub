@@ -87,39 +87,90 @@ export default function DocumentPreviewModal({ file, onClose }) {
 					</div>
 				</div>
 
-				{/* Modal Body - Iframe Preview */}
-				<div style={{ flex: 1, backgroundColor: '#f3f4f6', position: 'relative' }}>
+				{/* Modal Body - Scrollable Preview */}
+				<div
+					style={{
+						flex: 1,
+						minHeight: 0,
+						backgroundColor: theme === 'dark' ? '#111827' : '#f3f4f6',
+						position: 'relative',
+						overflow: 'auto',
+						WebkitOverflowScrolling: 'touch'
+					}}
+				>
 					{file.type?.startsWith('video/') ? (
-						<div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#000' }}>
-							<video 
-								src={file.url} 
-								controls 
-								autoPlay 
-								style={{ maxWidth: '100%', maxHeight: '100%' }}
+						<div
+							style={{
+								width: '100%',
+								height: '100%',
+								minHeight: '300px',
+								display: 'flex',
+								alignItems: 'center',
+								justifyContent: 'center',
+								backgroundColor: '#000'
+							}}
+						>
+							<video
+								src={file.url}
+								controls
+								autoPlay
+								style={{
+									maxWidth: '100%',
+									maxHeight: '100%'
+								}}
 							/>
 						</div>
 					) : file.type === 'application/pdf' ? (
-						<iframe 
-							src={file.url} 
+						<iframe
+							src={file.url}
 							title={file.name}
-							style={{ width: '100%', height: '100%', border: 'none' }}
+							style={{
+								display: 'block',
+								width: '100%',
+								height: '100%',
+								minHeight: '100%',
+								border: 'none'
+							}}
 						/>
 					) : file.type?.startsWith('image/') ? (
-						<div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px', boxSizing: 'border-box' }}>
-							<img 
-								src={file.url} 
+						<div
+							style={{
+								width: '100%',
+								minHeight: '100%',
+								display: 'flex',
+								alignItems: 'center',
+								justifyContent: 'center',
+								padding: '20px',
+								boxSizing: 'border-box'
+							}}
+						>
+							<img
+								src={file.url}
 								alt={file.name}
-								style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', borderRadius: '4px' }}
+								style={{
+									display: 'block',
+									maxWidth: '100%',
+									height: 'auto',
+									objectFit: 'contain',
+									borderRadius: '4px'
+								}}
 							/>
 						</div>
 					) : (
-						<iframe 
-							src={`https://docs.google.com/gview?url=${encodeURIComponent(file.url)}&embedded=true`} 
+						<iframe
+							src={`https://docs.google.com/gview?url=${encodeURIComponent(file.url)}&embedded=true`}
 							title={file.name}
-							style={{ width: '100%', height: '100%', border: 'none' }}
+							style={{
+								display: 'block',
+								width: '100%',
+								height: '100%',
+								minHeight: '100%',
+								border: 'none'
+							}}
 						/>
 					)}
 				</div>
+
 			</div>
 		</div>
 	);

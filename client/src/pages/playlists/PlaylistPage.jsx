@@ -190,9 +190,25 @@ const PlaylistPage = () => {
 										</div>
 
 										<div style={{ display: 'flex', flexDirection: 'column' }}>
-											<a href={file.url} target="_blank" rel="noreferrer" className="file-link">
+											<div
+												type="button"
+												// href={video.url}
+												// target="_blank"
+												// rel="noreferrer"
+												className="file-link"
+												// onClick={() => handleVideoClick(video.id)}
+												onClick={() => setPreviewFile(file)}
+												style={{
+													position: 'relative',
+													cursor: 'pointer',
+													display: 'inline-block',
+													flexShrink: 0,
+													borderRadius: '4px',
+													overflow: 'hidden'
+												}}
+											>
 												{file.name}
-											</a>
+											</div>
 
 											{playingId === file.id && file.type?.startsWith('video/') && (
 												<video src={file.url} controls autoPlay style={{ width: '100%', maxWidth: '480px', marginTop: '8px', borderRadius: '4px' }} />

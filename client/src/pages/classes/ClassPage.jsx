@@ -336,15 +336,25 @@ const ClassPage = () => {
 						</div>
 
 					<div style={{ display: 'flex', flexDirection: 'column' }}>
-						<a 
-							href={file.url} 
-							target="_blank" 
-							rel="noreferrer" 
+						<div
+							type="button"
+							// href={video.url}
+							// target="_blank"
+							// rel="noreferrer"
 							className="file-link"
-							onClick={() => handleFileClick(file.id)}
+							// onClick={() => handleVideoClick(video.id)}
+							onClick={() => handleOpenPreview(file)}
+							style={{        
+								position: 'relative',
+								cursor: 'pointer',
+								display: 'inline-block',
+								flexShrink: 0,
+								borderRadius: '4px',
+								overflow: 'hidden'
+							}}
 						>
 							{file.name}
-						</a>
+						</div>
 						<span style={{ fontSize: '0.75rem', color: '#777' }}>
 							Uploaded by {file.ownerName ? file.ownerName.split(' ')[0] : 'Unknown'} · {file.views ?? 0} views
 						</span>
