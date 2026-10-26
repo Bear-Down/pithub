@@ -45,8 +45,8 @@ export const useAdminData = () => {
 		const downloadsTotal = await getAggregateFromServer(collection(db, 'files'), {
 			downloads: sum('downloads'),
 		});
-		setTotalViews(viewsTotal.data().views || 0);
-		setTotalDownloads(downloadsTotal.data().downloads || 0);
+		setTotalViews(viewsTotal.data().views);
+		setTotalDownloads(downloadsTotal.data().downloads);
 
 		// Optionally, update a 'system/stats' document in Firestore with these counts
 		// This would make subsequent dashboard loads faster if you read from this doc

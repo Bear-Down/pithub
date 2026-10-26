@@ -4,8 +4,7 @@ import React from 'react';
  * @file StatsOverview.jsx
  * @description Renders KPI cards for system statistics using scoped admin styles.
  */
-
-const StatsOverview = ({ totalUsers, totalClasses, totalFiles, totalViews, totalDownloads, uploadRange = 'all', setUploadRange, uploadsInRange, onRefresh }) => {
+const StatsOverview = ({ totalUsers, totalClasses, totalFiles, totalViews = 0, totalDownloads = 0, uploadRange = 'all', setUploadRange, uploadsInRange, activeUsersInRange, classesInRange, viewsInRange, downloadsInRange, onRefresh }) => {
 	const firebaseStorageConsoleLink = "https://console.firebase.google.com/u/0/project/pithub-test-kd/storage/pithub-test-kd.firebasestorage.app/files";
 
 	return (
@@ -38,17 +37,15 @@ const StatsOverview = ({ totalUsers, totalClasses, totalFiles, totalViews, total
 		<div className="stats-grid">
 			{/* Total Users */}
 			<div className="stat-card">
-			
-			<div className="stat-label">Network Users</div>
-			<div className="stat-value">{totalUsers.toLocaleString()}</div>
+			<div className="stat-label">{uploadRange === 'all' ? 'Network Users' : 'Active Users (Selected Range)'}</div>
+			<div className="stat-value">{(activeUsersInRange ?? totalUsers).toLocaleString()}</div>
 			<div className="admin-badge admin-badge-success" style={{ marginTop: '12px' }}>Active</div>
 			</div>
 
 			{/* Total Classes */}
 			<div className="stat-card">
-			
-			<div className="stat-label">Total Classes</div>
-			<div className="stat-value">{totalClasses.toLocaleString()}</div>
+			<div className="stat-label">{uploadRange === 'all' ? 'Total Classes' : 'Classes Created (Selected Range)'}</div>
+			<div className="stat-value">{(classesInRange ?? totalClasses).toLocaleString()}</div>
 			<div className="admin-badge" style={{ marginTop: '12px', backgroundColor: 'rgba(0,0,0,0.05)', color: 'var(--admin-text-muted)' }}>Indexed</div>
 			</div>
 
@@ -62,14 +59,14 @@ const StatsOverview = ({ totalUsers, totalClasses, totalFiles, totalViews, total
 
 			{/* Total Views */}
 			<div className="stat-card">
-			<div className="stat-label">Total Views</div>
-			<div className="stat-value">{totalViews.toLocaleString()}</div>
+			<div className="stat-label">{uploadRange === 'all' ? 'Total Views' : 'Views (Selected Range)'}</div>
+			<div className="stat-value">{(viewsInRange ?? totalViews).toLocaleString()}</div>
 			</div>
 
 			{/* Total Downloads */}
 			<div className="stat-card">
-			<div className="stat-label">Total Downloads</div>
-			<div className="stat-value">{totalDownloads.toLocaleString()}</div>
+			<div className="stat-label">{uploadRange === 'all' ? 'Total Downloads' : 'Downloads (Selected Range)'}</div>
+			<div className="stat-value">{(downloadsInRange ?? totalDownloads).toLocaleString()}</div>
 			</div>
 
 			{/* System Status */}
