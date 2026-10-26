@@ -4,6 +4,7 @@ import { usePlaylistPage } from '../../hooks/usePlaylistPage';
 import DocumentPreviewModal from '../../components/DocumentPreviewModal';
 import ConfirmationModal from '../../components/ConfirmationModal';
 import ReportButton from '../../components/ReportButton';
+import UploadProgressModal from '../../components/UploadProgressModal';
 import Spinner from '../../components/Spinner';
 import { useTheme } from '../../context/ThemeContext';
 import '../../styles/style.css';
@@ -45,7 +46,8 @@ const PlaylistPage = () => {
 		handleRemoveMember,
 		handleAddClick,
 		handleFileChange,
-		handleDeleteFile
+		handleDeleteFile,
+		handleCancelUpload,
 	} = usePlaylistPage();
 
 	if (!playlistData) {
@@ -390,6 +392,14 @@ const PlaylistPage = () => {
 			)}
 
 			<DocumentPreviewModal file={previewFile} onClose={() => setPreviewFile(null)} />
+
+			{/* Upload Progress Modal – shown during active uploads (RC-214) */}
+			<UploadProgressModal
+				isOpen={uploading}
+				progress={uploadProgress}
+				fileName={fileInputRef.current?.files?.[0]?.name || ''}
+				onCancel={handleCancelUpload}
+			/>
 
 			<ConfirmationModal 
 				isOpen={!!confirmDelete}

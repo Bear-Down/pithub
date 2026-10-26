@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import ConfirmationModal from '../../components/ConfirmationModal';
 import ReportButton from '../../components/ReportButton';
 import DocumentPreviewModal from '../../components/DocumentPreviewModal';
+import UploadProgressModal from '../../components/UploadProgressModal';
 import { useClassPage } from '../../hooks/useClassPage';
 import { doc, updateDoc, increment } from 'firebase/firestore';
 import { db } from '../../lib/firebase';
@@ -32,6 +33,7 @@ const ClassPage = () => {
 		handleUpdateClass,
 		handleToggleVisibility,
 		handleToggleFieldVisibility,
+		handleCancelUpload,
 		isOwner,
 		isGlobalLoading,
 		isFieldLoading,
@@ -369,6 +371,14 @@ const ClassPage = () => {
 		</section>
 
 		<DocumentPreviewModal file={previewFile} onClose={handleClosePreview} />
+
+		{/* Upload Progress Modal – shown during active uploads (RC-214) */}
+		<UploadProgressModal
+			isOpen={uploading}
+			progress={uploadProgress}
+			fileName={fileInputRef.current?.files?.[0]?.name || ''}
+			onCancel={handleCancelUpload}
+		/>
 
 		<ConfirmationModal
 		 isOpen={confirmClassPrivacyChange}
