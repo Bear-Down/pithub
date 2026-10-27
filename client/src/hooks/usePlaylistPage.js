@@ -27,7 +27,7 @@ export const usePlaylistPage = () => {
 	const { playlistId } = useParams();
 	const { user } = useAuth();
 	const fileInputRef = useRef(null);
-
+	const uploadTaskRef = useRef(null);
 	const [playlistData, setPlaylistData] = useState(null);
 	const [files, setFiles] = useState([]);
 	const [uploading, setUploading] = useState(false);
@@ -231,7 +231,7 @@ export const usePlaylistPage = () => {
 			const storagePath = `playlists/${playlistId}/${Date.now()}_${file.name}`;
 			const storageRef = ref(storage, storagePath);
 			const uploadTask = uploadBytesResumable(storageRef, file, { contentType: file.type });
-
+			uploadTaskRef.current = uploadTask;
 			await new Promise((resolve, reject) => {
 				uploadTask.on('state_changed',
 					(snapshot) => {
@@ -280,9 +280,16 @@ export const usePlaylistPage = () => {
 			setLastUploadedFile(file.name);
 			setShowUploadSuccess(true);
 		} catch (error) {
+			// Do not show an error if the user cancelled the upload
+			if (error.code === 'storage/canceled') {
+				console.log("Upload cancelled by user.");
+				return;
+			}
+
 			console.error("Firebase Playlist Upload Error:", error);
 			setUploadError(`Upload failed: ${error.message}`);
 		} finally {
+			uploadTaskRef.current = null;
 			setUploading(false);
 			setUploadProgress(0);
 			event.target.value = null;
@@ -304,6 +311,13 @@ export const usePlaylistPage = () => {
 			console.error("Firestore File Deletion Error:", error);
 			alert(`Failed to remove file: ${error.message}`);
 		}
+	};
+
+	const handleCancelUpload = () => {
+		if (uploadTaskRef.current) {
+			uploadTaskRef.current.cancel();
+		}
+		setUploadError(null);
 	};
 
 	return {
@@ -337,6 +351,7 @@ export const usePlaylistPage = () => {
 		handleRemoveMember,
 		handleAddClick,
 		handleFileChange,
-		handleDeleteFile
+		handleDeleteFile,
+		handleCancelUpload,
 	};
 };

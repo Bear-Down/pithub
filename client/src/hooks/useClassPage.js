@@ -27,7 +27,7 @@ export const useClassPage = () => {
     const { classId } = useParams();
     const { user } = useAuth();
     const fileInputRef = useRef(null);
-
+    const uploadTaskRef = useRef(null);
     const [files, setFiles] = useState([]);
     const [classData, setClassData] = useState(null);
     const [uploading, setUploading] = useState(false);
@@ -169,7 +169,7 @@ export const useClassPage = () => {
                 const storagePath = `classes/${classId}/${Date.now()}_${file.name}`;
                 const storageRef = ref(storage, storagePath);
                 const uploadTask = uploadBytesResumable(storageRef, file, { contentType: file.type });
-
+                uploadTaskRef.current = uploadTask;
                 await new Promise((resolve, reject) => {
                     uploadTask.on('state_changed', 
                         (snapshot) => {
@@ -218,6 +218,12 @@ export const useClassPage = () => {
                 setLastUploadedFile(file.name);
                 setShowUploadSuccess(true);
             } catch (error) {
+                // Do not show an error if the user cancelled the upload
+                if (error.code === 'storage/canceled') {
+                    console.log("Upload cancelled by user.");
+                    return;
+                }
+
                 console.error("Firebase Upload Error:", error);
                 let errorMessage = `Upload failed: ${error.message}`;
                 if (error.message.includes('net::ERR_CONNECTION_REFUSED') || error.code === 'storage/retry-limit-exceeded' || error.code === 'unavailable') {
@@ -227,6 +233,7 @@ export const useClassPage = () => {
                 }
                 setUploadError(errorMessage);
             } finally {
+                uploadTaskRef.current = null;
                 setUploading(false);
                 setUploadProgress(0);
                 event.target.value = null;
@@ -296,6 +303,13 @@ export const useClassPage = () => {
         toggleFieldVisibility(field, currentVal);
     };
 
+    const handleCancelUpload = () => {
+        if (uploadTaskRef.current) {
+            uploadTaskRef.current.cancel();
+        }
+        setUploadError(null);
+    };
+
     return {
         classId,
         user,
@@ -321,6 +335,7 @@ export const useClassPage = () => {
         handleUpdateClass,
         handleToggleVisibility,
         handleToggleFieldVisibility,
+        handleCancelUpload,
         isOwner,
         isGlobalLoading,
         isFieldLoading

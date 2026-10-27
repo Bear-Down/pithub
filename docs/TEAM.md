@@ -4,21 +4,26 @@
 
 PitHub is a university-focused video and document-sharing platform designed to allow authorized users to securely upload, organize, manage, and share instructional videos and documents.
 
-Our team consists of five members who collaboratively design, develop, test, document, and maintain the PitHub application.
+Our development teams consist of two teams, one from a Capstone course and one from a Software Engineering course.
 
-Our team follows Scrum while maintaining a collaborative, self-organizing structure. All team members contribute to the development of the product. The Scrum Master and Product Owner also perform development responsibilities in addition to their Scrum-specific responsibilities.
+Our Capstone team consists of five members who collaboratively design, develop, test, document, and maintain the PitHub application.
+
+Our Software Engineering team consists of four members who collaboratively design, develop, test, document, and maintain the PitHub application.
+
+Our teams follow Scrum while maintaining a collaborative, self-organizing structure. All team members contribute to the development of the product. The Scrum Master and Product Owner also perform development responsibilities in addition to their Scrum-specific responsibilities.
 
 ---
 
 # 2. Team Members
 
-| Team Member | Scrum Role | Primary Responsibilities |
-|-------------|------------|--------------------------|
-| Kevin Dacanay | Scrum Master / Developer | Scrum facilitation, team coordination, development, and implementation |
-| Sebastian Jaculbe | Product Owner / Developer | Product requirements, backlog management, communication, and development |
-| Erick Hernandez | Developer | Frontend/backend development, feature implementation, testing, and documentation |
-| Edward Rodriguez | Developer | Frontend/backend development, Firebase integration, testing, and debugging |
-| Kaleb Richardson | Developer / QA | Feature development, testing, debugging, and documentation |
+| Team Member | Scrum Role | Primary Responsibilities | Team Name |
+|-------------|------------|--------------------------|-----------|
+| Kevin Dacanay | Scrum Master / Developer | Scrum facilitation, team coordination, development, and implementation | Bear Down |
+| Sebastian Jaculbe | Product Owner / Developer | Product requirements, backlog management, communication, and development | Bear Down |
+| Erick Hernandez | Developer | Frontend/backend development, feature implementation, testing, and documentation | Bear Down|
+| Edward Rodriguez | Developer | Frontend/backend development, Firebase integration, testing, and debugging | Bear Down |
+| Kaleb Richardson | Developer / QA | Feature development, testing, debugging, and documentation | Bear Down |
+| Jacob Mysliwiec | Scrum Master / Developer | Scrum facilitation, team coordination, development, and implementation | RedDragons |
 
 > Our Scrum roles and development responsibilities are separate. All members are expected to contribute to development, testing, and review whenever appropriate.
 
@@ -30,7 +35,7 @@ Our team follows Scrum while maintaining a collaborative, self-organizing struct
 
 All Developers are responsible for contributing to the design, development, testing, documentation, and delivery of the product.
 
-Developers collaborate with the Product Owner and Scrum Master to determine how work will be completed and help maintain a usable product increment.
+Developers collaborate with the Product Owners and Scrum Masters to determine how work will be completed and help maintain a usable product increment.
 
 Developers are responsible for:
 
@@ -46,24 +51,24 @@ Developers are responsible for:
 
 # 4. Scrum Roles
 
-## Scrum Master — Kevin Dacanay
+## Scrum Masters — Kevin Dacanay & Jacob Mysliwiec
 
-Kevin serves as our team's Scrum Master while also participating as a Developer.
+Kevin and Jacob serve as our teams Scrum Masters while also participating as Developers.
 
-### As Scrum Master, Kevin is responsible for:
+### As Scrum Masters, Kevin & Jacob are responsible for:
 
-- Helping our team understand and follow Scrum.
+- Helping our teams understand and follow Scrum.
 - Facilitating Scrum events when appropriate.
 - Helping identify and resolve impediments.
-- Supporting our team's ability to self-organize.
+- Supporting our team's abilities to self-organize.
 - Helping ensure the agreed Scrum process is maintained.
-- Supporting communication and collaboration within our team.
+- Supporting communication and collaboration within our teams.
 
-### As a Developer, Kevin also:
+### As Developers, Kevin & Jacob also:
 
-- Participates in feature development.
-- Contributes code and technical solutions.
-- Reviews and tests product changes alongside the rest of our team.
+- Participate in feature development.
+- Contribute code and technical solutions.
+- Reviews and tests product changes alongside the rest of our teams.
 
 ---
 
@@ -96,7 +101,7 @@ Our team uses GitHub and Discord as the primary tools for collaboration.
 
 # 6. Team Collaboration Guidelines
 
-Our team will work collaboratively and support one another throughout each sprint.
+Our teams will work collaboratively and support one another throughout each sprint.
 
 Our team members are responsible for:
 
@@ -108,7 +113,7 @@ Our team members are responsible for:
 - Reporting blockers early.
 - Maintaining the quality and security of PitHub.
 
-Our team will:
+Our teams will:
 
 1. Respect each member's contributions and ideas.
 2. Discuss major technical decisions before implementation when practical.
