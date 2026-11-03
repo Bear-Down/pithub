@@ -15,7 +15,7 @@ Red Dragon Scrum Master: Chloe
 |--------|------------------------|--------------|--------------|------------|--------------|--------------|
 | RC-025 | As a developer, I want to create a timeline of what it takes to create a command line to upload a file from the command line interface using GO. | 1 | 2 | Y | -- | -- |
 | RC-029 | As product owner, I want to schedule support for the Capstone team's Celebration of Scholarship Lite upcoming events. | 3 | 1 | Y | -- | -- |
-| RC-032 | As a user, I would like to commment on videos. | 2 | 1 | N | -- | -- |
+| RC-032 | As a user, I want to commment on videos so that I can give feedback to the uploader. | 2 | 1 | N | -- | -- |
 | RC-046 | As a user, I want to filter videos by date and class so that I can narrow down content efficiently. | 4 | 2 | N | -- | -- |
 | RC-052 | As a user, I want to upload a custom thumbnail for my videos so that they are visually identifiable. | 3 | 1 | N | -- | -- |
 | RC-053 | As a user, I want to edit video metadata (title, description, visibility) so that my content remains accurate. | 4 | 2 | N | -- | -- |
@@ -78,7 +78,6 @@ Red Dragon Scrum Master: Chloe
 | RC-212 | As a developer (Java), I want to continue reaching out and pitching to Lewis University Computer Science professors, either in person or via email, who may be interested in using PitHub as an alternative to Panopto. | 5 | 1 | Y | -- | -- |
 | RC-213 | As a developer (Chloe), I want to continue reaching out and pitching to Lewis University Computer Science professors, either in person or via email, who may be interested in using PitHub as an alternative to Panopto. | 5 | 1 | Y | -- | -- |
 | RC-214 | As a user, I want to see a clear progress indicator pop up telling me not to leave the page while uploading a file so that my uploads are successful. | 5 | 3 | N | -- | -- |
-| RC-215 | As a developer, I want to fully participate in our Fall 2026 mid-term Product Review on Tuesday, October 28 at 2 PM. | 9 | 4 | Y | -- | -- |
 | RC-216 | As a user, I want to be able to share a direct link to a video or document by clicking a share button so that I can easily send resources to other people. | 4 | 4 | N | -- | -- |
 | RC-217 | As a user, I want to open a video preview when I click on a video title so that I can watch the video without navigating through unnecessary pages. | 7 | 2 | N | -- | -- |
 | RC-218 | As a product owner, I want to meet with Dr. Klump to discuss Lewis University's potential takeover of Firebase payment responsibilities so that the team can determine a sustainable plan for PitHub's hosting and operating costs. | 9 | 3 | Y | -- | -- |
@@ -97,3 +96,4 @@ Red Dragon Scrum Master: Chloe
 | RC-239 | As a user, I want a simple URL to PitHub so that I can easily remember how to access the website without consulting the development teams. | 6 | 3 | N | -- | -- |
 | RC-240 | As a new developer, I want to create a list of assets that needs to be transfered to the new team so that we can begin the offboarding process for the old team. | 8 | 1 | Y | -- | -- |
 | RC-241 | As a new developer, I want to coordinate the transfer of assets from the old team to the new team so that we can continue support for the product into the future. | 8 | 3 | Y | -- | -- |
+| RC-242 | As a new developer, I want to coordinate how our team can help the Capstone team's Celebration of Scholarship Lite so that we can participate and support the Capstone team. | 5 | 1 | Y | -- | -- |
