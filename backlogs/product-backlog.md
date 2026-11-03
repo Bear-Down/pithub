@@ -94,13 +94,6 @@ Red Dragon Scrum Master: Chloe
 | RC-232 | As a Scrum Master, I want to coordinate with the Software Engineering team to ensure that all team members participate in the Fall 2026 midterm Product Review so that the team can present its progress, demonstrate completed work, and gather feedback. | 9 | 3 | N | -- | -- |
 | RC-237 | As a developer, I want any files, file names, or code which mention team members to include that member's team name so that future development teams can add new files without the possibility for same name conflicts. | 5 | 2 | Y | -- | -- |
 | RC-238 | As a user, I want to only see the current developers of PitHub on the contacts page rather than legacy developers who are listed on another page so that I do not contact a legacy developer by accident. | 5 | 3 | N | -- | -- |
-| RC-210 | As a Computer Science professor, I want a PitHub developer (Jacob) to reach out and pitch Pithub as an alternative to Panopto, so that I can explore other options for managing my files. | 5 | 1 | N | -- | -- |
-| RC-211 | As a Computer Science professor, I want a PitHub developer (Josh) to reach out and pitch Pithub as an alternative to Panopto, so that I can explore other options for managing my files. | 5 | 1 | N | -- | -- |
-| RC-212 | As a Computer Science professor, I want a PitHub developer (Java) to reach out and pitch Pithub as an alternative to Panopto, so that I can explore other options for managing my files. | 5 | 1 | N | -- | -- |
-| RC-213 | As a Computer Science professor, I want a PitHub developer (Chloe) to reach out and pitch Pithub as an alternative to Panopto, so that I can explore other options for managing my files. | 5 | 1 | N | -- | -- |
-| RC-195 | As a user, I want to view the current developers (Java) on the Contact Page so that I am able to see and contact PitHub's current developers | 5 | 1 | N | -- | -- |
-| RC-196 | As a user, I want to view the current developers (Chloe) on the Contact Page so that I am able to see and contact PitHub's current developers | 5 | 1 | N| -- | -- |
-| RC-198 | As a new developer (Josh), I want to add my information to the TEAM.md file so that PitHub documentation is up to date with regards to its development team | 5 | 1 | Y| -- | -- |
-| RC-199 | As a new developer (Java), I want to add my information to the TEAM.md file so that PitHub documentation is up to date with regards to its development team | 5 | 1 | Y| -- | -- |
-| RC-200 | As a new developer (Chloe), I want to add my information to the TEAM.md file so that PitHub documentation is up to date with regards to its development team | 5 | 1 | Y| -- | -- |
-| RC-239 | As a user, I want a simple URL to PitHub so that I can easily remember how to access the website without consulting the development teams.
+| RC-239 | As a user, I want a simple URL to PitHub so that I can easily remember how to access the website without consulting the development teams. | 6 | 3 | N | -- | -- |
+| RC-240 | As a new developer, I want to create a list of assets that needs to be transfered to the new team so that we can begin the offboarding process for the old team. | 8 | 1 | Y | -- | -- |
+| RC-241 | As a new developer, I want to coordinate the transfer of assets from the old team to the new team so that we can continue support for the product into the future. | 8 | 3 | Y | -- | -- |
