@@ -3,7 +3,7 @@ layout: default
 title: Product Backlog
 permalink: /backlogs/product-backlog/
 ---
-Current Largest ID: RC-242
+Current Largest ID: RC-246
 
 Bear Down Product Owner: Kaleb Richardson
 Bear Down Scrum Master: Erick Hernandez
@@ -32,7 +32,6 @@ Red Dragon Scrum Master: Chloe
 | RC-106 | As a user, I want to receive notifications when I am invited to a class so that I can quickly respond to invitations. | 5 | 3 | N | -- | -- |
 | RC-108 | As a first-time user, I want tooltips and walkthrough prompts during onboarding so that I can learn platform features interactively. | 6 | 3 | N | -- | -- |
 | RC-109 | As a user, I want to skip or revisit the onboarding tutorial so that I can review platform guidance when needed. | 5 | 2 | N | -- | -- |
-| RC-111 | As a user, I want to pin important videos, notes, or documents within a class so that critical resources remain easy to access. | 6 | 2 | N | -- | -- |
 | RC-112 | As a user, I want to organize notes and documents into folders within classes so that large amounts of content remain manageable. | 6 | 4 | N | -- | -- |
 | RC-114 | As a user, I want to receive notifications when my uploaded content is reported or removed so that I understand moderation actions affecting my account. | 6 | 2 | N | -- | -- |
 | RC-118 | As a developer, I want to separate moderation tools from regular user interfaces so that administrative functions remain secure and isolated. | 8 | 3 | Y | -- | -- |
@@ -49,8 +48,6 @@ Red Dragon Scrum Master: Chloe
 | RC-166 | As a developer, I want to establish a process for responding to user feedback and support requests so that existing users receive timely and consistent assistance. | 8 | 5 | N | -- | -- |
 | RC-228 | As a product team member, I want to develop a plan for all product teams to fully participate in ECaMS Connect, as outlined in Discussion 5, so that teams can coordinate their involvement and meet participation expectations. | 8 | 3 | Y | -- | -- |
 | RC-230 | As a Product Owner, I want to receive coaching on Tuesday, October 20, 2026, at 9:30 AM CT so that I can improve my backlog management, prioritization, and communication with the Software Engineering team. | 8 | 2 | N | -- | -- |
-| RC-240 | As a new developer, I want to create a list of assets that needs to be transfered to the new team so that we can begin the offboarding process for the old team. | 8 | 1 | Y | -- | -- |
-| RC-241 | As a new developer, I want to coordinate the transfer of assets from the old team to the new team so that we can continue support for the product into the future. | 8 | 3 | Y | -- | -- |
 | RC-078 | As a developer, I want to enforce file size limits so that storage and bandwidth are controlled. | 7 | 2 | Y | -- | -- |
 | RC-089 | As a user, I want to access the platform on different screen sizes so that I can use it on mobile and desktop devices. | 7 | 4 | N | -- | -- |
 | RC-094 | As a user, I want to create notes within a class so that I can keep written study material alongside videos and documents. | 7 | 4 | N | -- | -- |
@@ -62,7 +59,6 @@ Red Dragon Scrum Master: Chloe
 | RC-169 | As a first time user, I want to be shown a tutorial or walkthrough of how the app works on my very first login so that I know how to utilize PitHub | 7 | 6 | N | -- | -- |
 | RC-217 | As a user, I want to open a video preview when I click on a video title so that I can watch the video without navigating through unnecessary pages. | 7 | 2 | N | -- | -- |
 | RC-220 | As a user, I want to upload custom thumbnails for documents and edit document details after uploading so that I can make my shared resources easier to identify and keep their information accurate. | 7 | 3 | N | -- | -- |
-| RC-221 | As a user, I want to add and edit descriptions for uploaded files so that other users can understand the contents and purpose of a document before opening or downloading it. | 7 | 2 | N | -- | -- |
 | RC-095 | As a user, I want to edit and delete my notes so that I can keep my study materials accurate and updated. | 6 | 2 | N | -- | -- |
 | RC-098 | As a developer, I want the dashboard recommendation algorithm to display a balanced mix of videos and documents so that users are exposed to multiple forms of course content. | 6 | 4 | Y | -- | -- |
 | RC-099 | As a user, I want to see recommended videos and documents on the homepage so that I can discover useful academic resources. | 6 | 3 | N | -- | -- |
@@ -103,16 +99,12 @@ Red Dragon Scrum Master: Chloe
 | RC-221 | As a user, I want to add and edit descriptions for uploaded files so that other users can understand the contents and purpose of a document before opening or downloading it. | 7 | 2 | N | -- | -- |
 | RC-222 | As the original development team, I want to evaluate options for PitHub after the current semester, including open-sourcing the project, so that we can establish a sustainable future for the platform. | 9 | 5 | Y | -- | -- |
 | RC-223 | As a system administrator, I want to create separate administrator accounts for developers so that administrative responsibilities can be managed independently. | 9 | 4 | N | -- | -- |
-| RC-224 | As a new developer (Jacob), I want to set up the local development environment so that I can run PitHub locally on my own machine and contribute to its development. | 9 | 2 | N | -- | -- |
-| RC-225 | As a new developer (Josh), I want to set up the local development environment so that I can run PitHub locally on my own machine and contribute to its development. | 9 | 2 | N | -- | -- |
-| RC-226 | As a new developer (Java), I want to set up the local development environment so that I can run PitHub locally on my own machine and contribute to its development. | 9 | 2 | N | -- | -- |
-| RC-227 | As a new developer (Chloe), I want to set up the local development environment so that I can run PitHub locally on my own machine and contribute to its development. | 9 | 2 | N | -- | -- |
 | RC-234 | As a developer, I want to research the process of transitioning PitHub into an open-source project so that developers outside of Lewis University can access, contribute to, and maintain the platform. | 10 | 4 | Y | -- | -- |
 | RC-235 | As a project maintainer, I want to establish contribution guidelines and development standards so that future Capstone and Software Engineering teams can contribute code consistently. | 10 | 3 | N | -- | -- |
 | RC-236 | As a future Capstone or Software Engineering student, I want to have access to clear project documentation and setup instructions so that I can begin contributing to PitHub without depending on previous development teams. | 10 | 4 | N | -- | -- |
-| RC-237 | As a developer, I want to implement automatic cleanup of abandoned or incomplete uploads so that unnecessary files do not take up Firebase Storage space. | 8 | 3 | N | -- | -- |
-| RC-238 | As a developer, I want to research and implement a content migration process so that PitHub's videos, documents, and database records can be transferred between Firebase projects if needed. | 9 | 5 | Y | -- | -- |
-| RC-239 | As a project maintainer, I want to select an appropriate open-source license for PitHub so that outside developers understand how they are allowed to use, modify, and distribute the project. | 10 | 2 | Y | -- | -- |
+| RC-243 | As a developer, I want to implement automatic cleanup of abandoned or incomplete uploads so that unnecessary files do not take up Firebase Storage space. | 8 | 3 | N | -- | -- |
+| RC-244 | As a developer, I want to research and implement a content migration process so that PitHub's videos, documents, and database records can be transferred between Firebase projects if needed. | 9 | 5 | Y | -- | -- |
+| RC-245 | As a project maintainer, I want to select an appropriate open-source license for PitHub so that outside developers understand how they are allowed to use, modify, and distribute the project. | 10 | 2 | Y | -- | -- |
 | RC-240 | As an outside developer, I want to be able to submit bug reports and feature requests through GitHub Issues so that I can communicate problems and suggestions to the PitHub development team. | 9 | 2 | N | -- | -- |
 | RC-241 | As a playlist owner, I want to reorder videos and documents within a playlist so that I can arrange educational materials in a specific order. | 7 | 2 | N | -- | -- |
-| RC-242 | As a user, I want to search for playlists by name so that I can quickly find playlists that have been shared with me. | 6 | 2 | N | -- | -- |
+| RC-246 | As a user, I want to search for playlists by name so that I can quickly find playlists that have been shared with me. | 6 | 2 | N | -- | -- |
