@@ -29,8 +29,13 @@ Red Dragon Scrum Master: Chloe
 | RC-232 | As a Scrum Master, I want to coordinate with the Software Engineering team to ensure that all team members participate in the Fall 2026 midterm Product Review so that the team can present its progress, demonstrate completed work, and gather feedback. | 9 | 3 | N | -- | -- |
 | RC-058 | As a developer, I want to implement role-based permissions (future) so that professors and students may have different capabilities. | 8 | 5 | Y | -- | -- |
 | RC-103 | As an administrator, I want to suspend or restrict user accounts that repeatedly violate policies so that abuse of the platform is minimized. | 8 | 4 | N | -- | -- |
+| RC-106 | As a user, I want to receive notifications when I am invited to a class so that I can quickly respond to invitations. | 5 | 3 | N | -- | -- |
+| RC-108 | As a first-time user, I want tooltips and walkthrough prompts during onboarding so that I can learn platform features interactively. | 6 | 3 | N | -- | -- |
+| RC-109 | As a user, I want to skip or revisit the onboarding tutorial so that I can review platform guidance when needed. | 5 | 2 | N | -- | -- |
+| RC-111 | As a user, I want to pin important videos, notes, or documents within a class so that critical resources remain easy to access. | 6 | 2 | N | -- | -- |
+| RC-112 | As a user, I want to organize notes and documents into folders within classes so that large amounts of content remain manageable. | 6 | 4 | N | -- | -- |
+| RC-114 | As a user, I want to receive notifications when my uploaded content is reported or removed so that I understand moderation actions affecting my account. | 6 | 2 | N | -- | -- |
 | RC-118 | As a developer, I want to separate moderation tools from regular user interfaces so that administrative functions remain secure and isolated. | 8 | 3 | Y | -- | -- |
-| RC-128 | As an Administrator, I want to be able to view user's profile and class pages directly from the admin account without having to relogin | 8 | 5 | Y | -- | -- |
 | RC-129 | As an Administrator, I want the suspension feature to block suspended users from reating classes or posting documents effective immediately | 8 | 5 | Y | -- | -- |
 | RC-131 | As a user, I want to upload multiple files at once so that I can add course materials faster and reduce repetitive uploads. | 8 | 4 | N | -- | -- |
 | RC-138 | As a developer, I want to implement accessibility improvements (keyboard navigation, contrast, and screen reader support) so that PitHub is usable byadmin a wider range of users. | 8 | 5 | Y | -- | -- |
@@ -38,7 +43,6 @@ Red Dragon Scrum Master: Chloe
 | RC-150 | As a user, I want the interface to use consistent buttons, spacing, colors, and typography so that the platform feels easier and more professional to use. | 8 | 4 | N | -- | -- |
 | RC-151 | As a developer, I want to conduct a usability review of the current user interface so that confusing workflows and unnecessary steps can be identified and documented. | 8 | 3 | Y | -- | -- |
 | RC-153 | As a developer, I want to test PitHub on commonly used desktop, tablet, and mobile screen sizes so that existing layout issues can be identified and corrected. | 8 | 4 | Y | -- | -- |
-| RC-156 | As a developer, I want to identify university departments and faculty groups that may benefit from PitHub so that outreach efforts can target relevant audiences. | 8 | 3 | Y | -- | -- |
 | RC-159 | As a developer, I want to create a customer feedback survey for existing users so that satisfaction with PitHub's current functionality can be measured. | 8 | 2 | Y | -- | -- |
 | RC-160 | As a product owner, I want to identify the most common reasons users stop using PitHub so that the team can prioritize improvements that address user retention concerns. | 8 | 3 | Y | -- | -- |
 | RC-162 | As a user, I want the existing help text and instructions to use clear, understandable language so that I can learn how to use PitHub without additional assistance. | 8 | 5 | N | -- | -- |
@@ -81,12 +85,10 @@ Red Dragon Scrum Master: Chloe
 | RC-198 | As a new developer (Josh), I want to add my information to the TEAM.md file so that PitHub documentation is up to date with regards to its development team | 5 | 1 | Y | -- | -- |
 | RC-199 | As a new developer (Java), I want to add my information to the TEAM.md file so that PitHub documentation is up to date with regards to its development team | 5 | 1 | Y | -- | -- |
 | RC-200 | As a new developer (Chloe), I want to add my information to the TEAM.md file so that PitHub documentation is up to date with regards to its development team | 5 | 1 | Y | -- | -- |
-| RC-209 | As the product owner, I want to have discussions about shifting the user base from Lewis University students and faculty to just faculty to manage storage cost and minimize the possibility of the abuse of our services | 5 | 6 | Y | -- | -- |
 | RC-210 | As a developer (Jacob), I want to continue reaching out and pitching to Lewis University Computer Science professors, either in person or via email, who may be interested in using PitHub as an alternative to Panopto. | 5 | 1 | Y | -- | -- |
 | RC-211 | As a developer (Josh), I want to continue reaching out and pitching to Lewis University Computer Science professors, either in person or via email, who may be interested in using PitHub as an alternative to Panopto. | 5 | 1 | Y | -- | -- |
 | RC-212 | As a developer (Java), I want to continue reaching out and pitching to Lewis University Computer Science professors, either in person or via email, who may be interested in using PitHub as an alternative to Panopto. | 5 | 1 | Y | -- | -- |
 | RC-213 | As a developer (Chloe), I want to continue reaching out and pitching to Lewis University Computer Science professors, either in person or via email, who may be interested in using PitHub as an alternative to Panopto. | 5 | 1 | Y | -- | -- |
-| RC-214 | As a user, I want to see a clear progress indicator pop up telling me not to leave the page while uploading a file so that my uploads are successful. | 5 | 3 | N | -- | -- |
 | RC-237 | As a developer, I want any files, file names, or code which mention team members to include that member's team name so that future development teams can add new files without the possibility for same name conflicts. | 5 | 2 | Y | -- | -- |
 | RC-238 | As a user, I want to only see the current developers of PitHub on the contacts page rather than legacy developers who are listed on another page so that I do not contact a legacy developer by accident. | 5 | 3 | N | -- | -- |
 | RC-242 | As a new developer, I want to coordinate how our team can help the Capstone team's Celebration of Scholarship Lite so that we can participate and support the Capstone team. | 5 | 1 | Y | -- | -- |
@@ -95,7 +97,22 @@ Red Dragon Scrum Master: Chloe
 | RC-070 | As a user, I want to rename uploaded documents so that file names remain meaningful. | 4 | 1 | N | -- | -- |
 | RC-071 | As a user, I want to see file sizes before downloading so that I can manage bandwidth usage. | 4 | 1 | N | -- | -- |
 | RC-216 | As a user, I want to be able to share a direct link to a video or document by clicking a share button so that I can easily send resources to other people. | 4 | 4 | N | -- | -- |
-| RC-029 | As product owner, I want to schedule support for the Capstone team's Celebration of Scholarship Lite upcoming events. | 3 | 1 | Y | -- | -- |
-| RC-052 | As a user, I want to upload a custom thumbnail for my videos so that they are visually identifiable. | 3 | 1 | N | -- | -- |
-| RC-032 | As a user, I want to commment on videos so that I can give feedback to the uploader. | 2 | 1 | N | -- | -- |
-| RC-025 | As a developer, I want to create a timeline of what it takes to create a command line to upload a file from the command line interface using GO. | 1 | 2 | Y | -- | -- |
+| RC-218 | As a product owner, I want to meet with Dr. Klump to discuss Lewis University's potential takeover of Firebase payment responsibilities so that the team can determine a sustainable plan for PitHub's hosting and operating costs. | 9 | 3 | Y | -- | -- |
+| RC-219 | As a user, I want to upload a custom thumbnail for my classes so that I can visually distinguish them from other classes. | 6 | 2 | N | -- | -- |
+| RC-220 | As a user, I want to upload custom thumbnails for documents and edit document details after uploading so that I can make my shared resources easier to identify and keep their information accurate. | 7 | 3 | N | -- | -- |
+| RC-221 | As a user, I want to add and edit descriptions for uploaded files so that other users can understand the contents and purpose of a document before opening or downloading it. | 7 | 2 | N | -- | -- |
+| RC-222 | As the original development team, I want to evaluate options for PitHub after the current semester, including open-sourcing the project, so that we can establish a sustainable future for the platform. | 9 | 5 | Y | -- | -- |
+| RC-223 | As a system administrator, I want to create separate administrator accounts for developers so that administrative responsibilities can be managed independently. | 9 | 4 | N | -- | -- |
+| RC-224 | As a new developer (Jacob), I want to set up the local development environment so that I can run PitHub locally on my own machine and contribute to its development. | 9 | 2 | N | -- | -- |
+| RC-225 | As a new developer (Josh), I want to set up the local development environment so that I can run PitHub locally on my own machine and contribute to its development. | 9 | 2 | N | -- | -- |
+| RC-226 | As a new developer (Java), I want to set up the local development environment so that I can run PitHub locally on my own machine and contribute to its development. | 9 | 2 | N | -- | -- |
+| RC-227 | As a new developer (Chloe), I want to set up the local development environment so that I can run PitHub locally on my own machine and contribute to its development. | 9 | 2 | N | -- | -- |
+| RC-234 | As a developer, I want to research the process of transitioning PitHub into an open-source project so that developers outside of Lewis University can access, contribute to, and maintain the platform. | 10 | 4 | Y | -- | -- |
+| RC-235 | As a project maintainer, I want to establish contribution guidelines and development standards so that future Capstone and Software Engineering teams can contribute code consistently. | 10 | 3 | N | -- | -- |
+| RC-236 | As a future Capstone or Software Engineering student, I want to have access to clear project documentation and setup instructions so that I can begin contributing to PitHub without depending on previous development teams. | 10 | 4 | N | -- | -- |
+| RC-237 | As a developer, I want to implement automatic cleanup of abandoned or incomplete uploads so that unnecessary files do not take up Firebase Storage space. | 8 | 3 | N | -- | -- |
+| RC-238 | As a developer, I want to research and implement a content migration process so that PitHub's videos, documents, and database records can be transferred between Firebase projects if needed. | 9 | 5 | Y | -- | -- |
+| RC-239 | As a project maintainer, I want to select an appropriate open-source license for PitHub so that outside developers understand how they are allowed to use, modify, and distribute the project. | 10 | 2 | Y | -- | -- |
+| RC-240 | As an outside developer, I want to be able to submit bug reports and feature requests through GitHub Issues so that I can communicate problems and suggestions to the PitHub development team. | 9 | 2 | N | -- | -- |
+| RC-241 | As a playlist owner, I want to reorder videos and documents within a playlist so that I can arrange educational materials in a specific order. | 7 | 2 | N | -- | -- |
+| RC-242 | As a user, I want to search for playlists by name so that I can quickly find playlists that have been shared with me. | 6 | 2 | N | -- | -- |
