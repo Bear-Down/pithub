@@ -47,6 +47,7 @@ export const useAdminAnalytics = () => {
 
 			const totalFiles = files.length;
 			const totalViews = files.reduce((sum, file) => sum + Number(file.views || 0), 0);
+			const totalDownloads = files.reduce((sum, file) => sum + Number(file.downloads || 0), 0);
 			const publicFiles = files.filter((file) => file.visibility === 'public').length;
 			const privateFiles = files.filter((file) => file.visibility !== 'public').length;
 
@@ -114,6 +115,7 @@ export const useAdminAnalytics = () => {
 			setAnalytics({
 				totalFiles,
 				totalViews,
+				totalDownloads,
 				averageViews: totalFiles ? totalViews / totalFiles : 0,
 				publicFiles,
 				privateFiles,

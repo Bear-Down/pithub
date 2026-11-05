@@ -97,15 +97,25 @@ export default function VideoList({ userOnly = false, showClassLink = true, show
 
 							<div style={{ display: 'flex', flexDirection: 'column' }}>
 								<div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-									<a
-										href={video.url}
-										target="_blank"
-										rel="noreferrer"
+									<div
+										type="button"
+										// href={video.url}
+										// target="_blank"
+										// rel="noreferrer"
 										className="file-link"
-										onClick={() => handleVideoClick(video.id)}
+										// onClick={() => handleVideoClick(video.id)}
+										onClick={() => handleOpenPreview(video)}
+										style={{
+										position: 'relative',
+										cursor: 'pointer',
+										display: 'inline-block',
+										flexShrink: 0,
+										borderRadius: '4px',
+										overflow: 'hidden'
+									}}
 									>
 										{video.name}
-									</a>
+									</div>
 									{showVisibilityBadge && (
 										<span
 											style={{

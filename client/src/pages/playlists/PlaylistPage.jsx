@@ -4,6 +4,7 @@ import { usePlaylistPage } from '../../hooks/usePlaylistPage';
 import DocumentPreviewModal from '../../components/DocumentPreviewModal';
 import ConfirmationModal from '../../components/ConfirmationModal';
 import ReportButton from '../../components/ReportButton';
+import UploadProgressModal from '../../components/UploadProgressModal';
 import Spinner from '../../components/Spinner';
 import { useTheme } from '../../context/ThemeContext';
 import '../../styles/style.css';
@@ -45,7 +46,8 @@ const PlaylistPage = () => {
 		handleRemoveMember,
 		handleAddClick,
 		handleFileChange,
-		handleDeleteFile
+		handleDeleteFile,
+		handleCancelUpload,
 	} = usePlaylistPage();
 
 	if (!playlistData) {
@@ -188,9 +190,25 @@ const PlaylistPage = () => {
 										</div>
 
 										<div style={{ display: 'flex', flexDirection: 'column' }}>
-											<a href={file.url} target="_blank" rel="noreferrer" className="file-link">
+											<div
+												type="button"
+												// href={video.url}
+												// target="_blank"
+												// rel="noreferrer"
+												className="file-link"
+												// onClick={() => handleVideoClick(video.id)}
+												onClick={() => setPreviewFile(file)}
+												style={{
+													position: 'relative',
+													cursor: 'pointer',
+													display: 'inline-block',
+													flexShrink: 0,
+													borderRadius: '4px',
+													overflow: 'hidden'
+												}}
+											>
 												{file.name}
-											</a>
+											</div>
 
 											{playingId === file.id && file.type?.startsWith('video/') && (
 												<video src={file.url} controls autoPlay style={{ width: '100%', maxWidth: '480px', marginTop: '8px', borderRadius: '4px' }} />
@@ -390,6 +408,14 @@ const PlaylistPage = () => {
 			)}
 
 			<DocumentPreviewModal file={previewFile} onClose={() => setPreviewFile(null)} />
+
+			{/* Upload Progress Modal – shown during active uploads (RC-214) */}
+			<UploadProgressModal
+				isOpen={uploading}
+				progress={uploadProgress}
+				fileName={fileInputRef.current?.files?.[0]?.name || ''}
+				onCancel={handleCancelUpload}
+			/>
 
 			<ConfirmationModal 
 				isOpen={!!confirmDelete}
