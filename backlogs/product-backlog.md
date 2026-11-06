@@ -5,8 +5,8 @@ permalink: /backlogs/product-backlog/
 ---
 Current Largest ID: RC-246
 
-Bear Down Product Owner: Kaleb Richardson
-Bear Down Scrum Master: Erick Hernandez
+Bear Down Product Owner: Edward Rodriguez
+Bear Down Scrum Master: Sebastian Jaculbe
 
 Red Dragon Product Owner: Jacob
 Red Dragon Scrum Master: Chloe
@@ -52,7 +52,6 @@ Red Dragon Scrum Master: Chloe
 | RC-133 | As a user, I want to receive notifications when classes I follow receive new content so that I can stay updated with important academic resources. | 7 | 5 | N | -- | -- |
 | RC-167 | As a product owner, I want to review the effectiveness of customer outreach activities so that future demonstrations and promotional efforts can focus on the most productive channels. | 7 | 3 | Y | -- | -- |
 | RC-169 | As a first time user, I want to be shown a tutorial or walkthrough of how the app works on my very first login so that I know how to utilize PitHub | 7 | 6 | N | -- | -- |
-| RC-217 | As a user, I want to open a video preview when I click on a video title so that I can watch the video without navigating through unnecessary pages. | 7 | 2 | N | -- | -- |
 | RC-220 | As a user, I want to upload custom thumbnails for documents and edit document details after uploading so that I can make my shared resources easier to identify and keep their information accurate. | 7 | 3 | N | -- | -- |
 | RC-095 | As a user, I want to edit and delete my notes so that I can keep my study materials accurate and updated. | 6 | 2 | N | -- | -- |
 | RC-098 | As a developer, I want the dashboard recommendation algorithm to display a balanced mix of videos and documents so that users are exposed to multiple forms of course content. | 6 | 4 | Y | -- | -- |
@@ -60,14 +59,14 @@ Red Dragon Scrum Master: Chloe
 | RC-108 | As a first-time user, I want tooltips and walkthrough prompts during onboarding so that I can learn platform features interactively. | 6 | 3 | N | -- | -- |
 | RC-112 | As a user, I want to organize notes and documents into folders within classes so that large amounts of content remain manageable. | 6 | 4 | N | -- | -- |
 | RC-114 | As a user, I want to receive notifications when my uploaded content is reported or removed so that I understand moderation actions affecting my account. | 6 | 2 | N | -- | -- |
-| RC-219 | As a user, I want to upload a custom thumbnail for my classes so that I can visually distinguish them from other classes. | 6 | 2 | N | -- | -- |
+| RC-219 | As a user, I want to upload a custom thumbnail for my classes so that I can visually distinguish them from other classes. | 6 | 4 | N | -- | -- |
 | RC-239 | As a user, I want a simple URL to PitHub so that I can easily remember how to access the website without consulting the development teams. | 6 | 3 | N | -- | -- |
-| RC-066 | As a user, I want to sort videos by upload date or title so that I can organize content based on preference. | 5 | 2 | N | -- | -- |
+| RC-066 | As a user, I want to sort videos by upload date or title so that I can organize content based on preference. | 5 | 3 | N | -- | -- |
 | RC-083 | As a user, I want to see recently viewed classes so that I can quickly return to them. | 5 | 2 | N | -- | -- |
 | RC-096 | As a user, I want notes to support basic formatting (bold, lists, headings) so that my notes are easier to read and organize. | 5 | 3 | N | -- | -- |
 | RC-106 | As a user, I want to receive notifications when I am invited to a class so that I can quickly respond to invitations. | 5 | 3 | N | -- | -- |
 | RC-109 | As a user, I want to skip or revisit the onboarding tutorial so that I can review platform guidance when needed. | 5 | 2 | N | -- | -- |
-| RC-115 | As a developer, I want to create analytics for uploads, downloads, and views so that platform engagement can be measured. | 5 | 5 | Y | -- | -- |
+| RC-115 | As a developer, I want to create analytics for uploads, downloads, and views so that platform engagement can be measured. | 5 | 3 | Y | -- | -- |
 | RC-178 | As a user, I want to be able to mark uploaded documents or videos as watch later so that I can view them at a later date | 5 | 6 | N | -- | -- |
 | RC-180 | As a user, I want to be able to set an expiration for uploaded documents so that they do not stay on the platform for longer than intended or needed. | 5 | 7 | N | -- | -- |
 | RC-195 | As a new developer (Java), I want to add my information to the Contact Page so that users are able to see PitHub's current developers | 5 | 1 | Y | -- | -- |
@@ -84,17 +83,29 @@ Red Dragon Scrum Master: Chloe
 | RC-242 | As a new developer, I want to coordinate how our team can help the Capstone team's Celebration of Scholarship Lite so that we can participate and support the Capstone team. | 5 | 1 | Y | -- | -- |
 | RC-046 | As a user, I want to filter videos by date and class so that I can narrow down content efficiently. | 4 | 2 | N | -- | -- |
 | RC-053 | As a user, I want to edit video metadata (title, description, visibility) so that my content remains accurate. | 4 | 2 | N | -- | -- |
-| RC-070 | As a user, I want to rename uploaded documents so that file names remain meaningful. | 4 | 1 | N | -- | -- |
+| RC-070 | As a user, I want to rename uploaded documents so that file names remain meaningful. | 4 | 3 | N | -- | -- |
 | RC-071 | As a user, I want to see file sizes before downloading so that I can manage bandwidth usage. | 4 | 1 | N | -- | -- |
 | RC-218 | As a product owner, I want to meet with Dr. Klump to discuss Lewis University's potential takeover of Firebase payment responsibilities so that the team can determine a sustainable plan for PitHub's hosting and operating costs. | 9 | 3 | Y | -- | -- |
-| RC-219 | As a user, I want to upload a custom thumbnail for my classes so that I can visually distinguish them from other classes. | 6 | 2 | N | -- | -- |
+| RC-219 | As a user, I want to upload a custom thumbnail for my classes so that I can visually distinguish them from other classes. | 6 | 4 | N | -- | -- |
 | RC-220 | As a user, I want to upload custom thumbnails for documents and edit document details after uploading so that I can make my shared resources easier to identify and keep their information accurate. | 7 | 3 | N | -- | -- |
 | RC-222 | As the original development team, I want to evaluate options for PitHub after the current semester, including open-sourcing the project, so that we can establish a sustainable future for the platform. | 9 | 5 | Y | -- | -- |
-| RC-223 | As a system administrator, I want to create separate administrator accounts for developers so that administrative responsibilities can be managed independently. | 9 | 4 | N | -- | -- |
 | RC-234 | As a developer, I want to research the process of transitioning PitHub into an open-source project so that developers outside of Lewis University can access, contribute to, and maintain the platform. | 10 | 4 | Y | -- | -- |
 | RC-235 | As a project maintainer, I want to establish contribution guidelines and development standards so that future Capstone and Software Engineering teams can contribute code consistently. | 10 | 3 | N | -- | -- |
 | RC-236 | As a future Capstone or Software Engineering student, I want to have access to clear project documentation and setup instructions so that I can begin contributing to PitHub without depending on previous development teams. | 10 | 4 | N | -- | -- |
-| RC-243 | As a developer, I want to implement automatic cleanup of abandoned or incomplete uploads so that unnecessary files do not take up Firebase Storage space. | 8 | 3 | N | -- | -- |
+| RC-243 | As a user, I want PitHub to automatically cleanup my abandoned or incomplete uploads so that unnecessary files do not take up Firebase Storage space. | 8 | 3 | N | -- | -- |
 | RC-244 | As a developer, I want to research and implement a content migration process so that PitHub's videos, documents, and database records can be transferred between Firebase projects if needed. | 9 | 5 | Y | -- | -- |
 | RC-245 | As a project maintainer, I want to select an appropriate open-source license for PitHub so that outside developers understand how they are allowed to use, modify, and distribute the project. | 10 | 2 | Y | -- | -- |
-| RC-246 | As a user, I want to search for playlists by name so that I can quickly find playlists that have been shared with me. | 6 | 2 | N | -- | -- |
+| RC-246 | As a user, I want to search for playlists by name so that I can quickly find playlists that have been shared with me. | 6 | 3 | N | -- | -- |
+| RC-247 | As a system administrator (Kevin), I want to create a separate administrator account so that I can manager administrative responsibilities independently. | 9 | 2 | N | -- | -- |
+| RC-248 | As a system administrator (Erick), I want to create a separate administrator account so that I can manager administrative responsibilities independently. | 9 | 2 | N | -- | -- |
+| RC-249 | As a system administrator (Sebastian), I want to create a separate administrator account so that I can manager administrative responsibilities independently. | 9 | 2 | N | -- | -- |
+| RC-250 | As a system administrator (Edward), I want to create a separate administrator account so that I can manager administrative responsibilities independently. | 9 | 2 | N | -- | -- |
+| RC-251 | As a system administrator (Kaleb), I want to create a separate administrator account so that I can manager administrative responsibilities independently. | 9 | 2 | N | -- | -- |
+| RC-252 | As a potential user, I want to view a Product Poster for PitHub for the ECaMS Connect event on Friday, December 4 so that I have a visual guide for the product. | 6 | 4 | N | -- | -- |
+| RC-253 | As a user, I want to be able to edit my Profile Page so that I can display meaningful information for other users to view. | 6 | 4 | N | -- | -- |
+| RC-254 | As a user, I want to be able to edit my Profile Page's background image so that I can personalize my profile with an image that reflects my interests or personality. | 6 | 4 | N | -- | -- |
+| RC-255 | As a user, I want to view a subscription webpage that displays the available subscription plans and their features so that I can compare subscription options and understand the benefits of each plan before making a decision. | 6 | 4 | N | -- | -- |
+| RC-256 | As a user, I want to view and manage my allocated storage space through my Profile Page or Settings Page so that I can monitor my storage usage and manage my stored files effectively. | 6 | 4 | N | -- | -- |
+| RC-257 | As a user, I want the PitHub's user interface for the buttons to be consistent all throughout different pages so that I can easily recognize and interact with buttons, providing a seamless and intuitive user experience throughout the application. | 6 | 4 | N | -- | -- |
+| RC-258 | As a developer, I want to intialize the set up for separating the Dev database from the Main database so testing does not affect real user data uploaded on PitHub. | 6 | 5 | N | -- | -- |
+
