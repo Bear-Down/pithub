@@ -108,4 +108,7 @@ Red Dragon Scrum Master: Chloe
 | RC-256 | As a user, I want to view and manage my allocated storage space through my Profile Page or Settings Page so that I can monitor my storage usage and manage my stored files effectively. | 6 | 4 | N | -- | -- |
 | RC-257 | As a user, I want the PitHub's user interface for the buttons to be consistent all throughout different pages so that I can easily recognize and interact with buttons, providing a seamless and intuitive user experience throughout the application. | 6 | 4 | N | -- | -- |
 | RC-258 | As a developer, I want to intialize the set up for separating the Dev database from the Main database so testing does not affect real user data uploaded on PitHub. | 6 | 5 | N | -- | -- |
-
+| RC-259 | As a Product Owner, I want to coordinate Product Backlog refinement and Sprint Planning across product teams so that priorities, requirements, and sprint commitments remain aligned across all teams. | 9 | 4 | Y | -- | -- |
+| RC-260 | As a Product Owner, I want to document a coaching plan for the Software Engineering team's Sprint 7 Planning session so that the team can effectively define sprint goals, estimate work, and establish realistic sprint commitments. | 8 | 3 | Y | -- | -- |
+| RC-261 | As a Product Owner, I want to coordinate all team members' participation in ECaMS Connect so that the team can effectively represent PitHub, showcase the product, and engage with stakeholders and potential users. | 8 | 4 | N | -- | -- |
+| RC-262 | As a Product Owner, I want to review and validate the list of product assets to be transitioned from the Capstone team during Sprint 7 so that all necessary assets are accounted for and the product transition is completed smoothly. | 9 | 3 | Y | -- | -- |
