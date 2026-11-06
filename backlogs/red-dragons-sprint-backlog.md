@@ -9,8 +9,8 @@ Sprint 6 Scrum Master: Chloe
 Sprint 7 Product Owner: Chloe
 Sprint 7 Scrum Master: Java
 
-Sprint Planning completed 
-Attended by 
+Sprint Planning completed 11/5
+Attended by Jacob, Java, Josh, Chloe
 
 # 📋 Sprint Backlog – *Pithub*
 
@@ -20,16 +20,22 @@ Attended by
 | RC-241 | As a new developer, I want to coordinate the transfer of assets from the old team to the new team so that we can continue support for the product into the future. | 8 | 3 | Y | In-Progress | Jacob |
 | RC-111 | As a user, I want to pin important videos, notes, or documents within a class so that critical resources remain easy to access. | 6 | 2 | N | In-Progress | Jacob |
 | RC-221 | As a user, I want to add and edit descriptions for uploaded files so that other users can understand the contents and purpose of a document before opening or downloading it. | 7 | 2 | N | In-Progress | Jacob |
-| RC-151 | As a user, I want to do a usability review of the interface so that confusing workflows and unnecessary steps can be identified and possible added as a story for future development. | 8 | 3 | N | In-Progress | Java |
-| RC-247 | As a user, I want to watch video on the same page so that I don't get redirected to a new page. | 8 | 6 | N | In-Progress | Java |
-| RC-229 | As a Scrum Master, I want to coordinate Sprint 5 backlog grooming and sprint planning across the Software Engineering and Capstone teams so that both teams have prioritized, refined, and actionable sprint backlogs. | 9 | 2 | N | In-Progress | Chloe |
+| RC-264 | As a product owner, I want to coordinate the Product Backlog across teams so that there is no conflict with development and the user experience stays consistent. | 8 | 1 | N | In-Progress | Jacob |
+| RC-265 | As a product owner I want to include Percent Spikes in our metrics for individual team members and the overall team so that we can monitor spike usage  and encourage delivering more direct value to users.| 8 | 1 | N | In-Progress | Jacob |
+| RC-151 | As a user, I want to do a usability review of the interface so that confusing workflows and unnecessary steps can be identified and possible added as a story for future development. | 8 | 6 | N | In-Progress | Java |
+| RC-263 | As a user, I want to watch video on the same page so that I don't get redirected to a new page. | 8 | 3 | N | In-Progress | Java |
+| RC-229 | As a Scrum Master, I want to coordinate Sprint 5 backlog grooming and sprint planning across the Software Engineering and Capstone teams so that both teams have prioritized, refined, and actionable sprint backlogs.| 9 | 2 | N | In-Progress | Chloe |
 | RC-097 | As a developer, I want to create an algorithm that prioritizes recently uploaded and frequently viewed content on the dashboard so that users can quickly access relevant materials. | 7 | 3 | Y | In-Progress | Chloe |
 | RC-107 | As a first-time user, I want to see an onboarding tutorial so that I can understand how to navigate and use PitHub effectively. | 7 | 4 | N | In-Progress | Chloe |
-| RC-216 | As a user, I want to be able to share a direct link to a video or document by clicking a share button so that I can easily send resources to other people. | 4 | 4 | N | In-Progress | Josh | 
+| RC-196 | As a new developer (Chloe), I want to add my information to the Contact Page so that users are able to see PitHub's current developers | 5 | 1 | Y | In-Progress | Chloe |
+| RC-200 | As a new developer (Chloe), I want to add my information to the TEAM.md file so that PitHub documentation is up to date with regards to its development team | 5 | 1 | Y | In-Progress | Chloe |
+| RC-266 | As a developer, I want to move the consolidated Product Backlog to the "Stories" product by the end of the Sprint 7 so  that backlog management is more convenient and more time and effort can go towards developing direct value for users | 8 | 1 | N | In-Progress | Chloe |
+| RC-216 | As a user, I want to be able to share a direct link to a video or document by clicking a share button so that I can easily send resources to other people. | 4 | 4 | N | In-Progress | Josh |
 | RC-159 | As a developer, I want to create a customer feedback survey for existing users so that satisfaction with PitHub's current functionality can be measured. | 8 | 2 | Y | In-Progress | Josh |
+| RC-160 | As a product owner, I want to identify the most common reasons users stop using PitHub so that the team can prioritize improvements that address user retention concerns. | 8 | 3 | Y | In-Progress | Josh | 
+| RC-198 | As a new developer (Josh), I want to add my information to the TEAM.md file so that PitHub documentation is up to date with regards to its development team | 5 | 1 | Y | In-Progress | Josh |
 
+Individiual Capacity: 8 Story Points
+Team Capacity: 32 Story Points
 
-Individiual Capacity: 6 Story Points
-Team Capacity: 24 Story Points
-
-Story Points:  points
+Story Points:  40 points
