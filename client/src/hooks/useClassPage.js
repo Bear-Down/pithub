@@ -36,6 +36,9 @@ export const useClassPage = () => {
     const [uploadError, setUploadError] = useState(null);
     const [showUploadSuccess, setShowUploadSuccess] = useState(false);
     const [lastUploadedFile, setLastUploadedFile] = useState('');
+    const [uploadingName, setUploadingName] = useState('');
+    const [uploadIndex, setUploadIndex] = useState(0);
+    const [uploadTotal, setUploadTotal] = useState(0);
     const [isEditingClass, setIsEditingClass] = useState(false);
     const [classEditData, setClassEditData] = useState({
         instructor: '',
@@ -157,15 +160,24 @@ export const useClassPage = () => {
     };
 
     const handleFileChange = async (event) => {
-        const file = event.target.files[0];
-        if (file) {
-            try {
-                setUploading(true);
+        const selectedFiles = Array.from(event.target.files || []);
+        if (selectedFiles.length === 0) return;
+
+        const uploadedNames = [];
+
+        try {
+            setUploading(true);
+            setUploadTotal(selectedFiles.length);
+
+            for (let i = 0; i < selectedFiles.length; i++) {
+                const file = selectedFiles[i];
+                setUploadIndex(i + 1);
+                setUploadingName(file.name);
                 setUploadProgress(0);
-                
+
                 let thumbnailUrl = null;
                 let thumbnailPath = null;
-                
+
                 const storagePath = `classes/${classId}/${Date.now()}_${file.name}`;
                 const storageRef = ref(storage, storagePath);
                 const uploadTask = uploadBytesResumable(storageRef, file, { contentType: file.type });
@@ -215,29 +227,36 @@ export const useClassPage = () => {
                     );
                 });
 
-                setLastUploadedFile(file.name);
-                setShowUploadSuccess(true);
-            } catch (error) {
-                // Do not show an error if the user cancelled the upload
-                if (error.code === 'storage/canceled') {
-                    console.log("Upload cancelled by user.");
-                    return;
-                }
-
-                console.error("Firebase Upload Error:", error);
-                let errorMessage = `Upload failed: ${error.message}`;
-                if (error.message.includes('net::ERR_CONNECTION_REFUSED') || error.code === 'storage/retry-limit-exceeded' || error.code === 'unavailable') {
-                    errorMessage = "Connection Refused: Ensure your Firebase Emulators are running (npm run dev) and you are not blocked by a firewall/VPN.";
-                } else if (error.code === 'storage/unauthorized') {
-                    errorMessage = "Permission Denied: Update your Firebase Storage Rules in the console.";
-                }
-                setUploadError(errorMessage);
-            } finally {
-                uploadTaskRef.current = null;
-                setUploading(false);
-                setUploadProgress(0);
-                event.target.value = null;
+                uploadedNames.push(file.name);
             }
+
+            setLastUploadedFile(uploadedNames.length === 1 ? uploadedNames[0] : `${uploadedNames.length} files`);
+            setShowUploadSuccess(true);
+        } catch (error) {
+            // Do not show an error if the user cancelled the upload
+            if (error.code === 'storage/canceled') {
+                console.log("Upload cancelled by user.");
+                return;
+            }
+
+            console.error("Firebase Upload Error:", error);
+            let errorMessage = `Upload failed: ${error.message}`;
+            if (error.message.includes('net::ERR_CONNECTION_REFUSED') || error.code === 'storage/retry-limit-exceeded' || error.code === 'unavailable') {
+                errorMessage = "Connection Refused: Ensure your Firebase Emulators are running (npm run dev) and you are not blocked by a firewall/VPN.";
+            } else if (error.code === 'storage/unauthorized') {
+                errorMessage = "Permission Denied: Update your Firebase Storage Rules in the console.";
+            }
+            if (uploadedNames.length > 0) {
+                errorMessage += ` (${uploadedNames.length} of ${selectedFiles.length} files finished uploading before this error.)`;
+            }
+            setUploadError(errorMessage);
+        } finally {
+            uploadTaskRef.current = null;
+            setUploading(false);
+            setUploadProgress(0);
+            setUploadIndex(0);
+            setUploadTotal(0);
+            event.target.value = null;
         }
     };
 
@@ -318,6 +337,9 @@ export const useClassPage = () => {
         classData,
         uploading,
         uploadProgress,
+        uploadingName,
+        uploadIndex,
+        uploadTotal,
         confirmDelete,
         setConfirmDelete,
         uploadError,

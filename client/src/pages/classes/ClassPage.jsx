@@ -16,6 +16,9 @@ const ClassPage = () => {
 		classData,
 		uploading,
 		uploadProgress,
+		uploadingName,
+		uploadIndex,
+		uploadTotal,
 		confirmDelete,
 		setConfirmDelete,
 		uploadError,
@@ -74,6 +77,7 @@ const ClassPage = () => {
 			ref={fileInputRef} 
 			style={{ display: 'none' }} 
 			onChange={handleFileChange}
+			multiple
 			accept="video/*,.mp4,.mov,.webm,.avi,.mkv,.flv,
 			.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.rtf,.html,.htm,
 			.jpg, .jpeg, .png, .gif, .bmp, .webp"
@@ -386,7 +390,7 @@ const ClassPage = () => {
 		<UploadProgressModal
 			isOpen={uploading}
 			progress={uploadProgress}
-			fileName={fileInputRef.current?.files?.[0]?.name || ''}
+			fileName={uploadTotal > 1 ? `${uploadingName} (${uploadIndex} of ${uploadTotal})` : uploadingName}
 			onCancel={handleCancelUpload}
 		/>
 
@@ -444,7 +448,7 @@ const ClassPage = () => {
 			isOpen={showUploadSuccess}
 			title="Upload Complete"
 			message={
-				<>Your file <strong><>{lastUploadedFile}</></strong> has been successfully uploaded and is now available for the class.</>
+				<>Your upload <strong><>{lastUploadedFile}</></strong> finished successfully and is now available for the class.</>
 			}
 			confirmText="Done"
 			onConfirm={() => setShowUploadSuccess(false)}
