@@ -39,7 +39,7 @@ const UploadsPage = () => {
 				<p style={{ color: 'var(--text-muted)', marginBottom: '20px' }}>
 					Showing all personal file and video uploads across your account regardless of class.
 				</p>
-				<VideoList userOnly={true} showVisibilityBadge={true} showClassLink={true} />
+				<VideoList userOnly={true} showVisibilityBadge={true} showClassLink={true} showSort={true} />
 				<UploadProgressModal
 					isOpen={uploading}
 					progress={uploadProgress}

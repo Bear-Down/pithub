@@ -8,8 +8,8 @@ import FavoriteButton from './FavoriteButton';
 import { doc, updateDoc, increment } from 'firebase/firestore';
 import { db } from "../lib/firebase";
 
-export default function VideoList({ userOnly = false, showClassLink = true, showVisibilityBadge = false } = {}) {
-	const { videos, loading, error, nextPage, prevPage, page, hasNext } = useVideos({ userOnly });
+export default function VideoList({ userOnly = false, showClassLink = true, showVisibilityBadge = false, showSort = false } = {}) {
+	const { videos, loading, error, nextPage, prevPage, page, hasNext, sortBy, changeSort } = useVideos({ userOnly });
 	const { theme } = useTheme();
 	const [hoverPrev, setHoverPrev] = useState(false);
 	const [hoverNext, setHoverNext] = useState(false);
@@ -42,6 +42,20 @@ export default function VideoList({ userOnly = false, showClassLink = true, show
 
 	return (
 		<>
+			{showSort && (
+				<div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '10px' }}>
+					<select
+						value={sortBy}
+						onChange={(e) => changeSort(e.target.value)}
+						style={{ padding: '6px 10px', borderRadius: '4px', border: '1px solid var(--border-color)', backgroundColor: 'var(--input-bg)', color: 'var(--text-main)', cursor: 'pointer' }}
+					>
+						<option value="newest">Newest first</option>
+						<option value="oldest">Oldest first</option>
+						<option value="title-asc">Title A–Z</option>
+						<option value="title-desc">Title Z–A</option>
+					</select>
+				</div>
+			)}
 			<ul className="file-list">
 				{videos.map((video) => (
 					<li key={video.id} className="file-item">
