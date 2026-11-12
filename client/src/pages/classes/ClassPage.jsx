@@ -7,6 +7,7 @@ import { useClassPage } from '../../hooks/useClassPage';
 import { doc, updateDoc, increment } from 'firebase/firestore';
 import { db } from '../../lib/firebase';
 import FavoriteButton from '../../components/FavoriteButton';
+import InputModal from '../../components/InputModal';
 
 const ClassPage = () => {
 	const {
@@ -19,6 +20,8 @@ const ClassPage = () => {
 		uploadingName,
 		uploadIndex,
 		uploadTotal,
+		updateDescription,
+		setUpdateDescription,
 		confirmDelete,
 		setConfirmDelete,
 		uploadError,
@@ -32,6 +35,7 @@ const ClassPage = () => {
 		setClassEditData,
 		handleAddClick,
 		handleFileChange,
+		handleUpdateDescription,
 		handleDeleteFile,
 		handleUpdateClass,
 		handleToggleVisibility,
@@ -390,6 +394,14 @@ const ClassPage = () => {
 						{file.type ? (file.type.split('/')[1]?.toUpperCase() || 'FILE') : 'FILE'}
 					</span>
 					</div>
+
+					{/* Button used to update file description, only shows for file owner */}
+					{user?.uid === file.ownerId && (
+						<button onClick={() => setUpdateDescription(file)} style={{ backgroundColor: '#ff4d4d', color: 'white', border: 'none', borderRadius: '4px', padding: '4px 10px', cursor: 'pointer', fontSize: '0.8rem', marginRight: '20px'}}>
+							Edit Description
+						</button>
+					)}
+
 					{user?.uid === file.ownerId ? (
 					<button onClick={() => setConfirmDelete(file)} style={{ backgroundColor: '#ff4d4d', color: 'white', border: 'none', borderRadius: '4px', padding: '4px 10px', cursor: 'pointer', fontSize: '0.8rem' }}>
 						Delete
@@ -448,6 +460,19 @@ const ClassPage = () => {
 			confirmText="I Understand"
 			onConfirm={() => setShowProfileWarning(false)}
 			onCancel={() => setShowProfileWarning(false)}
+		/>
+
+		{/* Input modal used to add a description to a file. */}
+		<InputModal
+			isOpen={!!updateDescription}
+			title="Edit Description"
+			placeholder={'Description'}
+			initialValue={updateDescription?.description === undefined ? '' : updateDescription?.description}
+			onConfirm={(inputValue) => {
+				handleUpdateDescription(updateDescription?.id, inputValue)
+				setUpdateDescription(null)
+			}}
+			onCancel={() => setUpdateDescription(null)}
 		/>
 
 		<ConfirmationModal 

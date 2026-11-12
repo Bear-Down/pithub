@@ -32,6 +32,7 @@ export const useClassPage = () => {
     const [classData, setClassData] = useState(null);
     const [uploading, setUploading] = useState(false);
     const [uploadProgress, setUploadProgress] = useState(0);
+    const [updateDescription, setUpdateDescription] = useState(null);
     const [confirmDelete, setConfirmDelete] = useState(null);
     const [uploadError, setUploadError] = useState(null);
     const [showUploadSuccess, setShowUploadSuccess] = useState(false);
@@ -260,6 +261,22 @@ export const useClassPage = () => {
         }
     };
 
+    // Function for handling description updates
+    const handleUpdateDescription = async (file, newDesc) => {
+        try
+        {
+            // Get document from Firestore and update description field
+            const docRef = await doc(db, 'files', file)
+            await updateDoc(docRef, {description: `${newDesc}`})
+        }
+        catch (err)
+        {
+            // Print errors to console + alert user
+            console.error('Failure to update description:', err.message)
+            alert(`Failed to update description: ${err.message}`)
+        }
+    }
+
     const handleDeleteFile = async (file) => {
         try {
             const storageRef = file.storagePath ? ref(storage, file.storagePath) : ref(storage, file.url);
@@ -340,6 +357,8 @@ export const useClassPage = () => {
         uploadingName,
         uploadIndex,
         uploadTotal,
+        updateDescription,
+        setUpdateDescription,
         confirmDelete,
         setConfirmDelete,
         uploadError,
@@ -353,6 +372,7 @@ export const useClassPage = () => {
         setClassEditData,
         handleAddClick,
         handleFileChange,
+        handleUpdateDescription,
         handleDeleteFile,
         handleUpdateClass,
         handleToggleVisibility,
