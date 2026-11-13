@@ -94,6 +94,7 @@ export const useClassList = () => {
 				ownerName: user.displayName,
 				createdAt: serverTimestamp(),
 				visibility: 'private', // Default to private
+				backgroundColor: '#C22033',
 				displayConfig: {
 					showInstructor: true,
 					showOffice: true,

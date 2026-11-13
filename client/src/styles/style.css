@@ -431,15 +431,18 @@ footer {
 .class-card {
     background-color: var(--bg-secondary);
     border: 1px solid var(--border-color);
-    border-radius: 0px;
+    border-radius: 12px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s, background-color 0.3s ease;
     position: relative;
-    padding: 18px;
+    padding: 0;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
     box-sizing: border-box;
+    min-height:190px;
+    cursor: pointer;
+    overflow: hidden;
 }
 
 .class-card:hover {
@@ -448,12 +451,54 @@ footer {
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.12);
 }
 
+/* Top half of class card (customizable banner/background area) */
+.class-card-top {
+    position: relative;
+    padding: 16px 18px 12px 18px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 12px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: background-color 0.3s ease;
+}
+
+/* Overlays for readable text over background image or solid color */
+.class-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.72) 100%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.class-card-overlay-color {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.06) 0%, rgba(0, 0, 0, 0.32) 100%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.class-card-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    gap: 10px;
+}
+
 .class-card-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     gap: 10px;
-    margin-bottom: 12px;
+    margin-bottom: 6px;
 }
 
 .class-card h3 {
@@ -462,6 +507,38 @@ footer {
     margin: 0;
     font-weight: 700;
     word-break: break-word;
+}
+
+/* Small edit icon button next to class name */
+.class-rename-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    padding: 3px 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    color: var(--text-muted);
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.class-rename-btn:hover {
+    color: var(--brand-color);
+    background-color: var(--bg-primary);
+    transform: scale(1.15);
+}
+
+.class-rename-btn.custom-bg {
+    color: #ffffff;
+    opacity: 0.85;
+}
+
+.class-rename-btn.custom-bg:hover {
+    opacity: 1;
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.25);
 }
 
 .class-doc-count {
@@ -473,25 +550,48 @@ footer {
     background-color: var(--bg-primary);
     padding: 4px 10px;
     border-radius: 12px;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     width: fit-content;
+    transition: all 0.2s ease;
 }
 
 .class-card-footer {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     gap: 10px;
     margin-top: auto;
-    padding-top: 10px;
+    padding: 10px 18px;
+    background-color: var(--bg-secondary);
     border-top: 1px solid var(--border-soft);
+    position: relative;
+    z-index: 2;
+}
+
+.customize-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background-color: var(--bg-primary);
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.customize-btn:hover {
+    background-color: var(--border-color);
 }
 
 /* Stacked List Item Specifics */
 .class-list-item {
     background-color: var(--bg-secondary);
     border: 1px solid var(--border-color);
-    border-radius: 0px;
+    border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -499,6 +599,7 @@ footer {
     gap: 16px;
     transition: all 0.2s ease;
     box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+    cursor: pointer;
 }
 
 .class-list-item:hover {

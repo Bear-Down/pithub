@@ -193,7 +193,8 @@ export const useProfilePage = () => {
 					ownerId: user.uid,
 					ownerName: user.displayName || 'Anonymous',
 					createdAt: serverTimestamp(),
-					visibility: 'private'
+					visibility: 'private',
+					backgroundColor: '#C22033'
 				});
 			} else if (inputModal.mode === 'edit' && inputModal.data) {
 				const classRef = doc(db, 'classes', inputModal.data.id);
