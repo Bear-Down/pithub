@@ -431,7 +431,7 @@ footer {
 .class-card {
     background-color: var(--bg-secondary);
     border: 1px solid var(--border-color);
-    border-radius: 12px;
+    border-radius: 0px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
