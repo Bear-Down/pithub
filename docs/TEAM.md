@@ -24,7 +24,8 @@ Our teams follow Scrum while maintaining a collaborative, self-organizing struct
 | Edward Rodriguez | Developer | Frontend/backend development, Firebase integration, testing, and debugging | Bear Down |
 | Kaleb Richardson | Developer / QA | Feature development, testing, debugging, and documentation | Bear Down |
 | Jacob Mysliwiec | Scrum Master / Developer | Scrum facilitation, team coordination, development, and implementation | RedDragons |
-
+| Mirjavkhar Djavkharov | Developer | Frontend/backend development, feature implementation, testing, and documentation | RedDragons |
+| Chloe Washington | Developer| Frontend/backend development, feature implementation, testing, and documentation | RedDragons |
 > Our Scrum roles and development responsibilities are separate. All members are expected to contribute to development, testing, and review whenever appropriate.
 
 ---

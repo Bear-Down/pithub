@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import ConfirmationModal from '../../components/ConfirmationModal';
 import ReportButton from '../../components/ReportButton';
 import DocumentPreviewModal from '../../components/DocumentPreviewModal';
@@ -7,6 +7,7 @@ import { useClassPage } from '../../hooks/useClassPage';
 import { doc, updateDoc, increment } from 'firebase/firestore';
 import { db } from '../../lib/firebase';
 import FavoriteButton from '../../components/FavoriteButton';
+import InputModal from '../../components/InputModal';
 
 const ClassPage = () => {
 	const {
@@ -16,6 +17,11 @@ const ClassPage = () => {
 		classData,
 		uploading,
 		uploadProgress,
+		uploadingName,
+		uploadIndex,
+		uploadTotal,
+		updateDescription,
+		setUpdateDescription,
 		confirmDelete,
 		setConfirmDelete,
 		uploadError,
@@ -29,6 +35,7 @@ const ClassPage = () => {
 		setClassEditData,
 		handleAddClick,
 		handleFileChange,
+		handleUpdateDescription,
 		handleDeleteFile,
 		handleUpdateClass,
 		handleToggleVisibility,
@@ -43,6 +50,19 @@ const ClassPage = () => {
 	const [showProfileWarning, setShowProfileWarning] = useState(false);
 	const [confirmClassPrivacyChange, setConfirmClassPrivacyChange] = useState(false);
 	const [previewFile, setPreviewFile] = useState(null);
+	const [sortBy, setSortBy] = useState('newest');
+
+	const sortedFiles = useMemo(() => {
+		const time = (f) => f.createdAt?.toMillis?.() ?? Number.MAX_SAFE_INTEGER;
+		const byTitle = (a, b) => (a.name || '').localeCompare(b.name || '', undefined, { sensitivity: 'base', numeric: true });
+		const list = [...files];
+		switch (sortBy) {
+			case 'oldest': return list.sort((a, b) => time(a) - time(b));
+			case 'title-asc': return list.sort(byTitle);
+			case 'title-desc': return list.sort((a, b) => byTitle(b, a));
+			default: return list.sort((a, b) => time(b) - time(a));
+		}
+	}, [files, sortBy]);
 
 	const handleFileClick = async (fileId) => {
 		try {
@@ -74,6 +94,7 @@ const ClassPage = () => {
 			ref={fileInputRef} 
 			style={{ display: 'none' }} 
 			onChange={handleFileChange}
+			multiple
 			accept="video/*,.mp4,.mov,.webm,.avi,.mkv,.flv,
 			.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.rtf,.html,.htm,
 			.jpg, .jpeg, .png, .gif, .bmp, .webp"
@@ -281,10 +302,20 @@ const ClassPage = () => {
 		<section className="class-content">
 			<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
 				<h2>Class Files & Videos</h2>
+				<select
+					value={sortBy}
+					onChange={(e) => setSortBy(e.target.value)}
+					style={{ padding: '6px 10px', borderRadius: '4px', border: '1px solid var(--border-color)', backgroundColor: 'var(--input-bg)', color: 'var(--text-main)', cursor: 'pointer' }}
+				>
+					<option value="newest">Newest first</option>
+					<option value="oldest">Oldest first</option>
+					<option value="title-asc">Title A–Z</option>
+					<option value="title-desc">Title Z–A</option>
+				</select>
 			</div>
 			<ul className="file-list">
 			{files.length > 0 ? (
-				files.map((file) => (
+				sortedFiles.map((file) => (
 				<li key={file.id} className="file-item">
 					<div className="file-info" style={{ display: 'flex', alignItems: 'center', gap: '15px', flex: 1 }}>
 						{/* Thumbnail with preview indicator */}
@@ -363,6 +394,14 @@ const ClassPage = () => {
 						{file.type ? (file.type.split('/')[1]?.toUpperCase() || 'FILE') : 'FILE'}
 					</span>
 					</div>
+
+					{/* Button used to update file description, only shows for file owner */}
+					{user?.uid === file.ownerId && (
+						<button onClick={() => setUpdateDescription(file)} style={{ backgroundColor: '#ff4d4d', color: 'white', border: 'none', borderRadius: '4px', padding: '4px 10px', cursor: 'pointer', fontSize: '0.8rem', marginRight: '20px'}}>
+							Edit Description
+						</button>
+					)}
+
 					{user?.uid === file.ownerId ? (
 					<button onClick={() => setConfirmDelete(file)} style={{ backgroundColor: '#ff4d4d', color: 'white', border: 'none', borderRadius: '4px', padding: '4px 10px', cursor: 'pointer', fontSize: '0.8rem' }}>
 						Delete
@@ -386,7 +425,7 @@ const ClassPage = () => {
 		<UploadProgressModal
 			isOpen={uploading}
 			progress={uploadProgress}
-			fileName={fileInputRef.current?.files?.[0]?.name || ''}
+			fileName={uploadTotal > 1 ? `${uploadingName} (${uploadIndex} of ${uploadTotal})` : uploadingName}
 			onCancel={handleCancelUpload}
 		/>
 
@@ -423,6 +462,19 @@ const ClassPage = () => {
 			onCancel={() => setShowProfileWarning(false)}
 		/>
 
+		{/* Input modal used to add a description to a file. */}
+		<InputModal
+			isOpen={!!updateDescription}
+			title="Edit Description"
+			placeholder={'Description'}
+			initialValue={updateDescription?.description === undefined ? '' : updateDescription?.description}
+			onConfirm={(inputValue) => {
+				handleUpdateDescription(updateDescription?.id, inputValue)
+				setUpdateDescription(null)
+			}}
+			onCancel={() => setUpdateDescription(null)}
+		/>
+
 		<ConfirmationModal 
 			isOpen={!!confirmDelete}
 			title="Remove File?"
@@ -444,7 +496,7 @@ const ClassPage = () => {
 			isOpen={showUploadSuccess}
 			title="Upload Complete"
 			message={
-				<>Your file <strong><>{lastUploadedFile}</></strong> has been successfully uploaded and is now available for the class.</>
+				<>Your upload <strong><>{lastUploadedFile}</></strong> finished successfully and is now available for the class.</>
 			}
 			confirmText="Done"
 			onConfirm={() => setShowUploadSuccess(false)}

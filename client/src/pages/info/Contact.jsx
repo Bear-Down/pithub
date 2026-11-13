@@ -8,6 +8,8 @@ import kalebImg from '../../assets/members/kaleb-800-by-800.jpg';
 import kevinImg from '../../assets/members/kevin-800-by-800.jpg';
 import sebastianImg from '../../assets/members/sebastian-800-by-800.jpg';
 import jacobImg from '../../assets/members/jacob-800-by-800.jpg';
+import joshImg from '../../assets/members/josh-800-by-800.jpg';
+import mirjavkharImg from '../../assets/members/mirjavkhar-800-by-800.jpg';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../../lib/firebase';
 import { useAuth } from '../../context/AuthContext';
@@ -58,6 +60,18 @@ const teamGroups = [
                 role: 'Current Developer',
                 email: 'jacobmmysliwiec@lewisu.edu',
                 image: jacobImg
+            },
+            {
+                name: 'Josh Salazar',
+                role: 'Current Developer',
+                email: 'joshsalazar@lewisu.edu',
+                image: joshImg
+            },
+            {
+                name: 'Mirjavkhar Djavkharov',
+                role: 'Current Developer',
+                email: 'mirjavkhardjavkhar@lewisu.edu',
+                image: mirjavkharImg
             }
         ]
     }

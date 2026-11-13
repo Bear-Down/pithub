@@ -3,6 +3,13 @@ import { collection, query, orderBy, limit, onSnapshot, startAfter, where } from
 import { db } from "../lib/firebase";
 import { useAuth } from "../context/AuthContext";
 
+const SORT_OPTIONS = {
+	newest: ['createdAt', 'desc'],
+	oldest: ['createdAt', 'asc'],
+	'title-asc': ['name', 'asc'],
+	'title-desc': ['name', 'desc'],
+};
+
 export function useVideos({ userOnly = false } = {}) {
 	const { user } = useAuth();
 	const [videos, setVideos] = useState([]);
@@ -12,6 +19,7 @@ export function useVideos({ userOnly = false } = {}) {
 	const [hasNext, setHasNext] = useState(false);
 	const [lastDocs, setLastDocs] = useState([]); // Store the last doc snapshot of each page for "Next" navigation
 	const pageSize = 5;
+		const [sortBy, setSortBy] = useState('newest');
 
 	useEffect(() => {
 		setLoading(true);
@@ -29,7 +37,8 @@ export function useVideos({ userOnly = false } = {}) {
 		} else {
 			constraints.push(where("visibility", "==", "public"));
 		}
-		constraints.push(orderBy("createdAt", "desc"));
+		const [sortField, sortDirection] = SORT_OPTIONS[sortBy] || SORT_OPTIONS.newest;
+		constraints.push(orderBy(sortField, sortDirection));
 		if (cursor) constraints.push(startAfter(cursor));
 		constraints.push(limit(pageSize + 1));
 
@@ -68,10 +77,16 @@ export function useVideos({ userOnly = false } = {}) {
 		);
 
 		return () => unsubscribe(); // Cleanup the listener
-	}, [page, userOnly, user?.uid]);
+	}, [page, userOnly, user?.uid, sortBy]);
 
 	const nextPage = () => setPage(p => p + 1);
 	const prevPage = () => setPage(p => Math.max(1, p - 1));
 
-	return { videos, loading, error, nextPage, prevPage, page, hasNext };
+	const changeSort = (newSort) => {
+		setSortBy(newSort);
+		setPage(1);
+		setLastDocs([]);
+	};
+
+	return { videos, loading, error, nextPage, prevPage, page, hasNext, sortBy, changeSort };
 }

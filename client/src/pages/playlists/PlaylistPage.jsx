@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { usePlaylistPage } from '../../hooks/usePlaylistPage';
 import DocumentPreviewModal from '../../components/DocumentPreviewModal';
@@ -49,6 +49,20 @@ const PlaylistPage = () => {
 		handleDeleteFile,
 		handleCancelUpload,
 	} = usePlaylistPage();
+
+	const [sortBy, setSortBy] = useState('newest');
+
+	const sortedFiles = useMemo(() => {
+		const time = (f) => f.createdAt?.toMillis?.() ?? Number.MAX_SAFE_INTEGER;
+		const byTitle = (a, b) => (a.name || '').localeCompare(b.name || '', undefined, { sensitivity: 'base', numeric: true });
+		const list = [...files];
+		switch (sortBy) {
+			case 'oldest': return list.sort((a, b) => time(a) - time(b));
+			case 'title-asc': return list.sort(byTitle);
+			case 'title-desc': return list.sort((a, b) => byTitle(b, a));
+			default: return list.sort((a, b) => time(b) - time(a));
+		}
+	}, [files, sortBy]);
 
 	if (!playlistData) {
 		return <div className="status" style={{ textAlign: 'center', padding: '40px' }}><Spinner /> Loading playlist...</div>;
@@ -166,9 +180,23 @@ const PlaylistPage = () => {
 			{/* TAB 1: FILES & VIDEOS LIST */}
 			{activeTab === 'files' && (
 				<div>
+					{files.length > 1 && (
+						<div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '10px' }}>
+							<select
+								value={sortBy}
+								onChange={(e) => setSortBy(e.target.value)}
+								style={{ padding: '6px 10px', borderRadius: '4px', border: '1px solid var(--border-color)', backgroundColor: 'var(--input-bg)', color: 'var(--text-main)', cursor: 'pointer' }}
+							>
+								<option value="newest">Newest first</option>
+								<option value="oldest">Oldest first</option>
+								<option value="title-asc">Title A–Z</option>
+								<option value="title-desc">Title Z–A</option>
+							</select>
+						</div>
+					)}
 					{files.length > 0 ? (
 						<ul className="file-list">
-							{files.map((file) => (
+							{sortedFiles.map((file) => (
 								<li key={file.id} className="file-item">
 									<div className="file-info" style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
 										<div

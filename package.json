@@ -15,9 +15,9 @@
 		"start": "npm run start --workspace=client"
 	},
 	"devDependencies": {
-		"concurrently": "^8.2.2"
+		"concurrently": "^8.2.2",
+		"firebase-tools": "^15.34.2"
 	},
-	"dependencies": {},
 	"overrides": {
 		"protobufjs": "^7.2.6",
 		"fast-uri": "^3.0.0"

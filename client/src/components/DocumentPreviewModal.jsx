@@ -196,7 +196,21 @@ export default function DocumentPreviewModal({ file, onClose }) {
 						/>
 					)}
 				</div>
-
+				
+				{/* Modal Description */}
+				<div
+					style={{
+							padding: '14px 20px',
+							display: 'flex',
+							justifyContent: 'space-between',
+							alignItems: 'center',
+							borderBottom: `1px solid ${theme === 'dark' ? '#333' : '#e5e7eb'}`,
+							backgroundColor: theme === 'dark' ? '#2a2a2a' : '#f9fafb'
+						}}
+				>
+					Description:<br></br>
+					{file.description}
+				</div>
 			</div>
 		</div>
 	);
