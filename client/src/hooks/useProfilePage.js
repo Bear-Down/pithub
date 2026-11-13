@@ -41,9 +41,11 @@ export const useProfilePage = () => {
 	const [profileEditData, setProfileEditData] = useState({
 		major: '',
 		minor: '',
-		gradSemester: '',
 		bio: '',
-		website: ''
+		website: '',
+		bannerColor: '',
+		bannerImage: '',
+		bannerType: 'color'
 	});
 
 	const effectiveUserId = userId || user?.uid;
@@ -73,9 +75,11 @@ export const useProfilePage = () => {
 				setProfileEditData({
 					major: data.major || '',
 					minor: data.minor || '',
-					gradSemester: data.gradSemester || '',
 					bio: data.bio || '',
-					website: data.website || ''
+					website: data.website || '',
+					bannerColor: data.bannerColor || '',
+					bannerImage: data.bannerImage || '',
+					bannerType: data.bannerType || (data.bannerImage ? 'image' : 'color')
 				});
 			}
 		});
@@ -212,11 +216,34 @@ export const useProfilePage = () => {
 	const handleUpdateProfile = async () => {
 		try {
 			const userRef = doc(db, 'users', user.uid);
-			await setDoc(userRef, profileEditData, { merge: true });
+			await setDoc(userRef, {
+				major: profileEditData.major || '',
+				minor: profileEditData.minor || '',
+				bio: profileEditData.bio || '',
+				website: profileEditData.website || '',
+				bannerColor: profileEditData.bannerColor || '',
+				bannerImage: profileEditData.bannerImage || '',
+				bannerType: profileEditData.bannerType || (profileEditData.bannerImage ? 'image' : 'color')
+			}, { merge: true });
 			setIsEditingProfile(false);
 		} catch (error) {
 			console.error("Error updating profile:", error);
 		}
+	};
+
+	const handleCancelEdit = () => {
+		if (profileData) {
+			setProfileEditData({
+				major: profileData.major || '',
+				minor: profileData.minor || '',
+				bio: profileData.bio || '',
+				website: profileData.website || '',
+				bannerColor: profileData.bannerColor || '',
+				bannerImage: profileData.bannerImage || '',
+				bannerType: profileData.bannerType || (profileData.bannerImage ? 'image' : 'color')
+			});
+		}
+		setIsEditingProfile(false);
 	};
 
 	/**
@@ -282,6 +309,7 @@ export const useProfilePage = () => {
 		handleModalSubmit,
 		handleProfileVisibilityChange,
 		handleUpdateProfile,
+		handleCancelEdit,
 		handleDeleteClass,
 		handleToggleFieldVisibility,
 		isGlobalLoading,

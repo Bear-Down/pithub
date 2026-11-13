@@ -18,18 +18,20 @@ const SettingsPage = () => {
         visibility: 'private',
         major: '',
         minor: '',
-        gradSemester: '',
         website: '',
         bio: '',
+        bannerColor: '',
+        bannerImage: '',
         profileConfig: {}
     });
 
     const [profileEditData, setProfileEditData] = useState({
         major: '',
         minor: '',
-        gradSemester: '',
         website: '',
-        bio: ''
+        bio: '',
+        bannerColor: '',
+        bannerImage: ''
     });
 
     const [isSavingProfile, setIsSavingProfile] = useState(false);
@@ -57,9 +59,10 @@ const SettingsPage = () => {
             setProfileEditData({
                 major: data.major || '',
                 minor: data.minor || '',
-                gradSemester: data.gradSemester || '',
                 website: data.website || '',
-                bio: data.bio || ''
+                bio: data.bio || '',
+                bannerColor: data.bannerColor || '',
+                bannerImage: data.bannerImage || ''
             });
         });
 
@@ -353,22 +356,6 @@ const ProfileSection = ({
                     disabled={isFieldLoading}
                 />
 
-                <ProfileInput
-                    label="Expected Graduation"
-                    value={profileEditData.gradSemester}
-                    placeholder="Spring 2027"
-                    onChange={(value) =>
-                        setProfileEditData({
-                            ...profileEditData,
-                            gradSemester: value
-                        })
-                    }
-                    visible={fieldVisibility('showGraduation')}
-                    onToggle={() =>
-                        handleToggleFieldVisibility('showGraduation')
-                    }
-                    disabled={isFieldLoading}
-                />
 
                 <ProfileInput
                     label="Website"

@@ -43,6 +43,7 @@ export const AuthProvider = ({ children }) => {
 						if (!docSnap.exists()) {
 							await setDoc(userDocRef, {
 								displayName: firebaseUser.displayName,
+								photoURL: firebaseUser.photoURL || null,
 								email: firebaseUser.email,
 								lastLogin: serverTimestamp(),
 								role: userRole,
@@ -56,6 +57,8 @@ export const AuthProvider = ({ children }) => {
 								role: userRole, // Use the resolved role
 								isSuspended: userIsSuspended,
 								visibility: userData?.visibility || 'private',
+								...(firebaseUser.photoURL ? { photoURL: firebaseUser.photoURL } : {}),
+								...(firebaseUser.displayName ? { displayName: firebaseUser.displayName } : {})
 							});
 							console.log("Existing user profile updated in Firestore.");
 						}
